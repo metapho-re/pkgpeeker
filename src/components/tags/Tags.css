@@ -1,0 +1,31 @@
+.tag {
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+}
+
+.tag_depth {
+  color: #957fb8;
+  background-color: #957fb840;
+}
+
+.tag_path {
+  color: #c8c093;
+  background-color: #c8c09340;
+}
+
+.tag_deduped {
+  color: #e6c384;
+  background-color: #e6c38440;
+}
+
+.tag_extraneous {
+  color: #98bb6c;
+  background-color: #98bb6c40;
+}
+
+.tag_invalid {
+  color: #ff5d62;
+  background-color: #ff5d6240;
+}

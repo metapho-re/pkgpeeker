@@ -1,0 +1,1 @@
+export { getPackageMetadata } from "./getPackageMetadata";

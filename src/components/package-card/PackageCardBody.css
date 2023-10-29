@@ -1,0 +1,27 @@
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-block-end: 24px;
+}
+
+.dependencies {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-block-start: 16px;
+}
+
+.dependencies__button {
+  height: 24px;
+  color: var(--foreground-color);
+  background-color: transparent;
+  border: 1px solid #2d4f67;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dependencies__button:hover {
+  background-color: #2d4f67;
+}

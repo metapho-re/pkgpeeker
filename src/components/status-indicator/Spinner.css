@@ -1,0 +1,28 @@
+.spinner {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background: #e46876;
+  border-radius: 50%;
+}
+
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  background: #7e9cd8;
+  border-radius: 50%;
+  content: "";
+  inset: 0;
+  transform: rotate(0deg) translate(16px);
+  animation: rotate 1s ease infinite;
+}
+
+.spinner:after {
+  animation-delay: 0.5s;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg) translate(16px);
+  }
+}
