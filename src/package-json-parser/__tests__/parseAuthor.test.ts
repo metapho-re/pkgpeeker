@@ -56,6 +56,18 @@ describe("parseAuthor", () => {
         name: "Barney Rubble",
       });
     });
+
+    it("should support urls whose protocol is not provided", () => {
+      expect(
+        parseAuthor({
+          name: "Barney Rubble",
+          url: "barnyrubble.tumblr.com/",
+        })
+      ).toEqual({
+        name: "Barney Rubble",
+        url: "http://barnyrubble.tumblr.com/",
+      });
+    });
   });
 
   describe("field is a string", () => {
@@ -102,6 +114,13 @@ describe("parseAuthor", () => {
     it("should return an object with name property when only name is provided", () => {
       expect(parseAuthor("Barney Rubble")).toEqual({
         name: "Barney Rubble",
+      });
+    });
+
+    it("should support urls whose protocol is not provided", () => {
+      expect(parseAuthor("Barney Rubble (barnyrubble.tumblr.com/)")).toEqual({
+        name: "Barney Rubble",
+        url: "http://barnyrubble.tumblr.com/",
       });
     });
   });

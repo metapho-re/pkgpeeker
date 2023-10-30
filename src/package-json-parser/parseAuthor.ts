@@ -1,5 +1,19 @@
 import { Author } from "../types";
 
+const getUrlObject = (
+  url: string | undefined
+): { url: string } | Record<string, never> => {
+  if (url && url.indexOf("http") < 0) {
+    return { url: `http://${url}` };
+  }
+
+  if (url) {
+    return { url };
+  }
+
+  return {};
+};
+
 type AuthorProperty = "name" | "email" | "url";
 
 export const parseAuthor = (
@@ -10,7 +24,12 @@ export const parseAuthor = (
   }
 
   if (typeof author !== "string") {
-    return author;
+    const urlObject = getUrlObject(author.url);
+
+    return {
+      ...author,
+      ...urlObject,
+    };
   }
 
   const parsedValue = author.split("").reduce<{
@@ -61,8 +80,7 @@ export const parseAuthor = (
       ? { email: parsedValue.email.trim() }
       : {};
 
-  const urlObject =
-    parsedValue.url.trim().length > 0 ? { url: parsedValue.url.trim() } : {};
+  const urlObject = getUrlObject(parsedValue.url.trim());
 
   return {
     name: parsedValue.name.trim(),
