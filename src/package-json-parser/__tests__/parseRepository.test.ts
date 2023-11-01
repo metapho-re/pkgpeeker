@@ -169,6 +169,109 @@ describe("parseRepository", () => {
       });
     });
 
+    describe("github short format", () => {
+      it("should return a valid url string", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "github:User0-9/Reposi.tory_0-9",
+          })
+        ).toEqual("https://github.com/User0-9/Reposi.tory_0-9");
+      });
+
+      it("should return a valid url string when a directory is provided", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "github:User0-9/Reposi.tory_0-9",
+            directory: "packages/some_package",
+          })
+        ).toEqual(
+          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+        );
+      });
+    });
+
+    describe("gist short format", () => {
+      it("should return a valid url string", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "gist:11081aaa281",
+          })
+        ).toEqual("https://gist.github.com/11081aaa281");
+      });
+    });
+
+    describe("bitbucket short format", () => {
+      it("should return a valid url string", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "bitbucket:User0-9/Reposi.tory_0-9",
+          })
+        ).toEqual("https://bitbucket.org/User0-9/Reposi.tory_0-9");
+      });
+
+      it("should return a valid url string when a directory is provided", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "bitbucket:User0-9/Reposi.tory_0-9",
+            directory: "packages/some_package",
+          })
+        ).toEqual(
+          "https://bitbucket.org/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+        );
+      });
+    });
+
+    describe("gitlab short format", () => {
+      it("should return a valid url string", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "gitlab:User0-9/Reposi.tory_0-9",
+          })
+        ).toEqual("https://gitlab.com/User0-9/Reposi.tory_0-9");
+      });
+
+      it("should return a valid url string when a directory is provided", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "gitlab:User0-9/Reposi.tory_0-9",
+            directory: "packages/some_package",
+          })
+        ).toEqual(
+          "https://gitlab.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+        );
+      });
+    });
+
+    describe("user repository format", () => {
+      it("should return a valid url string", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "User0-9/Reposi.tory_0-9",
+          })
+        ).toEqual("https://github.com/User0-9/Reposi.tory_0-9");
+      });
+
+      it("should return a valid url string when a directory is provided", () => {
+        expect(
+          parseRepository({
+            type: "git",
+            url: "User0-9/Reposi.tory_0-9",
+            directory: "packages/some_package",
+          })
+        ).toEqual(
+          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+        );
+      });
+    });
+
     describe("invalid format", () => {
       it("should return null", () => {
         expect(
@@ -310,6 +413,16 @@ describe("parseRepository", () => {
         expect(parseRepository("User0-9/Reposi.tory_0-9")).toEqual(
           "https://github.com/User0-9/Reposi.tory_0-9"
         );
+      });
+    });
+
+    describe("invalid format", () => {
+      it("should return null", () => {
+        expect(
+          parseRepository(
+            "git+ssh://sub.domain0-9.exten.sion&User0-9/Reposi.tory_0-9"
+          )
+        ).toBeNull();
       });
     });
   });

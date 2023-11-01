@@ -1,36 +1,25 @@
 const domainUserRepositoryRegExp =
   /([A-Za-z0-9-.]*\.[A-Za-z.]*)(?:\/|:)([A-Za-z0-9-]*)\/([\w\-./]*)/;
-const userRepositoryRegExp = /^([A-Za-z0-9-]*)\/([\w\-./]*)$/;
+const userRepositoryRegExp = /^[A-Za-z0-9-]*\/[\w\-./]*$/;
+const shortcutRegExp = /^([a-z]*):([\w\-./]*)$/;
 
-export const parseRepository = (
-  repository:
-    | string
-    | {
-        type: string;
-        url: string;
-        directory?: string;
-      }
-    | undefined
-): string | null => {
-  if (!repository) {
-    return null;
+const getUrl = (path: string): string | null => {
+  const trimmedPath = path.replace(".git", "");
+
+  const [, domainName, userName, repositoryName] =
+    trimmedPath.match(domainUserRepositoryRegExp) || [];
+
+  if (domainName && userName && repositoryName) {
+    return `https://${domainName}/${userName}/${repositoryName}`;
   }
 
-  if (typeof repository === "string") {
-    const url = repository.replace(".git", "");
-    const [, domainName, userName, repositoryName] =
-      url.match(domainUserRepositoryRegExp) || [];
+  if (trimmedPath.match(userRepositoryRegExp)) {
+    return `https://github.com/${trimmedPath}`;
+  }
 
-    if (domainName && userName && repositoryName) {
-      return `https://${domainName}/${userName}/${repositoryName}`;
-    }
+  const [, platform, identifier] = trimmedPath.match(shortcutRegExp) || [];
 
-    if (url.match(userRepositoryRegExp)) {
-      return `https://github.com/${url}`;
-    }
-
-    const [platform, identifier] = url.split(":");
-
+  if (platform && identifier) {
     switch (platform) {
       case "gist": {
         return `https://gist.github.com/${identifier}`;
@@ -47,16 +36,40 @@ export const parseRepository = (
     }
   }
 
-  const [, domainName, userName, repositoryName] =
-    repository.url.replace(".git", "").match(domainUserRepositoryRegExp) || [];
+  return null;
+};
 
-  if (!(domainName && userName && repositoryName)) {
+export const parseRepository = (
+  repository:
+    | string
+    | {
+        type: string;
+        url: string;
+        directory?: string;
+      }
+    | undefined
+): string | null => {
+  if (!repository) {
     return null;
   }
 
-  const directoryPath = repository.directory
-    ? `/tree/master/${repository.directory}`
-    : "";
+  if (typeof repository === "string") {
+    return getUrl(repository);
+  }
 
-  return `https://${domainName}/${userName}/${repositoryName}${directoryPath}`;
+  if (typeof repository === "object") {
+    const url = getUrl(repository.url);
+
+    if (url) {
+      const directoryPath = repository.directory
+        ? `/tree/master/${repository.directory}`
+        : "";
+
+      return `${url}${directoryPath}`;
+    }
+
+    return null;
+  }
+
+  return null;
 };
