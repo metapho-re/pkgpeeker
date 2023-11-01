@@ -36,7 +36,7 @@ describe("parseRepository", () => {
             directory: "packages/some_package",
           })
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/blob/main/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
         );
       });
     });
@@ -68,7 +68,7 @@ describe("parseRepository", () => {
             directory: "packages/some_package",
           })
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/blob/main/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
         );
       });
     });
@@ -100,7 +100,7 @@ describe("parseRepository", () => {
             directory: "packages/some_package",
           })
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/blob/main/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
         );
       });
     });
@@ -132,7 +132,7 @@ describe("parseRepository", () => {
             directory: "packages/some_package",
           })
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/blob/main/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
         );
       });
     });
@@ -164,7 +164,7 @@ describe("parseRepository", () => {
             directory: "packages/some_package",
           })
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/blob/main/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
         );
       });
     });

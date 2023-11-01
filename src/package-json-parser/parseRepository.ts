@@ -55,7 +55,7 @@ export const parseRepository = (
   }
 
   const directoryPath = repository.directory
-    ? `/blob/main/${repository.directory}`
+    ? `/tree/master/${repository.directory}`
     : "";
 
   return `https://${domainName}/${userName}/${repositoryName}${directoryPath}`;
