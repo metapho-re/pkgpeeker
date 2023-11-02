@@ -6,9 +6,19 @@
   cursor: help;
 }
 
+.tag__link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .tag_depth {
   color: #957fb8;
   background-color: #957fb840;
+}
+
+.tag_license {
+  color: #ffa066;
+  background-color: #ffa06640;
 }
 
 .tag_path {

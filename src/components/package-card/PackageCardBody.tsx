@@ -6,6 +6,7 @@ import {
   ExtraneousTag,
   InvalidTag,
   KeywordsTag,
+  LicenseTag,
   PathTag,
 } from "../tags";
 import "./PackageCardBody.css";
@@ -37,9 +38,14 @@ export const PackageCardBody = ({
           {packageMetadata?.description ? (
             <p>{packageMetadata.description}</p>
           ) : null}
-          {packageMetadata?.license ? (
-            <p>License: {packageMetadata?.license}</p>
-          ) : null}
+          <div className="licenses">
+            <span>
+              {`License${packageMetadata.licenses.length > 1 ? "s" : ""}:`}
+            </span>
+            {packageMetadata.licenses.map((license, index) => (
+              <LicenseTag key={`${index}${license.type}`} license={license} />
+            ))}
+          </div>
           <div className="tags">
             <PathTag path={installationPath} />
             {packageMetadata?.keywords ? (

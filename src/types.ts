@@ -31,6 +31,11 @@ export interface FolderStatistics extends Record<string, number> {
   numberOfFilesInFolder: number;
 }
 
+export interface License {
+  type: string;
+  url: string | null;
+}
+
 export type NpmDependencyTree = Record<string, NpmPackageInformation>;
 
 export interface NpmPackageInformation {
@@ -66,6 +71,6 @@ export interface PackageMetadata {
   description: Nullable<string>;
   homepage: Nullable<string>;
   keywords: Nullable<string[]>;
-  license: Nullable<string>;
+  licenses: License[];
   repository: Nullable<string>;
 }

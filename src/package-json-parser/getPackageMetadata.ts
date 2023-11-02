@@ -1,6 +1,7 @@
 import { WebContainer } from "@webcontainer/api";
 import { PackageMetadata } from "../types";
 import { parseAuthor } from "./parseAuthor";
+import { parseLicense } from "./parseLicense";
 import { parseRepository } from "./parseRepository";
 
 const nullifyNonString = (value: unknown) =>
@@ -30,15 +31,24 @@ export const getPackageMetadata = async ({
     return null;
   }
 
-  const { author, description, homepage, keywords, license, repository } =
-    JSON.parse(packageJson);
+  const {
+    author,
+    description,
+    homepage,
+    keywords,
+    license,
+    licenses,
+    repository,
+  } = JSON.parse(packageJson);
+
+  const repositoryUrl = parseRepository(repository);
 
   return {
     author: parseAuthor(author),
     description: nullifyNonString(description),
     homepage: nullifyNonString(homepage),
     keywords: keywords && keywords.length > 0 ? keywords : null,
-    license: nullifyNonString(license),
-    repository: parseRepository(repository),
+    licenses: parseLicense({ repositoryUrl, license: license || licenses }),
+    repository: repositoryUrl,
   };
 };

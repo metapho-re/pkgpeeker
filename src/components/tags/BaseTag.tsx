@@ -2,7 +2,14 @@ import { PropsWithChildren } from "react";
 import "./Tags.css";
 
 interface Props {
-  type: "depth" | "path" | "keywords" | "deduped" | "extraneous" | "invalid";
+  type:
+    | "depth"
+    | "license"
+    | "path"
+    | "keywords"
+    | "deduped"
+    | "extraneous"
+    | "invalid";
   title: string;
 }
 
