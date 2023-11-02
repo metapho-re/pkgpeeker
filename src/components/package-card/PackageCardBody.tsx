@@ -35,8 +35,15 @@ export const PackageCardBody = ({
     <>
       {packageMetadata ? (
         <>
-          {packageMetadata?.description ? (
-            <p>{packageMetadata.description}</p>
+          {packageMetadata.description || packageMetadata.keywords ? (
+            <div className="description">
+              {packageMetadata.description ? (
+                <span>{packageMetadata.description}</span>
+              ) : null}
+              {packageMetadata.keywords ? (
+                <KeywordsTag keywords={packageMetadata.keywords} />
+              ) : null}
+            </div>
           ) : null}
           <div className="licenses">
             <span>
@@ -48,9 +55,6 @@ export const PackageCardBody = ({
           </div>
           <div className="tags">
             <PathTag path={installationPath} />
-            {packageMetadata?.keywords ? (
-              <KeywordsTag keywords={packageMetadata.keywords} />
-            ) : null}
             {isDeduped ? <DedupedTag /> : null}
             {isExtraneous ? <ExtraneousTag /> : null}
             {invalidityDetails ? (
