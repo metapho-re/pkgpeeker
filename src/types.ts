@@ -65,6 +65,7 @@ export interface PackageMetadata {
   author: Nullable<Author>;
   description: Nullable<string>;
   homepage: Nullable<string>;
+  keywords: Nullable<string[]>;
   license: Nullable<string>;
   repository: Nullable<string>;
 }

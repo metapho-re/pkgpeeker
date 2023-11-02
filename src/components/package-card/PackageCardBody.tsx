@@ -1,7 +1,13 @@
 import { PackageInformation } from "../../types";
 import { getFormattedSize } from "../../utils";
 import { FilesBreakdown } from "../files-breakdown";
-import { DedupedTag, ExtraneousTag, InvalidTag, PathTag } from "../tags";
+import {
+  DedupedTag,
+  ExtraneousTag,
+  InvalidTag,
+  KeywordsTag,
+  PathTag,
+} from "../tags";
 import "./PackageCardBody.css";
 
 interface Props
@@ -36,6 +42,9 @@ export const PackageCardBody = ({
           ) : null}
           <div className="tags">
             <PathTag path={installationPath} />
+            {packageMetadata?.keywords ? (
+              <KeywordsTag keywords={packageMetadata.keywords} />
+            ) : null}
             {isDeduped ? <DedupedTag /> : null}
             {isExtraneous ? <ExtraneousTag /> : null}
             {invalidityDetails ? (

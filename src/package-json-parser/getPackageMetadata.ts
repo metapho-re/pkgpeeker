@@ -30,13 +30,14 @@ export const getPackageMetadata = async ({
     return null;
   }
 
-  const { author, description, homepage, license, repository } =
+  const { author, description, homepage, keywords, license, repository } =
     JSON.parse(packageJson);
 
   return {
     author: parseAuthor(author),
     description: nullifyNonString(description),
     homepage: nullifyNonString(homepage),
+    keywords: keywords && keywords.length > 0 ? keywords : null,
     license: nullifyNonString(license),
     repository: parseRepository(repository),
   };
