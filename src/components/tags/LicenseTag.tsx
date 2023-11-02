@@ -8,7 +8,7 @@ interface Props {
 export const LicenseTag = ({ license }: Props) => (
   <BaseTag
     type="license"
-    title="License specifying usage permissions and possible restrictions."
+    title="License specifying usage permissions and possible restrictions"
   >
     {license.url ? (
       <a className="tag__link" href={license.url} target="_blank">
