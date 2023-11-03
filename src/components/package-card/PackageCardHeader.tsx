@@ -57,7 +57,9 @@ export const PackageCardHeader = ({
             >
               {packageName}
             </button>
-            {index !== dependencyPath.length - 1 ? <span>/</span> : null}
+            {index !== dependencyPath.length - 1 ? (
+              <span className="breadcrumbs__separator">/</span>
+            ) : null}
           </Fragment>
         ))}
       </div>

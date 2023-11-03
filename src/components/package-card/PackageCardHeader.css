@@ -1,6 +1,6 @@
 .breadcrumbs {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
   cursor: pointer;
 }
 
@@ -11,6 +11,10 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.breadcrumbs__separator {
+  padding-inline: 8px;
 }
 
 .header {
