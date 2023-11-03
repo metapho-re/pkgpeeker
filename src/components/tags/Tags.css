@@ -6,6 +6,10 @@
   cursor: help;
 }
 
+.tag:has(.tag__link) {
+  cursor: pointer;
+}
+
 .tag__link {
   text-decoration: none;
   color: inherit;
