@@ -35,16 +35,16 @@ export const PackageCardBody = ({
     <>
       {packageMetadata ? (
         <>
-          {packageMetadata.description || packageMetadata.keywords ? (
-            <div className="description">
-              {packageMetadata.description ? (
-                <span>{packageMetadata.description}</span>
-              ) : null}
-              {packageMetadata.keywords ? (
-                <KeywordsTag keywords={packageMetadata.keywords} />
-              ) : null}
-            </div>
-          ) : null}
+          <div className="description">
+            {packageMetadata.description ? (
+              <span>{packageMetadata.description}</span>
+            ) : (
+              <i>No description available</i>
+            )}
+            {packageMetadata.keywords ? (
+              <KeywordsTag keywords={packageMetadata.keywords} />
+            ) : null}
+          </div>
           <div className="licenses">
             <span>
               {`License${packageMetadata.licenses.length > 1 ? "s" : ""}:`}
