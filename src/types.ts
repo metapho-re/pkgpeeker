@@ -70,7 +70,7 @@ export interface PackageMetadata {
   author: Nullable<Author>;
   description: Nullable<string>;
   homepage: Nullable<string>;
-  keywords: Nullable<string[]>;
+  keywords: Nullable<string>;
   licenses: License[];
   repository: Nullable<string>;
 }

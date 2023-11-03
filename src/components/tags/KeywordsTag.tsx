@@ -1,11 +1,11 @@
 import { BaseTag } from "./BaseTag";
 
 interface Props {
-  keywords: string[];
+  keywords: string;
 }
 
 export const KeywordsTag = ({ keywords }: Props) => (
-  <BaseTag type="keywords" title={keywords.join(", ")}>
+  <BaseTag type="keywords" title={keywords}>
     Keywords
   </BaseTag>
 );
