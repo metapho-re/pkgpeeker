@@ -8,6 +8,11 @@
   overflow: hidden;
   border: 1px solid var(--border-color);
   border-radius: 10px;
+  cursor: help;
+}
+
+.breakdown-bar__filler {
+  height: 20px;
 }
 
 .color-bubble {

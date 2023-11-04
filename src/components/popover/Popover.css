@@ -1,0 +1,22 @@
+.popover {
+  position: absolute;
+  padding: 4px;
+  font-size: 0.9rem;
+  color: var(--background-color);
+  background-color: var(--foreground-color);
+  border-radius: 4px;
+  transform: translate(-50%);
+}
+
+.popover::before {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  display: block;
+  width: 0;
+  border: 8px solid transparent;
+  border-top: 0;
+  border-bottom: 8px solid var(--foreground-color);
+  content: "";
+  transform: translate(-50%, calc(-100%));
+}

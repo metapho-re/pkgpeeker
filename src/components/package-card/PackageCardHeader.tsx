@@ -1,6 +1,7 @@
 import { Fragment, MouseEventHandler } from "react";
 import { PackageInformation } from "../../types";
 import { MailIcon, NpmIcon, RepositoryIcon, WebIcon } from "../icons";
+import { Popover } from "../popover";
 import { DepthTag } from "../tags";
 import { getNpmUrl } from "./getNpmUrl";
 import "./PackageCardHeader.css";
@@ -84,14 +85,15 @@ export const PackageCardHeader = ({
             </p>
           ) : null}
           {packageMetadata?.author?.email ? (
-            <a
-              className="links__icon"
-              title="Package author's email"
-              href={`mailto:${packageMetadata.author.email}`}
-              onClick={stopEventPropagation}
-            >
-              <MailIcon />
-            </a>
+            <Popover content="Package author's email">
+              <a
+                className="links__icon"
+                href={`mailto:${packageMetadata.author.email}`}
+                onClick={stopEventPropagation}
+              >
+                <MailIcon />
+              </a>
+            </Popover>
           ) : null}
           <div className="depth">
             <DepthTag depth={depth} />
@@ -99,36 +101,39 @@ export const PackageCardHeader = ({
         </div>
         <div className="links">
           {packageMetadata?.homepage ? (
-            <a
-              className="links__icon"
-              title="Package homepage"
-              href={packageMetadata.homepage}
-              target="_blank"
-              onClick={stopEventPropagation}
-            >
-              <WebIcon />
-            </a>
+            <Popover content="Package homepage">
+              <a
+                className="links__icon"
+                href={packageMetadata.homepage}
+                target="_blank"
+                onClick={stopEventPropagation}
+              >
+                <WebIcon />
+              </a>
+            </Popover>
           ) : null}
           {packageMetadata?.repository ? (
+            <Popover content="Package source code repository">
+              <a
+                className="links__icon"
+                href={packageMetadata.repository}
+                target="_blank"
+                onClick={stopEventPropagation}
+              >
+                <RepositoryIcon />
+              </a>
+            </Popover>
+          ) : null}
+          <Popover content="Package page on npm">
             <a
               className="links__icon"
-              title="Package source code repository"
-              href={packageMetadata.repository}
+              href={getNpmUrl({ packageName, version })}
               target="_blank"
               onClick={stopEventPropagation}
             >
-              <RepositoryIcon />
+              <NpmIcon />
             </a>
-          ) : null}
-          <a
-            className="links__icon"
-            title="Package page on npm"
-            href={getNpmUrl({ packageName, version })}
-            target="_blank"
-            onClick={stopEventPropagation}
-          >
-            <NpmIcon />
-          </a>
+          </Popover>
         </div>
       </div>
     </div>

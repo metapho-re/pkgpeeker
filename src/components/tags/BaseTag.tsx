@@ -1,4 +1,5 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
+import { Popover } from "../popover";
 import "./Tags.css";
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
     | "deduped"
     | "extraneous"
     | "invalid";
-  title: string;
+  title: ReactNode;
 }
 
 export const BaseTag = ({
@@ -18,9 +19,7 @@ export const BaseTag = ({
   title,
   children,
 }: PropsWithChildren<Props>) => (
-  <div>
-    <span className={`tag tag_${type}`} title={title}>
-      {children}
-    </span>
-  </div>
+  <Popover content={title}>
+    <span className={`tag tag_${type}`}>{children}</span>
+  </Popover>
 );

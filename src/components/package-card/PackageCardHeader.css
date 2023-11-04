@@ -49,8 +49,6 @@
 }
 
 .depth {
-  position: relative;
-  bottom: 2px;
   margin-inline-start: 8px;
 }
 

@@ -1,5 +1,6 @@
 import { FolderStatistics } from "../../types";
 import { getFormattedSize } from "../../utils";
+import { Popover } from "../popover";
 import { getExtensionColor } from "./getExtensionColor";
 import "./FilesBreakdown.css";
 
@@ -24,13 +25,25 @@ export const FilesBreakdown = ({
       <div className="breakdown-bar">
         {folderStatisticsEntries.map(([key, value]) => (
           <div
-            key={key}
-            title={`${key} (${getFormattedSize(value)})`}
             style={{
               width: `${getPercentage(value, folderSizeInBytes)}%`,
               backgroundColor: getExtensionColor(key),
             }}
-          />
+          >
+            <Popover
+              key={key}
+              content={
+                <span>
+                  {key}&nbsp;-&nbsp;{getFormattedSize(value)}&nbsp;-&nbsp;
+                  {getFormattedPercentage(
+                    getPercentage(value, folderSizeInBytes)
+                  )}
+                </span>
+              }
+            >
+              <div className="breakdown-bar__filler" />
+            </Popover>
+          </div>
         ))}
       </div>
       <div className="extensions">
@@ -43,9 +56,10 @@ export const FilesBreakdown = ({
               }}
             />
 
-            <p className="extensions__label">{`${key}: ${getFormattedPercentage(
-              getPercentage(value, folderSizeInBytes)
-            )}`}</p>
+            <p className="extensions__label">
+              {key}:&nbsp;
+              {getFormattedPercentage(getPercentage(value, folderSizeInBytes))}
+            </p>
           </div>
         ))}
       </div>
