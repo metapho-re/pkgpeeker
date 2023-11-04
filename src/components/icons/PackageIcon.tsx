@@ -5,8 +5,8 @@ export const PackageIcon = () => (
     strokeLinejoin="round"
     strokeWidth="2"
     viewBox="0 0 24 24"
-    width="5em"
-    height="5em"
+    width="5rem"
+    height="5rem"
   >
     <defs>
       <linearGradient id="gradient">

@@ -9,8 +9,8 @@ export const WebIcon = () => (
     strokeLinejoin="round"
     strokeWidth="2"
     viewBox="0 0 24 24"
-    width="1.6em"
-    height="1.6em"
+    width="1.6rem"
+    height="1.6rem"
   >
     <path fill="none" stroke="none" d="M0 0h24v24H0z" />
     <path d="M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4" />
