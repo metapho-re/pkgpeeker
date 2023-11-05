@@ -10,7 +10,8 @@ interface Props {
     | "keywords"
     | "deduped"
     | "extraneous"
-    | "invalid";
+    | "invalid"
+    | "types";
   title: ReactNode;
 }
 

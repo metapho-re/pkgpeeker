@@ -40,6 +40,8 @@ export const getPackageMetadata = async ({
     license,
     licenses,
     repository,
+    types,
+    typings,
   } = JSON.parse(packageJson);
 
   const repositoryUrl = parseRepository(repository);
@@ -51,5 +53,6 @@ export const getPackageMetadata = async ({
     keywords: parseKeywords(keywords),
     licenses: parseLicense({ repositoryUrl, license: license || licenses }),
     repository: repositoryUrl,
+    types: nullifyNonString(types || typings),
   };
 };

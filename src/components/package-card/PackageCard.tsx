@@ -54,10 +54,12 @@ export const PackageCard = ({
             isDeduped={isDeduped}
             isExtraneous={isExtraneous}
             invalidityDetails={invalidityDetails}
+            version={version}
             installationPath={installationPath}
             folderStatistics={folderStatistics}
             packageMetadata={packageMetadata}
             dependencies={dependencies}
+            packageName={packageName}
             shouldShowDependencies={shouldShowDependencies}
             handleDependenciesDisplay={handleDependenciesDisplay}
           />

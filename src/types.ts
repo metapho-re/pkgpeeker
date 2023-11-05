@@ -73,4 +73,5 @@ export interface PackageMetadata {
   keywords: Nullable<string>;
   licenses: License[];
   repository: Nullable<string>;
+  types: Nullable<string>;
 }

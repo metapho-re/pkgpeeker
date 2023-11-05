@@ -8,11 +8,12 @@ import {
   KeywordsTag,
   LicenseTag,
   PathTag,
+  TypesTag,
 } from "../tags";
 import "./PackageCardBody.css";
 
-interface Props
-  extends Omit<PackageInformation, "depth" | "version" | "dependencyPath"> {
+interface Props extends Omit<PackageInformation, "depth" | "dependencyPath"> {
+  packageName: string;
   shouldShowDependencies: boolean;
   handleDependenciesDisplay: () => void;
 }
@@ -21,10 +22,12 @@ export const PackageCardBody = ({
   isDeduped,
   isExtraneous,
   invalidityDetails,
+  version,
   installationPath,
   folderStatistics,
   packageMetadata,
   dependencies,
+  packageName,
   shouldShowDependencies,
   handleDependenciesDisplay,
 }: Props) => {
@@ -59,6 +62,13 @@ export const PackageCardBody = ({
             {isExtraneous ? <ExtraneousTag /> : null}
             {invalidityDetails ? (
               <InvalidTag invalidityDetails={invalidityDetails} />
+            ) : null}
+            {packageMetadata.types ? (
+              <TypesTag
+                packageName={packageName}
+                version={version}
+                types={packageMetadata.types}
+              />
             ) : null}
           </div>
           <p>
