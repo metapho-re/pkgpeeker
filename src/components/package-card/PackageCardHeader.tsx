@@ -1,6 +1,13 @@
 import { Fragment, MouseEventHandler } from "react";
 import { PackageInformation } from "../../types";
-import { MailIcon, NpmIcon, RepositoryIcon, WebIcon } from "../icons";
+import { getUnpkgUrl } from "../../utils";
+import {
+  MailIcon,
+  NpmIcon,
+  RepositoryIcon,
+  UnpkgIcon,
+  WebIcon,
+} from "../icons";
 import { Popover } from "../popover";
 import { DepthTag } from "../tags";
 import { getNpmUrl } from "./getNpmUrl";
@@ -124,6 +131,16 @@ export const PackageCardHeader = ({
               </a>
             </Popover>
           ) : null}
+          <Popover content="Package content browser on UNPKG">
+            <a
+              className="links__icon"
+              href={getUnpkgUrl({ packageName, version })}
+              target="_blank"
+              onClick={stopEventPropagation}
+            >
+              <UnpkgIcon />
+            </a>
+          </Popover>
           <Popover content="Package page on npm">
             <a
               className="links__icon"

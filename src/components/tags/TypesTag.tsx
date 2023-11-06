@@ -1,3 +1,4 @@
+import { getUnpkgUrl } from "../../utils";
 import { BaseTag } from "./BaseTag";
 
 interface Props {
@@ -13,7 +14,7 @@ export const TypesTag = ({ packageName, version, types }: Props) => (
   >
     <a
       className="tag__link"
-      href={`https://unpkg.com/browse/${packageName}@${version}/${types}`}
+      href={getUnpkgUrl({ packageName, version, filePath: types })}
       target="_blank"
     >
       Types
