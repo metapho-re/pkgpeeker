@@ -13,7 +13,7 @@ export const TypesTag = ({ packageName, version, types }: Props) => (
   >
     <a
       className="tag__link"
-      href={`https://unpkg.com/${packageName}@${version}/${types}`}
+      href={`https://unpkg.com/browse/${packageName}@${version}/${types}`}
       target="_blank"
     >
       Types
