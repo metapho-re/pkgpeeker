@@ -7,7 +7,7 @@ import {
 } from "react";
 import "./Popover.css";
 
-const popoverArrowHeight = 8;
+const popoverArrowHeightAndMargin = 10;
 
 interface Props {
   content: ReactNode;
@@ -27,7 +27,7 @@ export const Popover = ({ content, children }: PropsWithChildren<Props>) => {
       bottom = 0,
     } = ref.current?.getBoundingClientRect() || {};
 
-    setTop(bottom + window.scrollY + popoverArrowHeight);
+    setTop(bottom + window.scrollY + popoverArrowHeightAndMargin);
     setLeft(targetLeft + (targetRight - targetLeft) / 2);
     setDisplay("block");
   };
