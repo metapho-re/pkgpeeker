@@ -25,13 +25,13 @@ export const FilesBreakdown = ({
       <div className="breakdown-bar">
         {folderStatisticsEntries.map(([key, value]) => (
           <div
+            key={key}
             style={{
               width: `${getPercentage(value, folderSizeInBytes)}%`,
               backgroundColor: getExtensionColor(key),
             }}
           >
             <Popover
-              key={key}
               content={
                 <span>
                   {key}&nbsp;-&nbsp;{getFormattedSize(value)}&nbsp;-&nbsp;
