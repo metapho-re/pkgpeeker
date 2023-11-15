@@ -1,16 +1,23 @@
 import { WebContainer } from "@webcontainer/api";
 import { getFolderComposition, getFolderStatistics } from "../folder-analytics";
 import { getPackageMetadata } from "../package-json-parser";
-import { DependencyTree, NpmDependencyTree, PackageDataIndex } from "../types";
+import {
+  DependencyTree,
+  NestedDependencyPaths,
+  NpmDependencyTree,
+  PackageDataIndex,
+  PackageIdentifier,
+} from "../types";
+import { getInstallationPath } from "./getInstallationPath";
 
 interface Props {
   webContainerInstance: WebContainer | undefined;
   npmDependencyTree: NpmDependencyTree;
-  nestedDependencyPaths: Record<string, string>;
+  nestedDependencyPaths: NestedDependencyPaths;
   packageDataIndex: PackageDataIndex;
   maxDepth: { value: number };
   depth: number;
-  dependencyPath: string[];
+  dependencyPath: PackageIdentifier[];
 }
 
 export const getDependencyTree = async ({
@@ -39,9 +46,12 @@ export const getDependencyTree = async ({
       const isExtraneous = npmPackageInformation.extraneous === true;
       const invalidityDetails = npmPackageInformation.invalid || null;
 
-      const installationPath =
-        nestedDependencyPaths[`${packageName}@${version}`] ??
-        `node_modules/${packageName}`;
+      const installationPath = getInstallationPath({
+        packageName,
+        version,
+        dependencyPath,
+        nestedDependencyPaths,
+      });
 
       const alreadyCrunchedPackageData = packageDataIndex[installationPath];
 
@@ -69,7 +79,10 @@ export const getDependencyTree = async ({
         maxDepth.value = depth;
       }
 
-      const nextDependencyPath = [...dependencyPath, packageName];
+      const nextDependencyPath = [
+        ...dependencyPath,
+        { name: packageName, version },
+      ];
 
       const dependencies = npmDependencyTree[packageName].dependencies
         ? await getDependencyTree({

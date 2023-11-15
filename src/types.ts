@@ -36,6 +36,8 @@ export interface License {
   url: string | null;
 }
 
+export type NestedDependencyPaths = Record<string, PackageIdentifier[][]>;
+
 export type NpmDependencyTree = Record<string, NpmPackageInformation>;
 
 export interface NpmPackageInformation {
@@ -53,6 +55,11 @@ export type PackageDataIndex = Record<
   Pick<PackageInformation, "folderStatistics" | "packageMetadata">
 >;
 
+export interface PackageIdentifier {
+  name: string;
+  version: string;
+}
+
 export interface PackageInformation {
   depth: number;
   isDeduped: boolean;
@@ -60,7 +67,7 @@ export interface PackageInformation {
   invalidityDetails: string | null;
   version: string;
   installationPath: string;
-  dependencyPath: string[];
+  dependencyPath: PackageIdentifier[];
   folderStatistics: FolderStatistics | null;
   packageMetadata: PackageMetadata | null;
   dependencies: DependencyTree;

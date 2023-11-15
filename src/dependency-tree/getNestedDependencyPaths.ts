@@ -1,18 +1,24 @@
 import { WebContainer } from "@webcontainer/api";
+import { NestedDependencyPaths } from "../types";
 
-const nestedDependencyRegExp =
-  /node_modules\/.*\/node_modules\/.*[\r\n]+([^\r\n]+)/g;
-const pathVersionRegExp = /([^"]*).*\n.*"([0-9]*\.[0-9]*\.[0-9]*)/;
+const nestedDependencyRegExp = /node_modules\/.*\/node_modules\/.*/;
+const endingSlashRegExp = /\/$/g;
+
+interface PackageLockJson {
+  packages: Record<string, { version: string }>;
+}
 
 export const getNestedDependencyPaths = async (
   webContainerInstance: WebContainer | undefined
-): Promise<Record<string, string> | null> => {
-  let packageLockJson: string | undefined;
+): Promise<NestedDependencyPaths | null> => {
+  let packageLockJson: PackageLockJson | undefined;
 
   try {
-    packageLockJson = await webContainerInstance?.fs.readFile(
-      "./package-lock.json",
-      "utf-8"
+    packageLockJson = JSON.parse(
+      (await webContainerInstance?.fs.readFile(
+        "./package-lock.json",
+        "utf-8"
+      )) || ""
     );
   } catch (_) {
     // fail silently
@@ -22,22 +28,44 @@ export const getNestedDependencyPaths = async (
     return null;
   }
 
-  const nestedDependencyStrings = [
-    ...packageLockJson.matchAll(nestedDependencyRegExp),
-  ].map((match) => match[0]);
+  return Object.entries(packageLockJson.packages)
+    .slice(1)
+    .reduce((previousValue, [key, value]) => {
+      if (key.match(nestedDependencyRegExp)) {
+        const packageNames = key
+          .split("node_modules/")
+          .filter(Boolean)
+          .map((packageName) => packageName.replace(endingSlashRegExp, ""));
 
-  const nestedDependencyPaths: Record<string, string> = {};
+        const childPackageName = packageNames.pop();
+        const childPackageVersion = value.version;
 
-  nestedDependencyStrings.forEach((nestedDependencyString) => {
-    const [, path, version] =
-      nestedDependencyString.match(pathVersionRegExp) || [];
+        const parentPackageIdentifiers = packageNames.map(
+          (packageName, index) => {
+            const parentPackageInstallationPath = `node_modules/${packageNames
+              .slice(0, index + 1)
+              .join("/node_modules/")}`;
 
-    if (version && path) {
-      const packageName = path.split("/").pop();
+            return {
+              name: packageName,
+              version:
+                packageLockJson?.packages[parentPackageInstallationPath]
+                  ?.version ?? "undefined",
+            };
+          }
+        );
 
-      nestedDependencyPaths[`${packageName}@${version}`] = path;
-    }
-  });
+        const targetKey = `${childPackageName}@${childPackageVersion}`;
 
-  return nestedDependencyPaths;
+        return {
+          ...previousValue,
+          [targetKey]: [
+            ...(previousValue[targetKey] || []),
+            parentPackageIdentifiers,
+          ],
+        };
+      } else {
+        return previousValue;
+      }
+    }, {} as NestedDependencyPaths);
 };

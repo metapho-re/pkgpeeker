@@ -1,5 +1,5 @@
 import { Fragment, MouseEventHandler } from "react";
-import { PackageInformation } from "../../types";
+import { PackageIdentifier, PackageInformation } from "../../types";
 import { getUnpkgUrl } from "../../utils";
 import {
   MailIcon,
@@ -15,8 +15,11 @@ import "./PackageCardHeader.css";
 
 const invalidSelectorRegExp = /[@|/|.]/g;
 
-const getSelectorFromPath = (path: string[]): string =>
-  path.join("_").replace(invalidSelectorRegExp, "_");
+const getSelectorFromPath = (path: PackageIdentifier[]): string =>
+  path
+    .map(({ name }) => name)
+    .join("_")
+    .replace(invalidSelectorRegExp, "_");
 
 const stopEventPropagation: MouseEventHandler<HTMLAnchorElement> = (event) => {
   event.stopPropagation();
@@ -57,13 +60,13 @@ export const PackageCardHeader = ({
       onClick={handleDetailsDisplay}
     >
       <div className="breadcrumbs">
-        {dependencyPath.map((packageName, index) => (
+        {dependencyPath.map(({ name }, index) => (
           <Fragment key={crypto.randomUUID()}>
             <button
               className="breadcrumbs__button"
               onClick={handleBreadcrumbNavigationFactory(index)}
             >
-              {packageName}
+              {name}
             </button>
             {index !== dependencyPath.length - 1 ? (
               <span className="breadcrumbs__separator">/</span>
