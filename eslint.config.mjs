@@ -23,7 +23,8 @@ export default defineConfig([
       compat.extends(
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react-hooks/recommended"
+        "plugin:react-hooks/recommended",
+        "plugin:prettier/recommended"
       )
     ),
 
