@@ -11,7 +11,7 @@ export const useWebContainer = (): {
   isLoading: boolean;
   reset: () => Promise<void>;
   spawnMainProcess: (
-    packageList: string[]
+    packageList: string[],
   ) => Promise<DependencyTreeData | null>;
 } => {
   const hasBooted = useRef<boolean>(false);
@@ -86,7 +86,7 @@ export const useWebContainer = (): {
             npmListAllJsonOutputString = matches[0];
           }
         },
-      })
+      }),
     );
 
     await crunchingProcess?.exit;

@@ -1,9 +1,18 @@
 .tag {
-  padding: 2px;
+  padding: 3px 8px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: help;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  transition:
+    background-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.tag:hover {
+  box-shadow: 0 0 10px var(--white-glow);
 }
 
 .tag:has(.tag__link) {
@@ -16,41 +25,49 @@
 }
 
 .tag_depth {
-  color: #957fb8;
-  background-color: #957fb840;
+  color: var(--color-purple);
+  background-color: var(--color-purple-bg);
+  border-color: var(--color-purple-border);
 }
 
 .tag_license {
-  color: #ffa066;
-  background-color: #ffa06640;
+  color: var(--color-orange);
+  background-color: var(--color-orange-bg);
+  border-color: var(--color-orange-border);
 }
 
 .tag_path {
-  color: #c8c093;
-  background-color: #c8c09340;
+  color: var(--foreground-color);
+  background-color: var(--color-foreground-bg);
+  border-color: var(--color-foreground-border);
 }
 
 .tag_keywords {
-  color: #7aa89f;
-  background-color: #7aa89f40;
+  color: var(--color-teal);
+  background-color: var(--color-teal-bg);
+  border-color: var(--color-teal-border);
 }
 
 .tag_deduped {
-  color: #e6c384;
-  background-color: #e6c38440;
+  color: var(--color-yellow);
+  background-color: var(--color-yellow-bg);
+  border-color: var(--color-yellow-border);
 }
 
 .tag_extraneous {
-  color: #98bb6c;
-  background-color: #98bb6c40;
+  color: var(--color-green);
+  background-color: var(--color-green-bg);
+  border-color: var(--color-green-border);
 }
 
 .tag_invalid {
-  color: #ff5d62;
-  background-color: #ff5d6240;
+  color: var(--color-red-bright);
+  background-color: var(--color-red-bright-bg);
+  border-color: var(--color-red-bright-border);
 }
 
 .tag_types {
-  color: #7e9cd8;
-  background-color: #7e9cd840;
+  color: var(--color-blue);
+  background-color: var(--color-blue-bg);
+  border-color: var(--color-blue-border);
 }

@@ -15,7 +15,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -24,7 +24,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -34,9 +34,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -47,7 +47,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9.git",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -56,7 +56,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -66,9 +66,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -79,7 +79,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -88,7 +88,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -98,9 +98,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -111,7 +111,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -120,7 +120,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -130,9 +130,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -143,7 +143,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -152,7 +152,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
@@ -162,9 +162,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -175,7 +175,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "github:User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://github.com/User0-9/Reposi.tory_0-9");
       });
 
@@ -185,9 +185,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "github:User0-9/Reposi.tory_0-9",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -198,7 +198,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "gist:11081aaa281",
-          })
+          }),
         ).toEqual("https://gist.github.com/11081aaa281");
       });
     });
@@ -209,7 +209,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "bitbucket:User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://bitbucket.org/User0-9/Reposi.tory_0-9");
       });
 
@@ -219,9 +219,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "bitbucket:User0-9/Reposi.tory_0-9",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://bitbucket.org/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://bitbucket.org/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -232,7 +232,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "gitlab:User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://gitlab.com/User0-9/Reposi.tory_0-9");
       });
 
@@ -242,9 +242,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "gitlab:User0-9/Reposi.tory_0-9",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://gitlab.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://gitlab.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -255,7 +255,7 @@ describe("parseRepository", () => {
           parseRepository({
             type: "git",
             url: "User0-9/Reposi.tory_0-9",
-          })
+          }),
         ).toEqual("https://github.com/User0-9/Reposi.tory_0-9");
       });
 
@@ -265,9 +265,9 @@ describe("parseRepository", () => {
             type: "git",
             url: "User0-9/Reposi.tory_0-9",
             directory: "packages/some_package",
-          })
+          }),
         ).toEqual(
-          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package"
+          "https://github.com/User0-9/Reposi.tory_0-9/tree/master/packages/some_package",
         );
       });
     });
@@ -279,7 +279,7 @@ describe("parseRepository", () => {
             type: "git",
             url: "git+ssh://sub.domain0-9.exten.sion&User0-9/Reposi.tory_0-9.git",
             directory: "packages/some_package",
-          })
+          }),
         ).toBeNull();
       });
     });
@@ -290,16 +290,16 @@ describe("parseRepository", () => {
       it("should return a valid string when .git extension is present", () => {
         expect(
           parseRepository(
-            "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git"
-          )
+            "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
       it("should return a valid string when .git extension is omitted", () => {
         expect(
           parseRepository(
-            "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9"
-          )
+            "https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
     });
@@ -308,16 +308,16 @@ describe("parseRepository", () => {
       it("should return a valid string when .git extension is present", () => {
         expect(
           parseRepository(
-            "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9.git"
-          )
+            "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9.git",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
       it("should return a valid string when .git extension is omitted", () => {
         expect(
           parseRepository(
-            "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9"
-          )
+            "git@sub.domain0-9.exten.sion:User0-9/Reposi.tory_0-9",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
     });
@@ -326,16 +326,16 @@ describe("parseRepository", () => {
       it("should return a valid string when .git extension is present", () => {
         expect(
           parseRepository(
-            "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git"
-          )
+            "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
       it("should return a valid string when .git extension is omitted", () => {
         expect(
           parseRepository(
-            "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9"
-          )
+            "git+https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
     });
@@ -344,16 +344,16 @@ describe("parseRepository", () => {
       it("should return a valid string when .git extension is present", () => {
         expect(
           parseRepository(
-            "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git"
-          )
+            "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
       it("should return a valid string when .git extension is omitted", () => {
         expect(
           parseRepository(
-            "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9"
-          )
+            "git://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
     });
@@ -362,16 +362,16 @@ describe("parseRepository", () => {
       it("should return a valid string when .git extension is present", () => {
         expect(
           parseRepository(
-            "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git"
-          )
+            "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9.git",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
 
       it("should return a valid string when .git extension is omitted", () => {
         expect(
           parseRepository(
-            "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9"
-          )
+            "git+ssh://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9",
+          ),
         ).toEqual("https://sub.domain0-9.exten.sion/User0-9/Reposi.tory_0-9");
       });
     });
@@ -379,7 +379,7 @@ describe("parseRepository", () => {
     describe("github short format", () => {
       it("should return a valid url string", () => {
         expect(parseRepository("github:User0-9/Reposi.tory_0-9")).toEqual(
-          "https://github.com/User0-9/Reposi.tory_0-9"
+          "https://github.com/User0-9/Reposi.tory_0-9",
         );
       });
     });
@@ -387,7 +387,7 @@ describe("parseRepository", () => {
     describe("gist short format", () => {
       it("should return a valid url string", () => {
         expect(parseRepository("gist:11081aaa281")).toEqual(
-          "https://gist.github.com/11081aaa281"
+          "https://gist.github.com/11081aaa281",
         );
       });
     });
@@ -395,7 +395,7 @@ describe("parseRepository", () => {
     describe("bitbucket short format", () => {
       it("should return a valid url string", () => {
         expect(parseRepository("bitbucket:User0-9/Reposi.tory_0-9")).toEqual(
-          "https://bitbucket.org/User0-9/Reposi.tory_0-9"
+          "https://bitbucket.org/User0-9/Reposi.tory_0-9",
         );
       });
     });
@@ -403,7 +403,7 @@ describe("parseRepository", () => {
     describe("gitlab short format", () => {
       it("should return a valid url string", () => {
         expect(parseRepository("gitlab:User0-9/Reposi.tory_0-9")).toEqual(
-          "https://gitlab.com/User0-9/Reposi.tory_0-9"
+          "https://gitlab.com/User0-9/Reposi.tory_0-9",
         );
       });
     });
@@ -411,7 +411,7 @@ describe("parseRepository", () => {
     describe("user repository format", () => {
       it("should return a valid url string", () => {
         expect(parseRepository("User0-9/Reposi.tory_0-9")).toEqual(
-          "https://github.com/User0-9/Reposi.tory_0-9"
+          "https://github.com/User0-9/Reposi.tory_0-9",
         );
       });
     });
@@ -420,8 +420,8 @@ describe("parseRepository", () => {
       it("should return null", () => {
         expect(
           parseRepository(
-            "git+ssh://sub.domain0-9.exten.sion&User0-9/Reposi.tory_0-9"
-          )
+            "git+ssh://sub.domain0-9.exten.sion&User0-9/Reposi.tory_0-9",
+          ),
         ).toBeNull();
       });
     });

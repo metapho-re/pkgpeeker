@@ -1,4 +1,4 @@
-export { Footer } from "./footer";
 export { PackageIcon } from "./icons";
-export { PackageCard } from "./package-card";
+export { PackageDetail } from "./package-detail";
 export { StatusIndicator } from "./status-indicator";
+export { TreeNavigator } from "./tree-navigator";

@@ -16,9 +16,8 @@ export const getDependencyTreeData = async ({
   webContainerInstance,
   npmDependencyTree,
 }: Props): Promise<DependencyTreeData | null> => {
-  const nestedDependencyPaths = await getNestedDependencyPaths(
-    webContainerInstance
-  );
+  const nestedDependencyPaths =
+    await getNestedDependencyPaths(webContainerInstance);
 
   if (!nestedDependencyPaths) {
     return null;

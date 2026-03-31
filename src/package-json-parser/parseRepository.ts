@@ -47,7 +47,7 @@ export const parseRepository = (
         url: string;
         directory?: string;
       }
-    | undefined
+    | undefined,
 ): string | null => {
   if (!repository) {
     return null;

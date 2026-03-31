@@ -11,7 +11,7 @@ describe("getInstallationPath", () => {
         nestedDependencyPaths: {
           "package-b@2.0.0": [[{ name: "package-a", version: "1.0.0" }]],
         },
-      })
+      }),
     ).toBe("node_modules/package-a");
   });
 
@@ -24,7 +24,7 @@ describe("getInstallationPath", () => {
         nestedDependencyPaths: {
           "package-b@2.0.0": [[{ name: "package-a", version: "1.0.0" }]],
         },
-      })
+      }),
     ).toBe("node_modules/package-a/node_modules/package-b");
   });
 
@@ -47,9 +47,9 @@ describe("getInstallationPath", () => {
             ],
           ],
         },
-      })
+      }),
     ).toBe(
-      "node_modules/package-a/node_modules/package-b/node_modules/package-c/node_modules/package-d"
+      "node_modules/package-a/node_modules/package-b/node_modules/package-c/node_modules/package-d",
     );
   });
 
@@ -76,9 +76,9 @@ describe("getInstallationPath", () => {
             ],
           ],
         },
-      })
+      }),
     ).toBe(
-      "node_modules/package-a/node_modules/package-c/node_modules/package-d"
+      "node_modules/package-a/node_modules/package-c/node_modules/package-d",
     );
   });
 });

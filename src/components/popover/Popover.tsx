@@ -5,49 +5,55 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 import "./Popover.css";
 
-const popoverArrowHeightAndMargin = 10;
+const POPOVER_GAP = 10;
 
 interface Props {
   content: ReactNode;
 }
 
 export const Popover = ({ content, children }: PropsWithChildren<Props>) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
 
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
-  const [display, setDisplay] = useState("none");
+  const [visible, setVisible] = useState(false);
 
-  const handleMouseEnter: MouseEventHandler<HTMLDivElement> = () => {
-    const {
-      left: targetLeft = 0,
-      right: targetRight = 0,
-      bottom = 0,
-    } = ref.current?.getBoundingClientRect() || {};
+  const handleMouseEnter: MouseEventHandler<HTMLSpanElement> = () => {
+    const rect = ref.current?.getBoundingClientRect();
 
-    setTop(bottom + window.scrollY + popoverArrowHeightAndMargin);
-    setLeft(targetLeft + (targetRight - targetLeft) / 2);
-    setDisplay("block");
+    if (!rect) {
+      return;
+    }
+
+    setTop(rect.bottom + POPOVER_GAP);
+    setLeft(rect.left + rect.width / 2);
+    setVisible(true);
   };
 
-  const handleMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
-    setDisplay("none");
+  const handleMouseLeave: MouseEventHandler<HTMLSpanElement> = () => {
+    setVisible(false);
   };
 
   return (
     <>
-      <div
+      <span
         ref={ref}
+        className="popover-anchor"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {children}
-      </div>
-      <div style={{ display, top, left }} className="popover">
-        {content}
-      </div>
+      </span>
+      {visible &&
+        createPortal(
+          <div style={{ top, left }} className="popover">
+            {content}
+          </div>,
+          document.body,
+        )}
     </>
   );
 };

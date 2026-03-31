@@ -32,7 +32,7 @@ export const LandingPage = ({
         <PackageIcon />
         <h1 className="primary-title">pkgpeeker.dev</h1>
         <h2 className="secondary-title">
-          Get accurate insight into npm packages structure.
+          Peek inside npm packages — no install required.
         </h2>
       </div>
       <div className="form">

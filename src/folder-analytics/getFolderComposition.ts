@@ -16,7 +16,7 @@ export const getFolderComposition = async ({
     folderContentList.push(
       ...((await webContainerInstance?.fs.readdir(installationPath, {
         withFileTypes: true,
-      })) || [])
+      })) || []),
     );
   } catch (_) {
     // fail silently
@@ -33,7 +33,7 @@ export const getFolderComposition = async ({
         } else {
           const fileNameParts = listItem.name.split(".");
           const fileContent = await webContainerInstance?.fs.readFile(
-            `${installationPath}/${listItem.name}`
+            `${installationPath}/${listItem.name}`,
           );
 
           return await Promise.resolve({
@@ -44,7 +44,7 @@ export const getFolderComposition = async ({
             sizeInBytes: fileContent?.byteLength || 0,
           });
         }
-      })
+      }),
     )
   ).flat();
 };

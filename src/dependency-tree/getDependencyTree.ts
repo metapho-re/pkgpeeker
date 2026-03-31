@@ -32,7 +32,7 @@ export const getDependencyTree = async ({
   await Object.entries(npmDependencyTree).reduce(
     async (
       dependencyTreePromise: Promise<DependencyTree>,
-      [packageName, npmPackageInformation]
+      [packageName, npmPackageInformation],
     ): Promise<DependencyTree> => {
       const dependencyTree = await dependencyTreePromise;
 
@@ -58,7 +58,10 @@ export const getDependencyTree = async ({
       const folderStatistics =
         alreadyCrunchedPackageData?.folderStatistics ||
         getFolderStatistics(
-          await getFolderComposition({ webContainerInstance, installationPath })
+          await getFolderComposition({
+            webContainerInstance,
+            installationPath,
+          }),
         );
 
       const packageMetadata =
@@ -113,5 +116,5 @@ export const getDependencyTree = async ({
         },
       };
     },
-    Promise.resolve({})
+    Promise.resolve({}),
   );

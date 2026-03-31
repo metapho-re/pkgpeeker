@@ -1,7 +1,7 @@
 import { FileDetails, FolderStatistics } from "../types";
 
 export const getFolderStatistics = (
-  folderComposition: FileDetails[]
+  folderComposition: FileDetails[],
 ): FolderStatistics =>
   folderComposition.reduce<FolderStatistics>(
     (previousValue, currentValue) => {
@@ -15,5 +15,5 @@ export const getFolderStatistics = (
         numberOfFilesInFolder: previousValue.numberOfFilesInFolder + 1,
       };
     },
-    { folderSizeInBytes: 0, numberOfFilesInFolder: 0 }
+    { folderSizeInBytes: 0, numberOfFilesInFolder: 0 },
   );

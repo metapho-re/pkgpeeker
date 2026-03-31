@@ -8,5 +8,5 @@
 }
 
 .error-message {
-  color: #e82424;
+  color: var(--color-error);
 }

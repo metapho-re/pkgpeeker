@@ -22,7 +22,7 @@ export const getPackageMetadata = async ({
   try {
     packageJson = await webContainerInstance?.fs.readFile(
       `${installationPath}/package.json`,
-      "utf-8"
+      "utf-8",
     );
   } catch (_) {
     // fail silently

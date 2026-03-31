@@ -1,0 +1,82 @@
+.tree-navigator {
+  width: 320px;
+  min-width: 320px;
+  flex-shrink: 0;
+  overflow: auto;
+  border-right: 1px solid var(--glass-border);
+  padding: 12px 0;
+  background: var(--glass-bg-dark);
+}
+
+.tree-node {
+  padding: 6px 16px 6px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.tree-node__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition:
+    background-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.tree-node--selected .tree-node__content {
+  background-color: var(--selected-bg);
+}
+
+.tree-node:hover .tree-node__content {
+  background-color: var(--hover-glow);
+}
+
+.tree-node--selected:hover .tree-node__content {
+  background-color: var(--selected-bg-hover);
+}
+
+.tree-node__chevron {
+  flex-shrink: 0;
+  width: 14px;
+  font-size: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform var(--transition-speed) ease;
+}
+
+.tree-node__chevron--hidden {
+  visibility: hidden;
+}
+
+.tree-node__name {
+  font-family: "Mona Sans Bold", sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+}
+
+.tree-node__version {
+  font-family: "Mona Sans Italic", sans-serif;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.tree-node__badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: var(--glass-bg-badge);
+  border: 1px solid var(--glass-border);
+  color: var(--color-muted);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.tree-node__badge--deduped {
+  color: var(--color-green);
+  border-color: var(--green-border);
+}

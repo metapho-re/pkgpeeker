@@ -3,7 +3,7 @@ import { AppState, DependencyTreeData } from "../types";
 import { useWebContainer } from "./useWebContainer";
 
 export const useUserInput = (
-  handleDataGeneration: (data: DependencyTreeData | null) => void
+  handleDataGeneration: (data: DependencyTreeData | null) => void,
 ): {
   appState: AppState;
   hasError: boolean;
@@ -49,7 +49,7 @@ export const useUserInput = (
   };
 
   const handleUserInputChange: ChangeEventHandler<HTMLInputElement> = (
-    event
+    event,
   ) => {
     setUserInput(event.target.value);
   };

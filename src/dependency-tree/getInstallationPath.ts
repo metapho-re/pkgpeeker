@@ -29,9 +29,9 @@ export const getInstallationPath = ({
             dependencyPath.findIndex(
               (packageIdentifier) =>
                 packageIdentifier.name === currentValue.name &&
-                packageIdentifier.version === currentValue.version
+                packageIdentifier.version === currentValue.version,
             ),
-          0
+          0,
         );
 
         return { nestedDependencyPath, matchingScore };
@@ -39,8 +39,8 @@ export const getInstallationPath = ({
       .sort(
         (
           { matchingScore: matchingScoreA },
-          { matchingScore: matchingScoreB }
-        ) => matchingScoreB - matchingScoreA
+          { matchingScore: matchingScoreB },
+        ) => matchingScoreB - matchingScoreA,
       )[0];
 
   const parentsInstallationPath = parentsDependencyPath

@@ -1,7 +1,7 @@
 import { Author } from "../types";
 
 const getUrlObject = (
-  url: string | undefined
+  url: string | undefined,
 ): { url: string } | Record<string, never> => {
   if (url && url.indexOf("http") < 0) {
     return { url: `http://${url}` };
@@ -17,7 +17,7 @@ const getUrlObject = (
 type AuthorProperty = "name" | "email" | "url";
 
 export const parseAuthor = (
-  author: string | Author | undefined
+  author: string | Author | undefined,
 ): Author | null => {
   if (!author) {
     return null;
@@ -72,7 +72,7 @@ export const parseAuthor = (
         }
       }
     },
-    { parsedField: "name", name: "", email: "", url: "" }
+    { parsedField: "name", name: "", email: "", url: "" },
   );
 
   const emailObject =

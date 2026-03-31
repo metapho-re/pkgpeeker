@@ -2,14 +2,14 @@
   position: relative;
   width: 8px;
   height: 8px;
-  background: #e46876;
+  background: var(--color-red);
   border-radius: 50%;
 }
 
-.spinner:before,
-.spinner:after {
+.spinner::before,
+.spinner::after {
   position: absolute;
-  background: #7e9cd8;
+  background: var(--color-blue);
   border-radius: 50%;
   content: "";
   inset: 0;
@@ -17,7 +17,7 @@
   animation: rotate 1s ease infinite;
 }
 
-.spinner:after {
+.spinner::after {
   animation-delay: 0.5s;
 }
 

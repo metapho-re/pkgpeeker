@@ -17,7 +17,7 @@ export const FilesBreakdown = ({
   ...statisticsByExtension
 }: Props) => {
   const folderStatisticsEntries = Object.entries(statisticsByExtension).sort(
-    ([, valueA], [, valueB]) => valueB - valueA
+    ([, valueA], [, valueB]) => valueB - valueA,
   );
 
   return (
@@ -26,6 +26,7 @@ export const FilesBreakdown = ({
         {folderStatisticsEntries.map(([key, value]) => (
           <div
             key={key}
+            className="breakdown-bar__segment"
             style={{
               width: `${getPercentage(value, folderSizeInBytes)}%`,
               backgroundColor: getExtensionColor(key),
@@ -36,7 +37,7 @@ export const FilesBreakdown = ({
                 <span>
                   {key}&nbsp;-&nbsp;{getFormattedSize(value)}&nbsp;-&nbsp;
                   {getFormattedPercentage(
-                    getPercentage(value, folderSizeInBytes)
+                    getPercentage(value, folderSizeInBytes),
                   )}
                 </span>
               }

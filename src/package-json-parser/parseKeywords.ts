@@ -1,5 +1,5 @@
 export const parseKeywords = (
-  keywords: string[] | string | undefined
+  keywords: string[] | string | undefined,
 ): string | null => {
   if (Array.isArray(keywords)) {
     return keywords.join(", ");

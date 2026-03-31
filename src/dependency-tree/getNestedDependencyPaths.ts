@@ -9,7 +9,7 @@ interface PackageLockJson {
 }
 
 export const getNestedDependencyPaths = async (
-  webContainerInstance: WebContainer | undefined
+  webContainerInstance: WebContainer | undefined,
 ): Promise<NestedDependencyPaths | null> => {
   let packageLockJson: PackageLockJson | undefined;
 
@@ -17,8 +17,8 @@ export const getNestedDependencyPaths = async (
     packageLockJson = JSON.parse(
       (await webContainerInstance?.fs.readFile(
         "./package-lock.json",
-        "utf-8"
-      )) || ""
+        "utf-8",
+      )) || "",
     );
   } catch (_) {
     // fail silently
@@ -52,7 +52,7 @@ export const getNestedDependencyPaths = async (
                 packageLockJson?.packages[parentPackageInstallationPath]
                   ?.version ?? "undefined",
             };
-          }
+          },
         );
 
         const targetKey = `${childPackageName}@${childPackageVersion}`;
