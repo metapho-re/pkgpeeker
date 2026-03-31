@@ -5,6 +5,7 @@ import {
   getFormattedSize,
   getInstallationPathByDependencyPath,
   getNpmUrl,
+  getTotalDependenciesSize,
   getUnpkgUrl,
 } from "../../utils";
 import { FilesBreakdown } from "../files-breakdown";
@@ -198,6 +199,14 @@ export const PackageDetail = ({
             <p>
               Folder size: {getFormattedSize(folderSizeInBytes)} (
               {numberOfFilesInFolder} files)
+              {Object.keys(dependencies).length > 0 && (
+                <span className="detail-folder-section__total">
+                  {getFormattedSize(
+                    folderSizeInBytes + getTotalDependenciesSize(dependencies),
+                  )}{" "}
+                  with dependencies
+                </span>
+              )}
             </p>
             {folderStatistics && (
               <FilesBreakdown

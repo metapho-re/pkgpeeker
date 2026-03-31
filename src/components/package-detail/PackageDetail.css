@@ -138,6 +138,16 @@
   margin-block: 20px;
 }
 
+.detail-folder-section__total {
+  margin-inline-start: 6px;
+  color: var(--color-muted);
+}
+
+.detail-folder-section__total::before {
+  content: "·";
+  margin-inline-end: 6px;
+}
+
 .detail-dependencies-section {
   flex: 1;
   display: flex;
