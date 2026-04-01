@@ -4,6 +4,7 @@ import "./Tags.css";
 
 interface Props {
   type:
+    | "dependencies"
     | "depth"
     | "license"
     | "path"

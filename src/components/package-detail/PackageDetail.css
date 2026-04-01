@@ -94,7 +94,9 @@
   opacity: 0.8;
 }
 
-.detail-header__depth {
+.detail-header__badges {
+  display: flex;
+  gap: 6px;
   margin-inline-start: 8px;
 }
 

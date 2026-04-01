@@ -19,6 +19,7 @@ import {
 import { Popover } from "../popover";
 import {
   DedupedTag,
+  DependenciesTag,
   DepthTag,
   ExtraneousTag,
   InvalidTag,
@@ -113,8 +114,9 @@ export const PackageDetail = ({
               </a>
             </Popover>
           )}
-          <div className="detail-header__depth">
+          <div className="detail-header__badges">
             <DepthTag depth={depth} />
+            <DependenciesTag count={Object.keys(dependencies).length} />
           </div>
         </div>
         <div className="detail-links">

@@ -1,4 +1,5 @@
 export { DedupedTag } from "./DedupedTag";
+export { DependenciesTag } from "./DependenciesTag";
 export { DepthTag } from "./DepthTag";
 export { ExtraneousTag } from "./ExtraneousTag";
 export { InvalidTag } from "./InvalidTag";

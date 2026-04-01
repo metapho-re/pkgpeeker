@@ -24,6 +24,12 @@
   color: inherit;
 }
 
+.tag_dependencies {
+  color: var(--color-pink);
+  background-color: var(--color-pink-bg);
+  border-color: var(--color-pink-border);
+}
+
 .tag_depth {
   color: var(--color-purple);
   background-color: var(--color-purple-bg);
