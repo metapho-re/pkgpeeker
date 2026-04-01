@@ -7,6 +7,7 @@ interface Props {
     | "dependencies"
     | "depth"
     | "license"
+    | "module-format"
     | "path"
     | "keywords"
     | "deduped"

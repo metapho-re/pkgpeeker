@@ -3,6 +3,7 @@ import { PackageMetadata } from "../types";
 import { parseAuthor } from "./parseAuthor";
 import { parseKeywords } from "./parseKeywords";
 import { parseLicense } from "./parseLicense";
+import { parseModuleFormat } from "./parseModuleFormat";
 import { parseRepository } from "./parseRepository";
 
 const nullifyNonString = (value: unknown) =>
@@ -35,11 +36,15 @@ export const getPackageMetadata = async ({
   const {
     author,
     description,
+    exports,
     homepage,
     keywords,
     license,
     licenses,
+    main,
+    module,
     repository,
+    type,
     types,
     typings,
   } = JSON.parse(packageJson);
@@ -52,6 +57,7 @@ export const getPackageMetadata = async ({
     homepage: nullifyNonString(homepage),
     keywords: parseKeywords(keywords),
     licenses: parseLicense({ repositoryUrl, license: license || licenses }),
+    moduleFormat: parseModuleFormat({ type, main, module, exports }),
     repository: repositoryUrl,
     types: nullifyNonString(types || typings),
   };

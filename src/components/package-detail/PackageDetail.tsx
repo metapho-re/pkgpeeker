@@ -24,6 +24,7 @@ import {
   InvalidTag,
   KeywordsTag,
   LicenseTag,
+  ModuleFormatTag,
   PathTag,
   TypesTag,
 } from "../tags";
@@ -180,6 +181,7 @@ export const PackageDetail = ({
             {invalidityDetails && (
               <InvalidTag invalidityDetails={invalidityDetails} />
             )}
+            <ModuleFormatTag moduleFormat={packageMetadata.moduleFormat} />
             {packageMetadata.types && (
               <TypesTag
                 packageName={packageName}

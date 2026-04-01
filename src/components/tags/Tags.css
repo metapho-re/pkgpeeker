@@ -77,3 +77,9 @@
   background-color: var(--color-blue-bg);
   border-color: var(--color-blue-border);
 }
+
+.tag_module-format {
+  color: var(--color-blue-light);
+  background-color: var(--color-blue-light-bg);
+  border-color: var(--color-blue-light-border);
+}

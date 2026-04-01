@@ -57,6 +57,8 @@
   --color-blue-border: #7e9cd840;
   --color-pink-bg: #d27e9920;
   --color-pink-border: #d27e9940;
+  --color-blue-light-bg: #7fb4ca20;
+  --color-blue-light-border: #7fb4ca40;
 }
 
 #root {
