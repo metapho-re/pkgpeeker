@@ -43,7 +43,7 @@ export const TreeNode = ({
     <>
       <div
         className={`tree-node${isSelected ? " tree-node--selected" : ""}`}
-        style={{ paddingLeft: `${depth * 16}px` }}
+        style={{ paddingLeft: `${16 + depth * 16}px` }}
         onClick={() => onSelect(treePath)}
         data-path={treePath}
       >

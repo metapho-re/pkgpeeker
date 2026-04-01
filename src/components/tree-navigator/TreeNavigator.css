@@ -1,6 +1,6 @@
 .tree-navigator {
-  width: 320px;
-  min-width: 320px;
+  width: 480px;
+  min-width: 480px;
   flex-shrink: 0;
   overflow: auto;
   border-right: 1px solid var(--glass-border);
