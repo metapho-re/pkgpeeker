@@ -1,6 +1,7 @@
 import { WebContainer } from "@webcontainer/api";
 import { PackageMetadata } from "../types";
 import { parseAuthor } from "./parseAuthor";
+import { parseEngines } from "./parseEngines";
 import { parseKeywords } from "./parseKeywords";
 import { parseLicense } from "./parseLicense";
 import { parseModuleFormat } from "./parseModuleFormat";
@@ -44,6 +45,7 @@ export const getPackageMetadata = async ({
     main,
     module,
     repository,
+    engines,
     type,
     types,
     typings,
@@ -54,6 +56,7 @@ export const getPackageMetadata = async ({
   return {
     author: parseAuthor(author),
     description: nullifyNonString(description),
+    engines: parseEngines(engines),
     homepage: nullifyNonString(homepage),
     keywords: parseKeywords(keywords),
     licenses: parseLicense({ repositoryUrl, license: license || licenses }),

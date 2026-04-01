@@ -20,6 +20,7 @@ import {
   DedupedTag,
   DependenciesTag,
   DepthTag,
+  EnginesTag,
   ExtraneousTag,
   InvalidTag,
   KeywordsTag,
@@ -184,6 +185,9 @@ export const PackageDetail = ({
               <InvalidTag invalidityDetails={invalidityDetails} />
             )}
             <ModuleFormatTag moduleFormat={packageMetadata.moduleFormat} />
+            {packageMetadata.engines && (
+              <EnginesTag engines={packageMetadata.engines} />
+            )}
             {packageMetadata.types && (
               <TypesTag
                 packageName={packageName}

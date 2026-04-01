@@ -11,6 +11,7 @@ interface Props {
     | "path"
     | "keywords"
     | "deduped"
+    | "engines"
     | "extraneous"
     | "invalid"
     | "types";

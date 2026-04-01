@@ -19,6 +19,7 @@
   --color-teal: #7aa89f;
   --color-yellow: #e6c384;
   --color-green: #98bb6c;
+  --color-cyan: #a3d4d5;
   --color-red-bright: #ff5d62;
   --color-error: #e82424;
   --color-muted: #727169;
@@ -59,6 +60,8 @@
   --color-pink-border: #d27e9940;
   --color-blue-light-bg: #7fb4ca20;
   --color-blue-light-border: #7fb4ca40;
+  --color-cyan-bg: #a3d4d520;
+  --color-cyan-border: #a3d4d540;
 }
 
 #root {

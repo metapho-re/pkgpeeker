@@ -81,6 +81,7 @@ export interface PackageMetadata {
   homepage: Nullable<string>;
   keywords: Nullable<string>;
   licenses: License[];
+  engines: Nullable<string>;
   moduleFormat: ModuleFormat;
   repository: Nullable<string>;
   types: Nullable<string>;

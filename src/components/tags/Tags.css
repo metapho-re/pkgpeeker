@@ -78,6 +78,12 @@
   border-color: var(--color-blue-border);
 }
 
+.tag_engines {
+  color: var(--color-cyan);
+  background-color: var(--color-cyan-bg);
+  border-color: var(--color-cyan-border);
+}
+
 .tag_module-format {
   color: var(--color-blue-light);
   background-color: var(--color-blue-light-bg);
