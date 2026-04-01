@@ -122,6 +122,13 @@
   margin-block: 12px;
 }
 
+.detail-keywords {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 6px;
+  margin-block-end: 12px;
+}
+
 .detail-licenses {
   display: flex;
   flex-direction: row;

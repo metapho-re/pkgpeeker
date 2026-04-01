@@ -5,7 +5,19 @@ interface Props {
 }
 
 export const KeywordsTag = ({ keywords }: Props) => (
-  <BaseTag type="keywords" title={keywords}>
-    Keywords
-  </BaseTag>
+  <>
+    {keywords.split(",").map((keyword) => {
+      const trimmedKeyword = keyword.trim();
+
+      return (
+        <BaseTag
+          key={trimmedKeyword}
+          type="keywords"
+          title="Package keyword from package.json"
+        >
+          {trimmedKeyword}
+        </BaseTag>
+      );
+    })}
+  </>
 );

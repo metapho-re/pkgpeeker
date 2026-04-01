@@ -162,10 +162,12 @@ export const PackageDetail = ({
             ) : (
               <i>No description available</i>
             )}
-            {packageMetadata.keywords && (
-              <KeywordsTag keywords={packageMetadata.keywords} />
-            )}
           </div>
+          {packageMetadata.keywords && (
+            <div className="detail-keywords">
+              <KeywordsTag keywords={packageMetadata.keywords} />
+            </div>
+          )}
           <div className="detail-licenses">
             <span>
               {`License${packageMetadata.licenses.length > 1 ? "s" : ""}:`}
