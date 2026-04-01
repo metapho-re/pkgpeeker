@@ -1,6 +1,6 @@
 import { License } from "../types";
 
-const multipleLicensesRegExp = /\(([\w.-].*\sOR\s*[\w.-]*)\)/;
+const multipleLicensesRegExp = /^\(?([\w.-]+(?:\s+OR\s+[\w.-]+)+)\)?$/;
 const fileNameLicenseRegExp = /SEE\sLICENSE\sIN\s([\w.-/]*)/;
 
 const undefinedLicense = {

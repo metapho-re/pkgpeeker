@@ -2,10 +2,7 @@ import { describe, expect, it } from "vitest";
 import { parseLicense } from "../parseLicense";
 
 describe("parseLicense", () => {
-  describe("Single SPDX license", () => {
-    it(
-      "should return an array with a single valid license object with SPDX type and url",
-    );
+  it("should return a single license with SPDX type and url", () => {
     expect(
       parseLicense({ license: "BSD-3-Clause", repositoryUrl: null }),
     ).toEqual([
@@ -13,10 +10,7 @@ describe("parseLicense", () => {
     ]);
   });
 
-  describe("Multiple SPDX licenses", () => {
-    it(
-      "should return an array with mutiple valid license objects with SPDX type and url",
-    );
+  it("should return multiple licenses from a parenthesized SPDX expression", () => {
     expect(
       parseLicense({
         license: "(ISC OR GPL-3.0 OR BSD-3-Clause)",
@@ -29,10 +23,19 @@ describe("parseLicense", () => {
     ]);
   });
 
-  describe("Custom license", () => {
-    it(
-      "should return an array with a single valid license object with Custom type and provided filename url",
-    );
+  it("should return multiple licenses from an unparenthesized SPDX expression", () => {
+    expect(
+      parseLicense({
+        license: "MIT OR Apache-2.0",
+        repositoryUrl: null,
+      }),
+    ).toEqual([
+      { type: "MIT", url: "https://spdx.org/licenses/MIT" },
+      { type: "Apache-2.0", url: "https://spdx.org/licenses/Apache-2.0" },
+    ]);
+  });
+
+  it("should return a Custom license with filename url from SEE LICENSE IN syntax", () => {
     expect(
       parseLicense({
         license: "SEE LICENSE IN custom_license.txt",
@@ -46,8 +49,7 @@ describe("parseLicense", () => {
     ]);
   });
 
-  describe("Deprecated license object", () => {
-    it("should return an array with the provided license object");
+  it("should return the provided deprecated license object", () => {
     expect(
       parseLicense({
         license: { type: "BSD-3-Clause", url: "some_url" },
@@ -56,8 +58,7 @@ describe("parseLicense", () => {
     ).toEqual([{ type: "BSD-3-Clause", url: "some_url" }]);
   });
 
-  describe("Deprecated array of license objects", () => {
-    it("should return the array of provided license objects");
+  it("should return the provided deprecated array of license objects", () => {
     expect(
       parseLicense({
         license: [
@@ -72,10 +73,7 @@ describe("parseLicense", () => {
     ]);
   });
 
-  describe("Invalid yet not uncommon url format", () => {
-    it(
-      "should return an array with a single valid license object with Custom type and provided url",
-    );
+  it("should return a Custom license when the value is a URL", () => {
     expect(
       parseLicense({
         license: "https://path-to-the-license",
@@ -84,19 +82,13 @@ describe("parseLicense", () => {
     ).toEqual([{ type: "Custom", url: "https://path-to-the-license" }]);
   });
 
-  describe("Unlicensed", () => {
-    it(
-      "should return an array with a single valid license object with UNLICENSED type and no url",
-    );
+  it("should return UNLICENSED with no url", () => {
     expect(
       parseLicense({ license: "UNLICENSED", repositoryUrl: null }),
     ).toEqual([{ type: "UNLICENSED", url: null }]);
   });
 
-  describe("Invalid", () => {
-    it(
-      "should return an array with a single valid license object with None type and no url",
-    );
+  it("should return None when the license object has an empty type", () => {
     expect(
       parseLicense({
         license: { type: "", url: "https//license.org" },
@@ -105,10 +97,7 @@ describe("parseLicense", () => {
     ).toEqual([{ type: "None", url: null }]);
   });
 
-  describe("Undefined", () => {
-    it(
-      "should return an array with a single valid license object with None type and no url",
-    );
+  it("should return None when the license is undefined", () => {
     expect(parseLicense({ license: undefined, repositoryUrl: null })).toEqual([
       { type: "None", url: null },
     ]);
