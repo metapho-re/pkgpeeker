@@ -1,10 +1,9 @@
 import { Fragment } from "react";
 import { PackageInformation } from "../../types";
 import {
-  type FlatDependencyIndex,
   getFormattedSize,
-  getInstallationPathByDependencyPath,
   getNpmUrl,
+  getTreePath,
   getTotalDependenciesSize,
   getUnpkgUrl,
 } from "../../utils";
@@ -33,14 +32,12 @@ import "./PackageDetail.css";
 interface Props {
   packageName: string;
   packageInformation: PackageInformation;
-  flatIndex: FlatDependencyIndex;
   onNavigate: (path: string) => void;
 }
 
 export const PackageDetail = ({
   packageName,
   packageInformation,
-  flatIndex,
   onNavigate,
 }: Props) => {
   const {
@@ -61,14 +58,8 @@ export const PackageDetail = ({
 
   const handleBreadcrumbClick = (index: number) => {
     const targetPath = dependencyPath.slice(0, index + 1);
-    const installationPath = getInstallationPathByDependencyPath(
-      targetPath,
-      flatIndex,
-    );
 
-    if (installationPath) {
-      onNavigate(installationPath);
-    }
+    onNavigate(getTreePath(targetPath));
   };
 
   return (
@@ -221,18 +212,24 @@ export const PackageDetail = ({
             <p className="detail-dependencies-section__label">Dependencies:</p>
             {Object.keys(dependencies).length > 0 ? (
               <div className="detail-dependencies">
-                {Object.entries(dependencies).map(([name, dep]) => (
-                  <button
-                    key={dep.installationPath}
-                    className="detail-dependencies__pill"
-                    onClick={() => onNavigate(dep.installationPath)}
-                  >
-                    {name}
-                    <span className="detail-dependencies__version">
-                      {dep.version}
-                    </span>
-                  </button>
-                ))}
+                {Object.entries(dependencies).map(
+                  ([name, { dependencyPath, version }]) => {
+                    const treePath = getTreePath(dependencyPath);
+
+                    return (
+                      <button
+                        key={treePath}
+                        className="detail-dependencies__pill"
+                        onClick={() => onNavigate(treePath)}
+                      >
+                        {name}
+                        <span className="detail-dependencies__version">
+                          {version}
+                        </span>
+                      </button>
+                    );
+                  },
+                )}
               </div>
             ) : (
               <p>none</p>

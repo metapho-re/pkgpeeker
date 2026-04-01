@@ -1,4 +1,5 @@
 import { DependencyTree, PackageInformation } from "../types";
+import { getTreePath } from "./getTreePath";
 
 export type FlatDependencyIndex = Record<
   string,
@@ -7,7 +8,9 @@ export type FlatDependencyIndex = Record<
 
 const walk = (tree: DependencyTree, index: FlatDependencyIndex): void => {
   for (const [packageName, packageInformation] of Object.entries(tree)) {
-    index[packageInformation.installationPath] = {
+    const treePath = getTreePath(packageInformation.dependencyPath);
+
+    index[treePath] = {
       packageName,
       ...packageInformation,
     };

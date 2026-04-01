@@ -1,12 +1,12 @@
 import { DependencyTree } from "../../types";
-import { getFormattedSize } from "../../utils";
+import { getFormattedSize, getTreePath } from "../../utils";
 import "./TreeNavigator.css";
 
 interface Props {
   packageName: string;
   version: string;
   isDeduped: boolean;
-  installationPath: string;
+  treePath: string;
   folderSizeInBytes: number;
   dependencies: DependencyTree;
   depth: number;
@@ -20,7 +20,7 @@ export const TreeNode = ({
   packageName,
   version,
   isDeduped,
-  installationPath,
+  treePath,
   folderSizeInBytes,
   dependencies,
   depth,
@@ -30,13 +30,13 @@ export const TreeNode = ({
   onToggleExpand,
 }: Props) => {
   const hasChildren = Object.keys(dependencies).length > 0;
-  const isExpanded = expandedPaths.has(installationPath);
-  const isSelected = selectedPath === installationPath;
+  const isExpanded = expandedPaths.has(treePath);
+  const isSelected = selectedPath === treePath;
 
   const handleChevronClick = (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    onToggleExpand(installationPath);
+    onToggleExpand(treePath);
   };
 
   return (
@@ -44,8 +44,8 @@ export const TreeNode = ({
       <div
         className={`tree-node${isSelected ? " tree-node--selected" : ""}`}
         style={{ paddingLeft: `${depth * 16}px` }}
-        onClick={() => onSelect(installationPath)}
-        data-path={installationPath}
+        onClick={() => onSelect(treePath)}
+        data-path={treePath}
       >
         <span className="tree-node__content">
           <span
@@ -69,24 +69,37 @@ export const TreeNode = ({
         </span>
       </div>
       {isExpanded &&
-        Object.entries(dependencies).map(([name, packageInformation]) => (
-          <TreeNode
-            key={packageInformation.installationPath}
-            packageName={name}
-            version={packageInformation.version}
-            isDeduped={packageInformation.isDeduped}
-            installationPath={packageInformation.installationPath}
-            folderSizeInBytes={
-              packageInformation.folderStatistics?.folderSizeInBytes ?? 0
-            }
-            dependencies={packageInformation.dependencies}
-            depth={depth + 1}
-            selectedPath={selectedPath}
-            expandedPaths={expandedPaths}
-            onSelect={onSelect}
-            onToggleExpand={onToggleExpand}
-          />
-        ))}
+        Object.entries(dependencies).map(
+          ([
+            name,
+            {
+              version,
+              isDeduped,
+              dependencyPath,
+              folderStatistics,
+              dependencies,
+            },
+          ]) => {
+            const childTreePath = getTreePath(dependencyPath);
+
+            return (
+              <TreeNode
+                key={childTreePath}
+                packageName={name}
+                version={version}
+                isDeduped={isDeduped}
+                treePath={childTreePath}
+                folderSizeInBytes={folderStatistics?.folderSizeInBytes ?? 0}
+                dependencies={dependencies}
+                depth={depth + 1}
+                selectedPath={selectedPath}
+                expandedPaths={expandedPaths}
+                onSelect={onSelect}
+                onToggleExpand={onToggleExpand}
+              />
+            );
+          },
+        )}
     </>
   );
 };

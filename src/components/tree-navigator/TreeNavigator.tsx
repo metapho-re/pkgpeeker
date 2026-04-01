@@ -1,4 +1,5 @@
 import { DependencyTree } from "../../types";
+import { getTreePath } from "../../utils";
 import { TreeNode } from "./TreeNode";
 import "./TreeNavigator.css";
 
@@ -23,28 +24,32 @@ export const TreeNavigator = ({
         ([
           packageName,
           {
-            installationPath,
             version,
             isDeduped,
+            dependencyPath,
             folderStatistics,
             dependencies,
           },
-        ]) => (
-          <TreeNode
-            key={installationPath}
-            packageName={packageName}
-            version={version}
-            isDeduped={isDeduped}
-            installationPath={installationPath}
-            folderSizeInBytes={folderStatistics?.folderSizeInBytes ?? 0}
-            dependencies={dependencies}
-            depth={0}
-            selectedPath={selectedPath}
-            expandedPaths={expandedPaths}
-            onSelect={onSelect}
-            onToggleExpand={onToggleExpand}
-          />
-        ),
+        ]) => {
+          const treePath = getTreePath(dependencyPath);
+
+          return (
+            <TreeNode
+              key={treePath}
+              packageName={packageName}
+              version={version}
+              isDeduped={isDeduped}
+              treePath={treePath}
+              folderSizeInBytes={folderStatistics?.folderSizeInBytes ?? 0}
+              dependencies={dependencies}
+              depth={0}
+              selectedPath={selectedPath}
+              expandedPaths={expandedPaths}
+              onSelect={onSelect}
+              onToggleExpand={onToggleExpand}
+            />
+          );
+        },
       )}
     </div>
   );

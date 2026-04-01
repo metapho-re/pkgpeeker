@@ -3,7 +3,7 @@ export {
   flattenDependencyTree,
 } from "./flattenDependencyTree";
 export { getFormattedSize } from "./getFormattedSize";
-export { getInstallationPathByDependencyPath } from "./getInstallationPathByDependencyPath";
 export { getNpmUrl } from "./getNpmUrl";
+export { getTreePath } from "./getTreePath";
 export { getTotalDependenciesSize } from "./getTotalDependenciesSize";
 export { getUnpkgUrl } from "./getUnpkgUrl";

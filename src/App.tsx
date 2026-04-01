@@ -2,10 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PackageDetail, TreeNavigator } from "./components";
 import { LandingPage } from "./core";
 import { DependencyTreeData } from "./types";
-import {
-  flattenDependencyTree,
-  getInstallationPathByDependencyPath,
-} from "./utils";
+import { flattenDependencyTree, getTreePath } from "./utils";
 import "./App.css";
 
 function App() {
@@ -27,8 +24,8 @@ function App() {
 
     if (data) {
       const topLevelPaths = new Set(
-        Object.values(data.dependencyTree).map(
-          ({ installationPath }) => installationPath,
+        Object.values(data.dependencyTree).map(({ dependencyPath }) =>
+          getTreePath(dependencyPath),
         ),
       );
 
@@ -36,7 +33,9 @@ function App() {
 
       const firstEntry = Object.values(data.dependencyTree)[0];
 
-      setSelectedPath(firstEntry?.installationPath ?? null);
+      setSelectedPath(
+        firstEntry ? getTreePath(firstEntry.dependencyPath) : null,
+      );
     } else {
       setSelectedPath(null);
       setExpandedPaths(new Set());
@@ -55,14 +54,8 @@ function App() {
 
           for (let i = 1; i < entry.dependencyPath.length; i++) {
             const ancestorPath = entry.dependencyPath.slice(0, i);
-            const installationPath = getInstallationPathByDependencyPath(
-              ancestorPath,
-              flatDependencyIndex,
-            );
 
-            if (installationPath) {
-              nextState.add(installationPath);
-            }
+            nextState.add(getTreePath(ancestorPath));
           }
 
           return nextState;
@@ -124,7 +117,6 @@ function App() {
               <PackageDetail
                 packageName={selectedEntry.packageName}
                 packageInformation={selectedEntry}
-                flatIndex={flatDependencyIndex}
                 onNavigate={handleSelect}
               />
             ) : (
