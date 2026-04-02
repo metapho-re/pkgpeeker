@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { PackageInformation } from "../../types";
 import {
   getFormattedSize,
@@ -41,6 +41,12 @@ export const PackageDetail = ({
   packageInformation,
   onNavigate,
 }: Props) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    containerRef.current?.scrollTo(0, 0);
+  }, [packageName, packageInformation]);
+
   const {
     isDeduped,
     isExtraneous,
@@ -65,7 +71,7 @@ export const PackageDetail = ({
   };
 
   return (
-    <div className="package-detail">
+    <div className="package-detail" ref={containerRef}>
       <div className="detail-breadcrumbs">
         {dependencyPath.map(({ name }, index) => (
           <Fragment key={`${name}-${index}`}>
