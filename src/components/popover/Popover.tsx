@@ -48,6 +48,7 @@ export const Popover = ({ content, children }: PropsWithChildren<Props>) => {
         {children}
       </span>
       {visible &&
+        content &&
         createPortal(
           <div style={{ top, left }} className="popover">
             {content}
