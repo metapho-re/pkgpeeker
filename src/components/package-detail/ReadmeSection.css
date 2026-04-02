@@ -1,0 +1,148 @@
+.detail-section__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.detail-section__chevron {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  transition: transform var(--transition-speed) ease;
+}
+
+.detail-section__chevron[data-expanded="true"] {
+  transform: rotate(180deg);
+}
+
+.readme-content {
+  padding-top: 8px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.readme-content h1,
+.readme-content h2,
+.readme-content h3,
+.readme-content h4,
+.readme-content h5,
+.readme-content h6 {
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  font-family: "Mona Sans Bold", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.readme-content h1 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.readme-content h2 {
+  font-size: 1.25rem;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.readme-content h3 {
+  font-size: 1.1rem;
+}
+
+.readme-content p {
+  margin: 0.75em 0;
+}
+
+.readme-content a {
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+.readme-content a:hover {
+  text-decoration: underline;
+}
+
+.readme-content code {
+  padding: 0.15em 0.4em;
+  font-size: 0.85em;
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+}
+
+.readme-content .shiki {
+  margin: 0.75em 0;
+  padding: 14px 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.readme-content .shiki code {
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: 0.85em;
+}
+
+.readme-content ul,
+.readme-content ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.readme-content li {
+  margin: 0.25em 0;
+}
+
+.readme-content blockquote {
+  margin: 0.75em 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid var(--color-blue);
+  background: var(--glass-bg-light);
+  border-radius: 0 8px 8px 0;
+}
+
+.readme-content blockquote p {
+  margin: 0.25em 0;
+}
+
+.readme-content img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.readme-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75em 0;
+}
+
+.readme-content th,
+.readme-content td {
+  padding: 8px 12px;
+  border: 1px solid var(--glass-border);
+  text-align: left;
+}
+
+.readme-content th {
+  background: var(--glass-bg-light);
+  font-family: "Mona Sans Bold", sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.readme-content hr {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: 1.5em 0;
+}

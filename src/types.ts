@@ -85,4 +85,5 @@ export interface PackageMetadata {
   moduleFormat: ModuleFormat;
   repository: Nullable<string>;
   types: Nullable<string>;
+  readme: Nullable<string>;
 }

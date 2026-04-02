@@ -27,6 +27,7 @@ import {
   PathTag,
   TypesTag,
 } from "../tags";
+import { ReadmeSection } from "./ReadmeSection";
 import "./PackageDetail.css";
 
 interface Props {
@@ -291,6 +292,9 @@ export const PackageDetail = ({
               )}
             </div>
           </div>
+          {packageMetadata.readme && (
+            <ReadmeSection readme={packageMetadata.readme} />
+          )}
         </div>
       ) : (
         <p>

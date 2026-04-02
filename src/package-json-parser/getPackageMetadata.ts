@@ -53,6 +53,24 @@ export const getPackageMetadata = async ({
 
   const repositoryUrl = parseRepository(repository);
 
+  let readme: string | null = null;
+
+  for (const filename of ["README.md", "readme.md", "Readme.md", "README"]) {
+    try {
+      readme =
+        (await webContainerInstance?.fs.readFile(
+          `${installationPath}/${filename}`,
+          "utf-8",
+        )) ?? null;
+
+      if (readme) {
+        break;
+      }
+    } catch (_) {
+      // file doesn't exist, try next
+    }
+  }
+
   return {
     author: parseAuthor(author),
     description: nullifyNonString(description),
@@ -63,5 +81,6 @@ export const getPackageMetadata = async ({
     moduleFormat: parseModuleFormat({ type, main, module, exports }),
     repository: repositoryUrl,
     types: nullifyNonString(types || typings),
+    readme,
   };
 };
