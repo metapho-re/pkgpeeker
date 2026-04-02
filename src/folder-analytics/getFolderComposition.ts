@@ -40,7 +40,7 @@ export const getFolderComposition = async ({
             extension:
               fileNameParts.length > 1 && fileNameParts[0].length > 0
                 ? `.${fileNameParts[fileNameParts.length - 1]}`
-                : "no extension",
+                : "other",
             sizeInBytes: fileContent?.byteLength || 0,
           });
         }
