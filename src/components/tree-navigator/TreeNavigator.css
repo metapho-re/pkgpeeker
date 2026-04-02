@@ -77,6 +77,6 @@
 }
 
 .tree-node__badge--deduped {
-  color: var(--color-green);
-  border-color: var(--green-border);
+  color: var(--color-yellow);
+  border-color: var(--color-yellow-border);
 }
