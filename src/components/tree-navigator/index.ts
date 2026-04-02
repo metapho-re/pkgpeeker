@@ -1,1 +1,1 @@
-export { TreeNavigator } from "./TreeNavigator";
+export { TreeNavigator } from "./tree-navigator";

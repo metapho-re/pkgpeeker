@@ -1,6 +1,6 @@
-export { MailIcon } from "./MailIcon";
-export { NpmIcon } from "./NpmIcon";
-export { PackageIcon } from "./PackageIcon";
-export { RepositoryIcon } from "./RepositoryIcon";
-export { UnpkgIcon } from "./UnpkgIcon";
-export { WebIcon } from "./WebIcon";
+export { MailIcon } from "./mail-icon";
+export { NpmIcon } from "./npm-icon";
+export { PackageIcon } from "./package-icon";
+export { RepositoryIcon } from "./repository-icon";
+export { UnpkgIcon } from "./unpkg-icon";
+export { WebIcon } from "./web-icon";

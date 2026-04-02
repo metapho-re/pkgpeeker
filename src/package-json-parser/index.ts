@@ -1,1 +1,1 @@
-export { getPackageMetadata } from "./getPackageMetadata";
+export { getPackageMetadata } from "./get-package-metadata";

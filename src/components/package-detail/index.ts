@@ -1,1 +1,1 @@
-export { PackageDetail } from "./PackageDetail";
+export { PackageDetail } from "./package-detail";

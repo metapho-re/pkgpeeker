@@ -1,1 +1,1 @@
-export { getDependencyTreeData } from "./getDependencyTreeData";
+export { getDependencyTreeData } from "./get-dependency-tree-data";

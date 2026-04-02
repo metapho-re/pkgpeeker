@@ -1,1 +1,1 @@
-export { FilesBreakdown } from "./FilesBreakdown";
+export { FilesBreakdown } from "./files-breakdown";

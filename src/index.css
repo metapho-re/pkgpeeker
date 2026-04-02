@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Mona Sans Regular";
-  src: url("./assets/Mona-Sans-Regular.woff2") format("woff2");
+  src: url("./assets/mona-sans-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Mona Sans Bold";
-  src: url("./assets/Mona-Sans-Bold.woff2") format("woff2");
+  src: url("./assets/mona-sans-bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "Mona Sans Italic";
-  src: url("./assets/Mona-Sans-RegularItalic.woff2") format("woff2");
+  src: url("./assets/mona-sans-regular-italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;

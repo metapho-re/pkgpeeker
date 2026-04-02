@@ -1,2 +1,2 @@
-export { getFolderComposition } from "./getFolderComposition";
-export { getFolderStatistics } from "./getFolderStatistics";
+export { getFolderComposition } from "./get-folder-composition";
+export { getFolderStatistics } from "./get-folder-statistics";
