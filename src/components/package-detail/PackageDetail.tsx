@@ -18,8 +18,6 @@ import {
 import { Popover } from "../popover";
 import {
   DedupedTag,
-  DependenciesTag,
-  DepthTag,
   EnginesTag,
   ExtraneousTag,
   InvalidTag,
@@ -43,7 +41,6 @@ export const PackageDetail = ({
   onNavigate,
 }: Props) => {
   const {
-    depth,
     isDeduped,
     isExtraneous,
     invalidityDetails,
@@ -57,6 +54,8 @@ export const PackageDetail = ({
 
   const { folderSizeInBytes, numberOfFilesInFolder, ...statisticsByExtension } =
     folderStatistics || { folderSizeInBytes: 0, numberOfFilesInFolder: 0 };
+  const dependencyCount = Object.keys(dependencies).length;
+  const totalSize = folderSizeInBytes + getTotalDependenciesSize(dependencies);
 
   const handleBreadcrumbClick = (index: number) => {
     const targetPath = dependencyPath.slice(0, index + 1);
@@ -107,10 +106,6 @@ export const PackageDetail = ({
               </a>
             </Popover>
           )}
-          <div className="detail-header__badges">
-            <DepthTag depth={depth} />
-            <DependenciesTag count={Object.keys(dependencies).length} />
-          </div>
         </div>
         <div className="detail-links">
           {packageMetadata?.homepage && (
@@ -157,91 +152,144 @@ export const PackageDetail = ({
       </div>
       {packageMetadata ? (
         <div className="package-detail__body">
-          <div className="detail-description">
-            {packageMetadata.description ? (
-              <span>{packageMetadata.description}</span>
-            ) : (
-              <i>No description available</i>
-            )}
-          </div>
-          {packageMetadata.keywords && (
-            <div className="detail-keywords">
-              <KeywordsTag keywords={packageMetadata.keywords} />
+          <div className="detail-stats-grid">
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Package size</p>
+              <p className="detail-stat-card__value detail-stat-card__value--green">
+                {getFormattedSize(folderSizeInBytes)}
+              </p>
+              <p className="detail-stat-card__sub">
+                {numberOfFilesInFolder} files
+              </p>
             </div>
-          )}
-          <div className="detail-licenses">
-            <span>
-              {`License${packageMetadata.licenses.length > 1 ? "s" : ""}:`}
-            </span>
-            {packageMetadata.licenses.map((license, index) => (
-              <LicenseTag key={`${index}${license.type}`} license={license} />
-            ))}
-          </div>
-          <div className="detail-tags">
-            <PathTag path={installationPath} />
-            {isDeduped && <DedupedTag />}
-            {isExtraneous && <ExtraneousTag />}
-            {invalidityDetails && (
-              <InvalidTag invalidityDetails={invalidityDetails} />
-            )}
-            <ModuleFormatTag moduleFormat={packageMetadata.moduleFormat} />
-            {packageMetadata.engines && (
-              <EnginesTag engines={packageMetadata.engines} />
-            )}
-            {packageMetadata.types && (
-              <TypesTag
-                packageName={packageName}
-                version={version}
-                types={packageMetadata.types}
-              />
-            )}
-          </div>
-          <div className="detail-folder-section">
-            <p>
-              Folder size: {getFormattedSize(folderSizeInBytes)} (
-              {numberOfFilesInFolder} files)
-              {Object.keys(dependencies).length > 0 && (
-                <span className="detail-folder-section__total">
-                  {getFormattedSize(
-                    folderSizeInBytes + getTotalDependenciesSize(dependencies),
-                  )}{" "}
-                  with dependencies
-                </span>
-              )}
-            </p>
-            {folderStatistics && (
-              <FilesBreakdown
-                folderSizeInBytes={folderSizeInBytes}
-                {...statisticsByExtension}
-              />
-            )}
-          </div>
-          <div className="detail-dependencies-section">
-            <p className="detail-dependencies-section__label">Dependencies:</p>
-            {Object.keys(dependencies).length > 0 ? (
-              <div className="detail-dependencies">
-                {Object.entries(dependencies).map(
-                  ([name, { dependencyPath, version }]) => {
-                    const treePath = getTreePath(dependencyPath);
-
-                    return (
-                      <button
-                        key={treePath}
-                        className="detail-dependencies__pill"
-                        onClick={() => onNavigate(treePath)}
-                      >
-                        {name}
-                        <span className="detail-dependencies__version">
-                          {version}
-                        </span>
-                      </button>
-                    );
-                  },
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Dependencies</p>
+              <p className="detail-stat-card__value detail-stat-card__value--orange">
+                {dependencyCount > 0
+                  ? getFormattedSize(totalSize - folderSizeInBytes)
+                  : "—"}
+              </p>
+              <p className="detail-stat-card__sub">
+                {dependencyCount} direct{" "}
+                {dependencyCount === 1 ? "dependency" : "dependencies"}
+              </p>
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Total size</p>
+              <p className="detail-stat-card__value detail-stat-card__value--accent">
+                {getFormattedSize(totalSize)}
+              </p>
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Path</p>
+              <PathTag path={installationPath} />
+              <div className="detail-stat-card__tags">
+                {isDeduped && <DedupedTag />}
+                {isExtraneous && <ExtraneousTag />}
+                {invalidityDetails && (
+                  <InvalidTag invalidityDetails={invalidityDetails} />
                 )}
               </div>
-            ) : (
-              <p>none</p>
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Module</p>
+              <ModuleFormatTag moduleFormat={packageMetadata.moduleFormat} />
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">
+                {packageMetadata.licenses.length > 1 ? "Licenses" : "License"}
+              </p>
+              <div className="detail-stat-card__tags">
+                {packageMetadata.licenses.length > 0 ? (
+                  packageMetadata.licenses.map((license, index) => (
+                    <LicenseTag
+                      key={`${index}${license.type}`}
+                      license={license}
+                    />
+                  ))
+                ) : (
+                  <span className="detail-stat-card__value">Unknown</span>
+                )}
+              </div>
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Types</p>
+              {packageMetadata.types ? (
+                <TypesTag
+                  packageName={packageName}
+                  version={version}
+                  types={packageMetadata.types}
+                />
+              ) : (
+                <span className="detail-stat-card__value">None</span>
+              )}
+            </div>
+            <div className="detail-stat-card">
+              <p className="detail-stat-card__label">Engines</p>
+              {packageMetadata.engines ? (
+                <EnginesTag engines={packageMetadata.engines} />
+              ) : (
+                <span className="detail-stat-card__value">Any</span>
+              )}
+            </div>
+          </div>
+
+          <div className="detail-section">
+            <p className="detail-section__header">Description</p>
+            <div className="detail-description">
+              {packageMetadata.description ? (
+                <span>{packageMetadata.description}</span>
+              ) : (
+                <i>No description available</i>
+              )}
+            </div>
+            {packageMetadata.keywords && (
+              <div className="detail-tags-row">
+                <KeywordsTag keywords={packageMetadata.keywords} />
+              </div>
             )}
+          </div>
+
+          <div className="detail-bottom-grid">
+            {folderStatistics && (
+              <div className="detail-section">
+                <p className="detail-section__header">File composition</p>
+                <FilesBreakdown
+                  folderSizeInBytes={folderSizeInBytes}
+                  {...statisticsByExtension}
+                />
+              </div>
+            )}
+
+            <div className="detail-section">
+              <p className="detail-section__header">Dependencies</p>
+              {dependencyCount > 0 ? (
+                <div className="detail-dependencies">
+                  {Object.entries(dependencies).map(
+                    ([name, { dependencyPath, version }]) => {
+                      const treePath = getTreePath(dependencyPath);
+
+                      return (
+                        <button
+                          key={treePath}
+                          className="detail-dependencies__pill"
+                          onClick={() => onNavigate(treePath)}
+                        >
+                          {name}
+                          <span className="detail-dependencies__version">
+                            {version}
+                          </span>
+                        </button>
+                      );
+                    },
+                  )}
+                </div>
+              ) : (
+                <p className="detail-dependencies__empty">
+                  No direct dependencies
+                </p>
+              )}
+            </div>
           </div>
         </div>
       ) : (
