@@ -36,12 +36,20 @@ export const getInstallationPath = ({
 
         return { nestedDependencyPath, matchingScore };
       })
-      .sort(
-        (
-          { matchingScore: matchingScoreA },
-          { matchingScore: matchingScoreB },
-        ) => matchingScoreB - matchingScoreA,
-      )[0];
+      .sort((a, b) => {
+        if (b.matchingScore !== a.matchingScore) {
+          return b.matchingScore - a.matchingScore;
+        }
+
+        if (b.nestedDependencyPath.length !== a.nestedDependencyPath.length) {
+          return b.nestedDependencyPath.length - a.nestedDependencyPath.length;
+        }
+
+        const pathA = a.nestedDependencyPath.map((p) => p.name).join("/");
+        const pathB = b.nestedDependencyPath.map((p) => p.name).join("/");
+
+        return pathA.localeCompare(pathB);
+      })[0];
 
   const parentsInstallationPath = parentsDependencyPath
     .map(({ name }) => name)
