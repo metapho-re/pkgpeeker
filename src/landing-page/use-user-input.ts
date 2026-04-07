@@ -1,6 +1,7 @@
 import { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
+
 import { AppState, DependencyTreeData } from "../types";
-import { useWebContainer } from "./use-web-container";
+import { useWebContainer } from "../web-container";
 
 export const useUserInput = (
   handleDataGeneration: (data: DependencyTreeData | null) => void,

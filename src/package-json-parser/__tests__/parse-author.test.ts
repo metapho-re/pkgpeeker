@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { parseAuthor } from "../parse-author";
 
 describe("parseAuthor", () => {

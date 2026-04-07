@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { DependencyTree } from "../../types";
+
+import { DependencyTree } from "../../../types";
+
 import { getTotalDependenciesSize } from "../get-total-dependencies-size";
 
 const makePackage = (

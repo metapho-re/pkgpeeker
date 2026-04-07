@@ -1,9 +1,13 @@
+import "./files-breakdown.css";
+
 import { useState } from "react";
+
 import { FolderStatistics } from "../../types";
 import { getFormattedSize } from "../../utils";
+
 import { Popover } from "../popover";
+
 import { getExtensionColor } from "./get-extension-color";
-import "./files-breakdown.css";
 
 const CHART_SIZE = 200;
 const STROKE_WIDTH = 36;

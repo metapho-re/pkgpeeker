@@ -1,6 +1,8 @@
-import { PropsWithChildren, ReactNode } from "react";
-import { Popover } from "../popover";
 import "./tags.css";
+
+import { PropsWithChildren, ReactNode } from "react";
+
+import { Popover } from "../popover";
 
 interface Props {
   type:

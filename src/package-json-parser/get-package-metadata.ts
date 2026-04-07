@@ -1,5 +1,7 @@
 import { WebContainer } from "@webcontainer/api";
+
 import { PackageMetadata } from "../types";
+
 import { parseAuthor } from "./parse-author";
 import { parseEngines } from "./parse-engines";
 import { parseKeywords } from "./parse-keywords";

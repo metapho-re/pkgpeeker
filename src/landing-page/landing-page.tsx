@@ -1,7 +1,9 @@
+import "./landing-page.css";
+
 import { PackageIcon, StatusIndicator } from "../components";
 import { DependencyTreeData } from "../types";
+
 import { useUserInput } from "./use-user-input";
-import "./landing-page.css";
 
 interface Props {
   dependencyTreeData: DependencyTreeData | null;

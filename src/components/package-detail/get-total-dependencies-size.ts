@@ -1,4 +1,4 @@
-import { DependencyTree } from "../types";
+import { DependencyTree } from "../../types";
 
 export const getTotalDependenciesSize = (
   dependencyTree: DependencyTree,

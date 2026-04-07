@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getNestedDependencyPaths } from "../get-nested-dependency-paths";
 
 const mockedWebContainerInstance = {

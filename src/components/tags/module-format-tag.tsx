@@ -1,4 +1,5 @@
 import { ModuleFormat } from "../../types";
+
 import { BaseTag } from "./base-tag";
 
 interface Props {

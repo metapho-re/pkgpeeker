@@ -1,7 +1,9 @@
+import "./tree-navigator.css";
+
 import { DependencyTree } from "../../types";
 import { getTreePath } from "../../utils";
+
 import { TreeNode } from "./tree-node";
-import "./tree-navigator.css";
 
 interface Props {
   dependencyTree: DependencyTree;

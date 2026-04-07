@@ -1,4 +1,5 @@
 import { DependencyTree, PackageInformation } from "../types";
+
 import { getTreePath } from "./get-tree-path";
 
 export type FlatDependencyIndex = Record<

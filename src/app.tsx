@@ -1,9 +1,11 @@
+import "./app.css";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import { PackageDetail, TreeNavigator } from "./components";
-import { LandingPage } from "./core";
+import { LandingPage } from "./landing-page";
 import { DependencyTreeData } from "./types";
 import { flattenDependencyTree, getTreePath } from "./utils";
-import "./app.css";
 
 function App() {
   const [dependencyTreeData, setDependencyTreeData] =

@@ -1,4 +1,5 @@
 import { WebContainer } from "@webcontainer/api";
+
 import { getFolderComposition, getFolderStatistics } from "../folder-analytics";
 import { getPackageMetadata } from "../package-json-parser";
 import {
@@ -8,6 +9,7 @@ import {
   PackageDataIndex,
   PackageIdentifier,
 } from "../types";
+
 import { getInstallationPath } from "./get-installation-path";
 
 interface Props {

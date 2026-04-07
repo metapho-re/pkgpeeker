@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getInstallationPath } from "../get-installation-path";
 
 describe("getInstallationPath", () => {

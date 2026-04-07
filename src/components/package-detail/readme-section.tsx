@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import "./readme-section.css";
+
 import { Marked } from "marked";
+import { useEffect, useMemo, useState } from "react";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
-import "./readme-section.css";
 
 let highlighterPromise: Promise<HighlighterCore> | null = null;
 

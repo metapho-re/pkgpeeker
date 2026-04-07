@@ -1,12 +1,10 @@
+import "./package-detail.css";
+
 import { Fragment, useEffect, useRef } from "react";
+
 import { PackageInformation } from "../../types";
-import {
-  getFormattedSize,
-  getNpmUrl,
-  getTreePath,
-  getTotalDependenciesSize,
-  getUnpkgUrl,
-} from "../../utils";
+import { getFormattedSize, getTreePath, getUnpkgUrl } from "../../utils";
+
 import { FilesBreakdown } from "../files-breakdown";
 import {
   MailIcon,
@@ -27,8 +25,10 @@ import {
   PathTag,
   TypesTag,
 } from "../tags";
+
+import { getNpmUrl } from "./get-npm-url";
+import { getTotalDependenciesSize } from "./get-total-dependencies-size";
 import { ReadmeSection } from "./readme-section";
-import "./package-detail.css";
 
 interface Props {
   packageName: string;

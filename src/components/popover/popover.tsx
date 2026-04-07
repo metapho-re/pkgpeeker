@@ -1,3 +1,5 @@
+import "./popover.css";
+
 import {
   MouseEventHandler,
   PropsWithChildren,
@@ -6,7 +8,6 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import "./popover.css";
 
 const POPOVER_GAP = 10;
 

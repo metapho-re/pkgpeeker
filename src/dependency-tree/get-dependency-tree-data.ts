@@ -1,9 +1,11 @@
 import { WebContainer } from "@webcontainer/api";
+
 import {
   DependencyTreeData,
   NpmDependencyTree,
   PackageDataIndex,
 } from "../types";
+
 import { getDependencyTree } from "./get-dependency-tree";
 import { getNestedDependencyPaths } from "./get-nested-dependency-paths";
 

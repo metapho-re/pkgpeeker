@@ -1,6 +1,8 @@
-import { AppState } from "../../types";
-import { Spinner } from "./spinner";
 import "./status-indicator.css";
+
+import { AppState } from "../../types";
+
+import { Spinner } from "./spinner";
 
 interface Props {
   appState: AppState;

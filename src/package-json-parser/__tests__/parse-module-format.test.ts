@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { parseModuleFormat } from "../parse-module-format";
 
 describe("parseModuleFormat", () => {
