@@ -107,35 +107,6 @@ i {
   background-color: transparent;
 }
 
-.content {
-  margin-inline: auto;
+.views-container {
   padding: 24px;
-  height: 100vh;
-  box-sizing: border-box;
-  animation: fade-slide-up 0.5s ease-out;
-}
-
-@keyframes fade-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.master-detail-layout {
-  display: flex;
-  height: 100%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow:
-    0 8px 32px var(--shadow-color),
-    inset 0 1px 0 var(--inset-highlight);
 }

@@ -1,0 +1,31 @@
+.placeholder-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  animation: fade-slide-up 0.5s ease-out;
+}
+
+.placeholder-view__content {
+  text-align: center;
+  padding: 48px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px var(--shadow-color),
+    inset 0 1px 0 var(--inset-highlight);
+}
+
+.placeholder-view__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground-color);
+  margin: 0 0 8px;
+}
+
+.placeholder-view__description {
+  color: var(--color-muted);
+  margin: 0;
+}
