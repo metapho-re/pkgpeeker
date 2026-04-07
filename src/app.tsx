@@ -1,7 +1,7 @@
 import "./app.css";
 
 import { useEffect, useRef, useState } from "react";
-import { Route, useLocation } from "wouter";
+import { Redirect, Route, Switch, useLocation } from "wouter";
 
 import { TabBar } from "./components";
 import { LandingPage } from "./landing-page";
@@ -37,15 +37,18 @@ function App() {
       {dependencyTreeData ? (
         <div className="views-container" key={location} ref={ref}>
           <TabBar />
-          <Route path="/">
-            <DependencyTreeView dependencyTreeData={dependencyTreeData} />
-          </Route>
-          <Route path="/files">
-            <FileExplorerView />
-          </Route>
-          <Route path="/security">
-            <SecurityInsightsView />
-          </Route>
+          <Switch>
+            <Route path="/">
+              <DependencyTreeView dependencyTreeData={dependencyTreeData} />
+            </Route>
+            <Route path="/files">
+              <FileExplorerView />
+            </Route>
+            <Route path="/security">
+              <SecurityInsightsView />
+            </Route>
+            <Redirect to="/" />
+          </Switch>
         </div>
       ) : null}
     </div>
