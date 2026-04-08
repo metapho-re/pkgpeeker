@@ -1,7 +1,7 @@
 import "./file-viewer.css";
 
 import { WebContainer } from "@webcontainer/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type ThemedToken } from "shiki/core";
 
 import {
@@ -52,6 +52,11 @@ interface Props {
 
 export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
   const [state, setState] = useState<FileState>(INITIAL_STATE);
+  const ref = useRef<HTMLPreElement>(null);
+
+  useEffect(() => {
+    ref.current?.scrollTo(0, 0);
+  }, [filePath]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -172,7 +177,7 @@ export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
           {getFormattedSize(state.fileSize)}
         </div>
       )}
-      <pre className="file-viewer__content">
+      <pre ref={ref} className="file-viewer__content">
         <code>
           {state.tokens.map((lineTokens, lineIndex) => (
             <span key={lineIndex} className="file-viewer__line">
