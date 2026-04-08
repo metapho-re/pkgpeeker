@@ -1,3 +1,4 @@
+import { bundledLanguages } from "shiki";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
@@ -24,6 +25,26 @@ export function getHighlighter() {
   }
 
   return highlighterPromise;
+}
+
+export async function loadLanguages(
+  highlighter: HighlighterCore,
+  languages: string[],
+) {
+  const loadedLanguages = new Set(highlighter.getLoadedLanguages());
+  const missingLanguages = languages.filter(
+    (language) =>
+      !loadedLanguages.has(language) && language in bundledLanguages,
+  );
+
+  if (missingLanguages.length > 0) {
+    await highlighter.loadLanguage(
+      ...missingLanguages.map(
+        (language) =>
+          bundledLanguages[language as keyof typeof bundledLanguages],
+      ),
+    );
+  }
 }
 
 const EXTENSION_TO_LANGUAGE_MAP: Record<string, string> = {

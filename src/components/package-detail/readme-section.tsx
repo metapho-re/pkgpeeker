@@ -1,10 +1,10 @@
 import "./readme-section.css";
 
-import { Marked } from "marked";
+import { Lexer, Marked, type Tokens } from "marked";
 import { useEffect, useMemo, useState } from "react";
 import { type HighlighterCore } from "shiki/core";
 
-import { getHighlighter } from "../../utils";
+import { getHighlighter, loadLanguages } from "../../utils";
 
 function createMarked(highlighter: HighlighterCore) {
   return new Marked({
@@ -33,8 +33,19 @@ export const ReadmeSection = ({ readme }: Props) => {
   const [highlighter, setHighlighter] = useState<HighlighterCore | null>(null);
 
   useEffect(() => {
-    getHighlighter().then(setHighlighter);
-  }, []);
+    const tokens = new Lexer().lex(readme);
+    const languages = tokens
+      .filter(
+        (token): token is Tokens.Code => token.type === "code" && !!token.lang,
+      )
+      .map((token) => token.lang!.split(/\s/)[0]);
+
+    getHighlighter().then(async (highlighter) => {
+      await loadLanguages(highlighter, languages);
+
+      setHighlighter(highlighter);
+    });
+  }, [readme]);
 
   const html = useMemo(() => {
     if (!highlighter) {
