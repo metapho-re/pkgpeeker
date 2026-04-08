@@ -1,13 +1,4 @@
-import { extensionColorMap } from "./extension-color-map";
+import { EXTENSION_COLOR_MAP } from "./extension-color-map";
 
-export const getExtensionColor = (extension: string): string => {
-  if (extensionColorMap[extension]) {
-    return extensionColorMap[extension];
-  }
-
-  const hash = [...extension.repeat(3)].reduce((accumulator, char) => {
-    return char.charCodeAt(0) + ((accumulator << 5) - accumulator);
-  }, 0);
-
-  return `hsl(${hash % 360}, 80%, 60%)`;
-};
+export const getExtensionColor = (extension: string): string =>
+  EXTENSION_COLOR_MAP[extension] ?? EXTENSION_COLOR_MAP.other;
