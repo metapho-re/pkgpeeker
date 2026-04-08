@@ -2,10 +2,18 @@ import "./file-viewer.css";
 
 import { WebContainer } from "@webcontainer/api";
 import { useEffect, useState } from "react";
+import { type ThemedToken } from "shiki/core";
 
-import { getFormattedSize } from "../../utils";
+import {
+  getFormattedSize,
+  getHighlighter,
+  getLanguageFromPath,
+} from "../../utils";
 
 const MAX_FILE_SIZE = 100 * 1024;
+
+const createPlainTokens = (content: string): ThemedToken[][] =>
+  content.split("\n").map((line) => [{ content: line } as ThemedToken]);
 
 const isBinaryContent = (bytes: Uint8Array): boolean => {
   const limit = Math.min(bytes.length, 512);
@@ -25,6 +33,7 @@ interface FileState {
   isBinary: boolean;
   isLoading: boolean;
   isTruncated: boolean;
+  tokens: ThemedToken[][];
 }
 
 const INITIAL_STATE: FileState = {
@@ -33,6 +42,7 @@ const INITIAL_STATE: FileState = {
   isBinary: false,
   isLoading: true,
   isTruncated: false,
+  tokens: [],
 };
 
 interface Props {
@@ -48,7 +58,7 @@ export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
 
     webContainerInstance.fs
       .readFile(filePath)
-      .then((bytes) => {
+      .then(async (bytes) => {
         if (isCancelled) {
           return;
         }
@@ -73,13 +83,37 @@ export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
         const isTruncated = bytes.byteLength > MAX_FILE_SIZE;
         const slice = isTruncated ? bytes.slice(0, MAX_FILE_SIZE) : bytes;
         const decoder = new TextDecoder();
+        const content = decoder.decode(slice);
+        const language = getLanguageFromPath(filePath);
+
+        let tokens: ThemedToken[][];
+
+        if (language) {
+          try {
+            const highlighter = await getHighlighter();
+
+            tokens = highlighter.codeToTokens(content, {
+              lang: language,
+              theme: "kanagawa-wave",
+            }).tokens;
+          } catch {
+            tokens = createPlainTokens(content);
+          }
+        } else {
+          tokens = createPlainTokens(content);
+        }
+
+        if (isCancelled) {
+          return;
+        }
 
         setState({
-          content: decoder.decode(slice),
+          content,
           fileSize: bytes.byteLength,
           isBinary: false,
           isLoading: false,
           isTruncated,
+          tokens,
         });
       })
       .catch(() => {
@@ -124,8 +158,6 @@ export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
     );
   }
 
-  const lines = state.content.split("\n");
-
   return (
     <div className="file-viewer">
       <div className="file-viewer__header">
@@ -142,10 +174,17 @@ export const FileViewer = ({ filePath, webContainerInstance }: Props) => {
       )}
       <pre className="file-viewer__content">
         <code>
-          {lines.map((line, index) => (
-            <span key={index} className="file-viewer__line">
-              <span className="file-viewer__line-number">{index + 1}</span>
-              {line}
+          {state.tokens.map((lineTokens, lineIndex) => (
+            <span key={lineIndex} className="file-viewer__line">
+              <span className="file-viewer__line-number">{lineIndex + 1}</span>
+              {lineTokens.map((token, tokenIndex) => (
+                <span
+                  key={tokenIndex}
+                  style={token.color ? { color: token.color } : undefined}
+                >
+                  {token.content}
+                </span>
+              ))}
               {"\n"}
             </span>
           ))}

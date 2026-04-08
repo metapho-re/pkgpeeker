@@ -2,31 +2,9 @@ import "./readme-section.css";
 
 import { Marked } from "marked";
 import { useEffect, useMemo, useState } from "react";
-import { createHighlighterCore, type HighlighterCore } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { type HighlighterCore } from "shiki/core";
 
-let highlighterPromise: Promise<HighlighterCore> | null = null;
-
-function getHighlighter() {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighterCore({
-      engine: createJavaScriptRegexEngine(),
-      langs: [
-        import("shiki/langs/bash.mjs"),
-        import("shiki/langs/css.mjs"),
-        import("shiki/langs/javascript.mjs"),
-        import("shiki/langs/json.mjs"),
-        import("shiki/langs/shell.mjs"),
-        import("shiki/langs/typescript.mjs"),
-        import("shiki/langs/html.mjs"),
-        import("shiki/langs/yaml.mjs"),
-      ],
-      themes: [import("shiki/themes/kanagawa-wave.mjs")],
-    });
-  }
-
-  return highlighterPromise;
-}
+import { getHighlighter } from "../../utils";
 
 function createMarked(highlighter: HighlighterCore) {
   return new Marked({
