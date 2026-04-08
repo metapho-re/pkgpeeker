@@ -1,0 +1,47 @@
+.file-tree-node {
+  padding: 4px 16px 4px 0;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.file-tree-node__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.file-tree-node--selected .file-tree-node__content {
+  background-color: var(--selected-bg);
+}
+
+.file-tree-node:hover .file-tree-node__content {
+  background-color: var(--hover-glow);
+}
+
+.file-tree-node--selected:hover .file-tree-node__content {
+  background-color: var(--selected-bg-hover);
+}
+
+.file-tree-node__icon {
+  flex-shrink: 0;
+  width: 12px;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.file-tree-node__name {
+  font-size: 0.825rem;
+  letter-spacing: 0.01em;
+}
+
+.file-tree-node__size {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}

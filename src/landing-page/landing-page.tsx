@@ -1,5 +1,8 @@
 import "./landing-page.css";
 
+import { WebContainer } from "@webcontainer/api";
+import { useEffect } from "react";
+
 import { PackageIcon, StatusIndicator } from "../components";
 import { DependencyTreeData } from "../types";
 
@@ -7,23 +10,32 @@ import { useUserInput } from "./use-user-input";
 
 interface Props {
   dependencyTreeData: DependencyTreeData | null;
-  handleDataGeneration: (data: DependencyTreeData | null) => void;
+  onDataGenerated: (data: DependencyTreeData | null) => void;
+  onWebContainerReady: (instance: WebContainer) => void;
 }
 
 export const LandingPage = ({
   dependencyTreeData,
-  handleDataGeneration,
+  onDataGenerated,
+  onWebContainerReady,
 }: Props) => {
   const {
     appState,
     hasError,
     isLoading,
     userInput,
+    webContainerInstance,
     handlePackagesInstallation,
     handlePackagesInstallationOnEnter,
     handleReset,
     handleUserInputChange,
-  } = useUserInput(handleDataGeneration);
+  } = useUserInput(onDataGenerated);
+
+  useEffect(() => {
+    if (webContainerInstance) {
+      onWebContainerReady(webContainerInstance);
+    }
+  }, [webContainerInstance, onWebContainerReady]);
 
   const canInstall = !(isLoading || hasError || appState === "done");
   const canReset = hasError || dependencyTreeData !== null;

@@ -1,31 +1,30 @@
-.placeholder-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.file-explorer-view {
   height: calc(100vh - 80px);
+  box-sizing: border-box;
   animation: fade-slide-up 0.5s ease-out;
 }
 
-.placeholder-view__content {
-  text-align: center;
-  padding: 48px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  box-shadow:
-    0 8px 32px var(--shadow-color),
-    inset 0 1px 0 var(--inset-highlight);
-}
-
-.placeholder-view__title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--foreground-color);
-  margin: 0 0 8px;
-}
-
-.placeholder-view__description {
+.file-explorer-view__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   color: var(--color-muted);
-  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.file-explorer-view__file-tree {
+  width: 280px;
+  min-width: 280px;
+  flex-shrink: 0;
+  overflow: auto;
+  border-right: 1px solid var(--glass-border);
+  padding: 12px 0;
+}
+
+.file-explorer-view__file-viewer {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }

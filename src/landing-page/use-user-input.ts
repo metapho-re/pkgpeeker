@@ -1,23 +1,31 @@
+import { WebContainer } from "@webcontainer/api";
 import { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
 
 import { AppState, DependencyTreeData } from "../types";
 import { useWebContainer } from "../web-container";
 
 export const useUserInput = (
-  handleDataGeneration: (data: DependencyTreeData | null) => void,
+  onDataGenerated: (data: DependencyTreeData | null) => void,
 ): {
   appState: AppState;
   hasError: boolean;
   isLoading: boolean;
   userInput: string;
+  webContainerInstance: WebContainer | undefined;
   handlePackagesInstallation: () => Promise<void>;
   handlePackagesInstallationOnEnter: KeyboardEventHandler<HTMLInputElement>;
   handleReset: () => void;
   handleUserInputChange: ChangeEventHandler<HTMLInputElement>;
 } => {
   const [userInput, setUserInput] = useState("");
-  const { appState, hasError, isLoading, reset, spawnMainProcess } =
-    useWebContainer();
+  const {
+    appState,
+    hasError,
+    isLoading,
+    webContainerInstance,
+    reset,
+    spawnMainProcess,
+  } = useWebContainer();
 
   const handlePackagesInstallation = async () => {
     if (!userInput) {
@@ -26,7 +34,7 @@ export const useUserInput = (
 
     const packageList = userInput.split(" ");
 
-    handleDataGeneration(await spawnMainProcess(packageList));
+    onDataGenerated(await spawnMainProcess(packageList));
 
     setTimeout(() => {
       document
@@ -45,7 +53,7 @@ export const useUserInput = (
 
   const handleReset = () => {
     setUserInput("");
-    handleDataGeneration(null);
+    onDataGenerated(null);
     reset();
   };
 
@@ -60,6 +68,7 @@ export const useUserInput = (
     hasError,
     isLoading,
     userInput,
+    webContainerInstance,
     handlePackagesInstallation,
     handlePackagesInstallationOnEnter,
     handleReset,

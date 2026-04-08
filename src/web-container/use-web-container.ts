@@ -10,6 +10,7 @@ export const useWebContainer = (): {
   appState: AppState;
   hasError: boolean;
   isLoading: boolean;
+  webContainerInstance: WebContainer | undefined;
   reset: () => Promise<void>;
   spawnMainProcess: (
     packageList: string[],
@@ -135,6 +136,7 @@ export const useWebContainer = (): {
     appState,
     hasError,
     isLoading,
+    webContainerInstance,
     reset,
     spawnMainProcess,
   };

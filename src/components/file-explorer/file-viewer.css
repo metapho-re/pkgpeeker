@@ -1,0 +1,75 @@
+.file-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.file-viewer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-family: "Mona Sans Bold", sans-serif;
+  font-size: 0.825rem;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--glass-bg-dark);
+  flex-shrink: 0;
+}
+
+.file-viewer__size {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.file-viewer__notice {
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  color: var(--color-yellow);
+  background: var(--color-yellow-bg);
+  border-bottom: 1px solid var(--color-yellow-border);
+  flex-shrink: 0;
+}
+
+.file-viewer__message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.file-viewer__content {
+  margin: 0;
+  padding: 12px 0;
+  overflow: auto;
+  flex: 1;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  background: var(--lighter-background-color);
+  color: var(--foreground-color);
+}
+
+.file-viewer__content code {
+  display: block;
+}
+
+.file-viewer__line {
+  display: block;
+  padding: 0 16px 0 0;
+}
+
+.file-viewer__line:hover {
+  background-color: var(--hover-glow);
+}
+
+.file-viewer__line-number {
+  display: inline-block;
+  width: 48px;
+  padding-right: 16px;
+  text-align: right;
+  color: var(--color-muted);
+  user-select: none;
+  opacity: 0.6;
+}

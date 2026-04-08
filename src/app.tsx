@@ -1,5 +1,6 @@
 import "./app.css";
 
+import { WebContainer } from "@webcontainer/api";
 import { useEffect, useRef, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "wouter";
 
@@ -17,10 +18,8 @@ function App() {
   const [location] = useLocation();
   const [dependencyTreeData, setDependencyTreeData] =
     useState<DependencyTreeData | null>(null);
-
-  const handleDataGeneration = (data: DependencyTreeData | null) => {
-    setDependencyTreeData(data);
-  };
+  const [webContainerInstance, setWebContainerInstance] =
+    useState<WebContainer | null>(null);
 
   useEffect(() => {
     if (ref.current) {
@@ -32,7 +31,8 @@ function App() {
     <div>
       <LandingPage
         dependencyTreeData={dependencyTreeData}
-        handleDataGeneration={handleDataGeneration}
+        onDataGenerated={setDependencyTreeData}
+        onWebContainerReady={setWebContainerInstance}
       />
       {dependencyTreeData ? (
         <div className="views-container" key={location} ref={ref}>
@@ -42,7 +42,10 @@ function App() {
               <DependencyTreeView dependencyTreeData={dependencyTreeData} />
             </Route>
             <Route path="/files">
-              <FileExplorerView />
+              <FileExplorerView
+                dependencyTreeData={dependencyTreeData}
+                webContainerInstance={webContainerInstance}
+              />
             </Route>
             <Route path="/security">
               <SecurityInsightsView />
