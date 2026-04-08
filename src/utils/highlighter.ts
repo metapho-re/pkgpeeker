@@ -1,6 +1,8 @@
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
+import { getExtension } from "./get-extension";
+
 let highlighterPromise: Promise<HighlighterCore> | null = null;
 
 export function getHighlighter() {
@@ -9,15 +11,11 @@ export function getHighlighter() {
       engine: createJavaScriptRegexEngine(),
       langs: [
         import("shiki/langs/css.mjs"),
-        import("shiki/langs/html.mjs"),
         import("shiki/langs/javascript.mjs"),
         import("shiki/langs/json.mjs"),
-        import("shiki/langs/jsx.mjs"),
-        import("shiki/langs/less.mjs"),
         import("shiki/langs/markdown.mjs"),
-        import("shiki/langs/scss.mjs"),
         import("shiki/langs/shell.mjs"),
-        import("shiki/langs/tsx.mjs"),
+        import("shiki/langs/xml.mjs"),
         import("shiki/langs/typescript.mjs"),
         import("shiki/langs/yaml.mjs"),
       ],
@@ -29,34 +27,26 @@ export function getHighlighter() {
 }
 
 const EXTENSION_TO_LANGUAGE_MAP: Record<string, string> = {
-  ".bash": "shell",
-  ".css": "css",
-  ".htm": "html",
-  ".html": "html",
   ".js": "javascript",
-  ".json": "json",
-  ".jsx": "jsx",
-  ".less": "less",
-  ".map": "json",
-  ".md": "markdown",
-  ".scss": "scss",
   ".mjs": "javascript",
   ".cjs": "javascript",
+  ".ts": "typescript",
   ".mts": "typescript",
   ".cts": "typescript",
-  ".sh": "shell",
-  ".ts": "typescript",
-  ".tsx": "tsx",
+  ".json": "json",
+  ".css": "css",
+  ".md": "markdown",
+  ".markdown": "markdown",
   ".yaml": "yaml",
   ".yml": "yaml",
+  ".sh": "shell",
+  ".bash": "shell",
+  ".svg": "xml",
+  ".map": "json",
 };
 
 export function getLanguageFromPath(filePath: string): string | null {
-  const extension = filePath.match(/\.[^.]+$/)?.[0]?.toLowerCase();
-
-  if (!extension) {
-    return null;
-  }
+  const extension = getExtension(filePath);
 
   return EXTENSION_TO_LANGUAGE_MAP[extension] ?? null;
 }

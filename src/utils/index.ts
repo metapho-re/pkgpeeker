@@ -1,3 +1,4 @@
+export { getExtension } from "./get-extension";
 export {
   type FlatDependencyIndex,
   flattenDependencyTree,

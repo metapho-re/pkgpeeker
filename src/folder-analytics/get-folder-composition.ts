@@ -1,6 +1,7 @@
 import { DirEnt, WebContainer } from "@webcontainer/api";
 
 import { FileDetails } from "../types";
+import { getExtension } from "../utils";
 
 interface Props {
   webContainerInstance: WebContainer | undefined;
@@ -32,16 +33,12 @@ export const getFolderComposition = async ({
             installationPath: `${installationPath}/${listItem.name}`,
           });
         } else {
-          const fileNameParts = listItem.name.split(".");
           const fileContent = await webContainerInstance?.fs.readFile(
             `${installationPath}/${listItem.name}`,
           );
 
           return await Promise.resolve({
-            extension:
-              fileNameParts.length > 1 && fileNameParts[0].length > 0
-                ? `.${fileNameParts[fileNameParts.length - 1]}`
-                : "other",
+            extension: getExtension(listItem.name),
             sizeInBytes: fileContent?.byteLength || 0,
           });
         }
