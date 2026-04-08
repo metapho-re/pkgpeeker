@@ -27,11 +27,17 @@
   background-color: var(--selected-bg-hover);
 }
 
-.file-tree-node__icon {
+.file-tree-node__chevron {
   flex-shrink: 0;
-  width: 12px;
+  width: 8px;
   font-size: 0.7rem;
   text-align: center;
+}
+
+.file-tree-node__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
 }
 
 .file-tree-node__name {

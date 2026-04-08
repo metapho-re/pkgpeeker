@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { getFormattedSize } from "../../utils";
 
+import { FileTypeIcon } from "./file-type-icon";
 import { readDirectory } from "./read-directory";
 
 export interface FileTreeEntry {
@@ -56,12 +57,19 @@ export const FileTreeNode = ({
         onClick={handleClick}
       >
         <span className="file-tree-node__content">
+          {entry.isDirectory && (
+            <span className="file-tree-node__chevron">
+              {isExpanded ? "\u25BE" : "\u25B8"}
+            </span>
+          )}
           <span className="file-tree-node__icon">
-            {entry.isDirectory ? (isExpanded ? "\u25BE" : "\u25B8") : ""}
+            <FileTypeIcon
+              fileName={entry.name}
+              isDirectory={entry.isDirectory}
+              isExpanded={isExpanded}
+            />
           </span>
-          <span className="file-tree-node__name">
-            {entry.isDirectory ? `${entry.name}/` : entry.name}
-          </span>
+          <span className="file-tree-node__name">{entry.name}</span>
           {entry.sizeInBytes !== undefined && entry.sizeInBytes > 0 && (
             <span className="file-tree-node__size">
               {getFormattedSize(entry.sizeInBytes)}
