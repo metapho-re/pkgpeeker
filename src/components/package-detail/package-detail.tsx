@@ -41,10 +41,10 @@ export const PackageDetail = ({
   packageInformation,
   onNavigate,
 }: Props) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    containerRef.current?.scrollTo(0, 0);
+    ref.current?.scrollTo(0, 0);
   }, [packageName, packageInformation]);
 
   const {
@@ -71,7 +71,7 @@ export const PackageDetail = ({
   };
 
   return (
-    <div className="package-detail" ref={containerRef}>
+    <div className="package-detail" ref={ref}>
       <div className="detail-breadcrumbs">
         {dependencyPath.map(({ name }, index) => (
           <Fragment key={`${name}-${index}`}>
