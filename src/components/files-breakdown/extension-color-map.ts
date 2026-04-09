@@ -10,6 +10,7 @@ export const EXTENSION_COLOR_MAP: Record<string, string> = {
   ".d.cts": "#3178c6",
   ".json": "#292929",
   ".css": "#663399",
+  ".scss": "#c6538c",
   ".md": "#083fa1",
   ".markdown": "#083fa1",
   ".yaml": "#cb171e",

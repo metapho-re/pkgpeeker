@@ -21,6 +21,7 @@ export const EXTENSION_ICON_MAP: Record<string, string> = {
   ".cts": "typescript",
   ".json": "json",
   ".css": "css",
+  ".scss": "scss",
   ".md": "markdown",
   ".markdown": "markdown",
   ".yaml": "yaml",
@@ -30,6 +31,6 @@ export const EXTENSION_ICON_MAP: Record<string, string> = {
   ".svg": "svg",
   ".map": "javascript-map",
   ".node": "nodejs",
-  ".wasm": "document",
+  ".wasm": "wasm",
   ".txt": "document",
 };

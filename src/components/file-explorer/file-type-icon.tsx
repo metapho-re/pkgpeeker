@@ -11,6 +11,7 @@ interface IconEntry {
   body: string;
   width?: number;
   height?: number;
+  top?: number;
 }
 
 const icons = iconsData.icons as Record<string, IconEntry>;
@@ -50,12 +51,13 @@ export const FileTypeIcon = ({ fileName, isDirectory, isExpanded }: Props) => {
 
   const width = icon.width ?? defaultWidth;
   const height = icon.height ?? defaultHeight;
+  const top = icon.top ?? 0;
 
   return (
     <svg
       width={ICON_SIZE}
       height={ICON_SIZE}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 ${top} ${width} ${height}`}
       dangerouslySetInnerHTML={{ __html: icon.body }}
     />
   );
