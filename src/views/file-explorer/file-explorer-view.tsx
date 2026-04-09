@@ -7,18 +7,20 @@ import {
   FileTree,
   FileViewer,
   TreeNavigator,
-  useTreeNavigatorState,
+  type TreeNavigatorState,
 } from "../../components";
 import { DependencyTreeData } from "../../types";
 
 interface Props {
   dependencyTreeData: DependencyTreeData;
   webContainerInstance: WebContainer | null;
+  treeNavigatorState: TreeNavigatorState;
 }
 
 export const FileExplorerView = ({
   dependencyTreeData,
   webContainerInstance,
+  treeNavigatorState,
 }: Props) => {
   const [selectedFilePath, setSelectedFilePath] = useState<string | null>(null);
 
@@ -28,7 +30,7 @@ export const FileExplorerView = ({
     selectedPath,
     selectPath,
     toggleExpand,
-  } = useTreeNavigatorState(dependencyTreeData);
+  } = treeNavigatorState;
 
   const handleSelectPackage = useCallback(
     (path: string) => {

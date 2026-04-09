@@ -16,15 +16,17 @@ const getInitialExpandedPaths = (dependencyTreeData: DependencyTreeData) =>
     ),
   );
 
-export const useTreeNavigatorState = (
-  dependencyTreeData: DependencyTreeData,
-): {
+export interface TreeNavigatorState {
   expandedPaths: Set<string>;
   selectedEntry: ({ packageName: string } & PackageInformation) | null;
   selectedPath: string | null;
   selectPath: (path: string) => void;
   toggleExpand: (path: string) => void;
-} => {
+}
+
+export const useTreeNavigatorState = (
+  dependencyTreeData: DependencyTreeData,
+): TreeNavigatorState => {
   const [selectedPath, setSelectedPath] = useState(() =>
     getInitialSelectedPath(dependencyTreeData),
   );

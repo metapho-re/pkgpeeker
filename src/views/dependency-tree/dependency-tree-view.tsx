@@ -5,22 +5,26 @@ import { useCallback } from "react";
 import {
   PackageDetail,
   TreeNavigator,
-  useTreeNavigatorState,
+  type TreeNavigatorState,
 } from "../../components";
 import { DependencyTreeData } from "../../types";
 
 interface Props {
   dependencyTreeData: DependencyTreeData;
+  treeNavigatorState: TreeNavigatorState;
 }
 
-export const DependencyTreeView = ({ dependencyTreeData }: Props) => {
+export const DependencyTreeView = ({
+  dependencyTreeData,
+  treeNavigatorState,
+}: Props) => {
   const {
     expandedPaths,
     selectedEntry,
     selectedPath,
     selectPath,
     toggleExpand,
-  } = useTreeNavigatorState(dependencyTreeData);
+  } = treeNavigatorState;
 
   const handleSelect = useCallback(
     (path: string) => {
