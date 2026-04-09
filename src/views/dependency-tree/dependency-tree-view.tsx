@@ -26,7 +26,7 @@ export const DependencyTreeView = ({
     toggleExpand,
   } = treeNavigatorState;
 
-  const handleSelect = useCallback(
+  const handleSelect = useCallback<(path: string) => void>(
     (path: string) => {
       selectPath(path);
 

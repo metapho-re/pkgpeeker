@@ -18,9 +18,9 @@ interface Props {
 export const Popover = ({ content, children }: PropsWithChildren<Props>) => {
   const ref = useRef<HTMLSpanElement>(null);
 
-  const [top, setTop] = useState(0);
-  const [left, setLeft] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [top, setTop] = useState<number>(0);
+  const [left, setLeft] = useState<number>(0);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const handleMouseEnter: MouseEventHandler<HTMLSpanElement> = () => {
     const rect = ref.current?.getBoundingClientRect();

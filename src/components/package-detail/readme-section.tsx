@@ -29,7 +29,7 @@ interface Props {
 }
 
 export const ReadmeSection = ({ readme }: Props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [highlighter, setHighlighter] = useState<HighlighterCore | null>(null);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const ReadmeSection = ({ readme }: Props) => {
     });
   }, [readme]);
 
-  const html = useMemo(() => {
+  const html = useMemo<string | null>(() => {
     if (!highlighter) {
       return null;
     }

@@ -30,7 +30,7 @@ export const FileTreeNode = ({
   webContainerInstance,
   onSelect,
 }: Props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [children, setChildren] = useState<FileTreeEntry[] | null>(null);
 
   const handleClick = async () => {

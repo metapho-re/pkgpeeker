@@ -32,7 +32,7 @@ export const FileExplorerView = ({
     toggleExpand,
   } = treeNavigatorState;
 
-  const handleSelectPackage = useCallback(
+  const handleSelectPackage = useCallback<(path: string) => void>(
     (path: string) => {
       selectPath(path);
       setSelectedFilePath(null);

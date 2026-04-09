@@ -17,7 +17,7 @@ export const useUserInput = (
   handleReset: () => void;
   handleUserInputChange: ChangeEventHandler<HTMLInputElement>;
 } => {
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState<string>("");
   const {
     appState,
     hasError,
