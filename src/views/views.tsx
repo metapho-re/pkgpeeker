@@ -8,7 +8,7 @@ import { DependencyTreeView } from "./dependency-tree";
 import { FileExplorerView } from "./file-explorer";
 import { SecurityInsightsView } from "./security-insights";
 
-interface ViewsProps {
+interface Props {
   ref: React.RefObject<HTMLDivElement | null>;
   dependencyTreeData: DependencyTreeData;
   webContainerInstance: WebContainer | null;
@@ -18,7 +18,7 @@ export const Views = ({
   ref,
   dependencyTreeData,
   webContainerInstance,
-}: ViewsProps) => {
+}: Props) => {
   const treeNavigatorState = useTreeNavigatorState(dependencyTreeData);
 
   return (

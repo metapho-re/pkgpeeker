@@ -6,7 +6,7 @@ import { AppState, DependencyTreeData, NpmDependencyTree } from "../types";
 
 const npmListAllJsonRegExp = /{(?:.*|\r\n)*}/;
 
-export const useWebContainer = (): {
+interface ReturnType {
   appState: AppState;
   hasError: boolean;
   isLoading: boolean;
@@ -15,7 +15,9 @@ export const useWebContainer = (): {
   spawnMainProcess: (
     packageList: string[],
   ) => Promise<DependencyTreeData | null>;
-} => {
+}
+
+export const useWebContainer = (): ReturnType => {
   const hasBooted = useRef<boolean>(false);
   const [appState, setAppState] = useState<AppState>("idle");
   const [hasError, setError] = useState<boolean>(false);

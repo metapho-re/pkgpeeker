@@ -12,7 +12,7 @@ import {
 
 import { getInstallationPath } from "./get-installation-path";
 
-interface Props {
+interface Params {
   webContainerInstance: WebContainer | undefined;
   npmDependencyTree: NpmDependencyTree;
   nestedDependencyPaths: NestedDependencyPaths;
@@ -30,7 +30,7 @@ export const getDependencyTree = async ({
   maxDepth,
   depth,
   dependencyPath,
-}: Props): Promise<DependencyTree> =>
+}: Params): Promise<DependencyTree> =>
   await Object.entries(npmDependencyTree).reduce(
     async (
       dependencyTreePromise: Promise<DependencyTree>,

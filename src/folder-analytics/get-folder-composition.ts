@@ -3,7 +3,7 @@ import { DirEnt, WebContainer } from "@webcontainer/api";
 import { FileDetails } from "../types";
 import { getExtension } from "../utils";
 
-interface Props {
+interface Params {
   webContainerInstance: WebContainer | undefined;
   installationPath: string;
 }
@@ -11,7 +11,7 @@ interface Props {
 export const getFolderComposition = async ({
   webContainerInstance,
   installationPath,
-}: Props): Promise<FileDetails[]> => {
+}: Params): Promise<FileDetails[]> => {
   const folderContentList: DirEnt<string>[] = [];
 
   try {

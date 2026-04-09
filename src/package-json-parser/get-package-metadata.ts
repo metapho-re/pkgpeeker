@@ -9,10 +9,10 @@ import { parseLicense } from "./parse-license";
 import { parseModuleFormat } from "./parse-module-format";
 import { parseRepository } from "./parse-repository";
 
-const nullifyNonString = (value: unknown) =>
+const nullifyNonString = (value: unknown): string | null =>
   typeof value === "string" ? value : null;
 
-interface Props {
+interface Params {
   webContainerInstance: WebContainer | undefined;
   installationPath: string;
 }
@@ -20,7 +20,7 @@ interface Props {
 export const getPackageMetadata = async ({
   webContainerInstance,
   installationPath,
-}: Props): Promise<PackageMetadata | null> => {
+}: Params): Promise<PackageMetadata | null> => {
   let packageJson: string | undefined;
 
   try {

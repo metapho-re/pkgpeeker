@@ -1,6 +1,6 @@
 import { ModuleFormat } from "../types";
 
-interface Props {
+interface Params {
   type?: string;
   main?: string;
   module?: string;
@@ -35,7 +35,7 @@ export const parseModuleFormat = ({
   main,
   module,
   exports,
-}: Props): ModuleFormat => {
+}: Params): ModuleFormat => {
   const isEsmType = type === "module";
   const hasCjsEntry = typeof main === "string" && main.endsWith(".cjs");
   const hasEsmEntry = typeof module === "string";

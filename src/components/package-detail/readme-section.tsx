@@ -6,7 +6,7 @@ import { type HighlighterCore } from "shiki/core";
 
 import { getHighlighter, loadLanguages } from "../../utils";
 
-function createMarked(highlighter: HighlighterCore) {
+const createMarked = (highlighter: HighlighterCore): Marked => {
   return new Marked({
     renderer: {
       code({ text, lang }) {
@@ -22,7 +22,7 @@ function createMarked(highlighter: HighlighterCore) {
       },
     },
   });
-}
+};
 
 interface Props {
   readme: string;

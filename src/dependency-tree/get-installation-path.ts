@@ -1,6 +1,6 @@
 import { NestedDependencyPaths, PackageIdentifier } from "../types";
 
-interface Props {
+interface Params {
   packageName: string;
   version: string;
   dependencyPath: PackageIdentifier[];
@@ -12,7 +12,7 @@ export const getInstallationPath = ({
   version,
   dependencyPath,
   nestedDependencyPaths,
-}: Props): string => {
+}: Params): string => {
   const availableNestedDependencyPaths =
     nestedDependencyPaths[`${packageName}@${version}`];
 

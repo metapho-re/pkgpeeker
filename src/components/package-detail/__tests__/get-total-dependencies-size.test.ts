@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { DependencyTree } from "../../../types";
+import { DependencyTree, PackageInformation } from "../../../types";
 
 import { getTotalDependenciesSize } from "../get-total-dependencies-size";
 
 const makePackage = (
   sizeInBytes: number,
   dependencies: DependencyTree = {},
-) => ({
+): PackageInformation => ({
   depth: 1,
   isDeduped: false,
   isExtraneous: false,

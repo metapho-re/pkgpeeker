@@ -4,9 +4,7 @@ import { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
 import { AppState, DependencyTreeData } from "../types";
 import { useWebContainer } from "../web-container";
 
-export const useUserInput = (
-  onDataGenerated: (data: DependencyTreeData | null) => void,
-): {
+interface ReturnType {
   appState: AppState;
   hasError: boolean;
   isLoading: boolean;
@@ -16,7 +14,11 @@ export const useUserInput = (
   handlePackagesInstallationOnEnter: KeyboardEventHandler<HTMLInputElement>;
   handleReset: () => void;
   handleUserInputChange: ChangeEventHandler<HTMLInputElement>;
-} => {
+}
+
+export const useUserInput = (
+  onDataGenerated: (data: DependencyTreeData | null) => void,
+): ReturnType => {
   const [userInput, setUserInput] = useState<string>("");
   const {
     appState,

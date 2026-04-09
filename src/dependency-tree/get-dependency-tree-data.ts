@@ -9,7 +9,7 @@ import {
 import { getDependencyTree } from "./get-dependency-tree";
 import { getNestedDependencyPaths } from "./get-nested-dependency-paths";
 
-interface Props {
+interface Params {
   webContainerInstance: WebContainer | undefined;
   npmDependencyTree: NpmDependencyTree;
 }
@@ -17,7 +17,7 @@ interface Props {
 export const getDependencyTreeData = async ({
   webContainerInstance,
   npmDependencyTree,
-}: Props): Promise<DependencyTreeData | null> => {
+}: Params): Promise<DependencyTreeData | null> => {
   const nestedDependencyPaths =
     await getNestedDependencyPaths(webContainerInstance);
 

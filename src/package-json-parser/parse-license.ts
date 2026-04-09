@@ -11,12 +11,12 @@ const undefinedLicense = {
 const getSPDXUrl = (type: string): string =>
   `https://spdx.org/licenses/${type}`;
 
-interface Props {
+interface Params {
   license: string | License | License[] | undefined;
   repositoryUrl: string | null;
 }
 
-export const parseLicense = ({ license, repositoryUrl }: Props): License[] => {
+export const parseLicense = ({ license, repositoryUrl }: Params): License[] => {
   if (typeof license === "string") {
     if (license === "UNLICENSED") {
       return [

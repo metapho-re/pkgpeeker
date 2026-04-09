@@ -6,7 +6,7 @@ import { getExtension } from "./get-extension";
 
 let highlighterPromise: Promise<HighlighterCore> | null = null;
 
-export function getHighlighter() {
+export const getHighlighter = (): Promise<HighlighterCore> => {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
       engine: createJavaScriptRegexEngine(),
@@ -26,12 +26,12 @@ export function getHighlighter() {
   }
 
   return highlighterPromise;
-}
+};
 
-export async function loadLanguages(
+export const loadLanguages = async (
   highlighter: HighlighterCore,
   languages: string[],
-) {
+): Promise<void> => {
   const loadedLanguages = new Set(highlighter.getLoadedLanguages());
   const missingLanguages = languages.filter(
     (language) =>
@@ -46,7 +46,7 @@ export async function loadLanguages(
       ),
     );
   }
-}
+};
 
 const EXTENSION_TO_LANGUAGE_MAP: Record<string, string> = {
   ".js": "javascript",
@@ -71,8 +71,8 @@ const EXTENSION_TO_LANGUAGE_MAP: Record<string, string> = {
   ".map": "json",
 };
 
-export function getLanguageFromPath(filePath: string): string | null {
+export const getLanguageFromPath = (filePath: string): string | null => {
   const extension = getExtension(filePath);
 
   return EXTENSION_TO_LANGUAGE_MAP[extension] ?? null;
-}
+};

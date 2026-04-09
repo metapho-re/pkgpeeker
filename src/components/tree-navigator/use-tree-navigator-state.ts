@@ -7,13 +7,17 @@ import {
   getTreePath,
 } from "../../utils";
 
-const getInitialSelectedPath = (dependencyTreeData: DependencyTreeData) => {
+const getInitialSelectedPath = (
+  dependencyTreeData: DependencyTreeData,
+): string | null => {
   const firstEntry = Object.values(dependencyTreeData.dependencyTree)[0];
 
   return firstEntry ? getTreePath(firstEntry.dependencyPath) : null;
 };
 
-const getInitialExpandedPaths = (dependencyTreeData: DependencyTreeData) =>
+const getInitialExpandedPaths = (
+  dependencyTreeData: DependencyTreeData,
+): Set<string> =>
   new Set(
     Object.values(dependencyTreeData.dependencyTree).map(({ dependencyPath }) =>
       getTreePath(dependencyPath),
