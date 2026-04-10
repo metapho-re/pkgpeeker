@@ -23,6 +23,7 @@ export const LandingPage = ({
     appState,
     hasError,
     isLoading,
+    shouldAutoInstall,
     userInput,
     webContainerInstance,
     handlePackagesInstallation,
@@ -36,6 +37,12 @@ export const LandingPage = ({
       onWebContainerReady(webContainerInstance);
     }
   }, [webContainerInstance, onWebContainerReady]);
+
+  useEffect(() => {
+    if (shouldAutoInstall && appState === "ready") {
+      handlePackagesInstallation();
+    }
+  }, [shouldAutoInstall, appState, handlePackagesInstallation]);
 
   const canInstall = !(isLoading || hasError || appState === "done");
   const canReset = hasError || dependencyTreeData !== null;

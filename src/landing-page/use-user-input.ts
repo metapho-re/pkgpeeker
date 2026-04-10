@@ -1,13 +1,16 @@
 import { WebContainer } from "@webcontainer/api";
 import { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
+import { useLocation } from "wouter";
 
 import { AppState, DependencyTreeData } from "../types";
+import { createLocation, getPackagesFromPath, parseLocation } from "../views";
 import { useWebContainer } from "../web-container";
 
 interface ReturnType {
   appState: AppState;
   hasError: boolean;
   isLoading: boolean;
+  shouldAutoInstall: boolean;
   userInput: string;
   webContainerInstance: WebContainer | undefined;
   handlePackagesInstallation: () => Promise<void>;
@@ -19,7 +22,9 @@ interface ReturnType {
 export const useUserInput = (
   onDataGenerated: (data: DependencyTreeData | null) => void,
 ): ReturnType => {
-  const [userInput, setUserInput] = useState<string>("");
+  const initialPackages = getPackagesFromPath(window.location.pathname);
+  const [userInput, setUserInput] = useState<string>(initialPackages);
+  const [location, navigate] = useLocation();
   const {
     appState,
     hasError,
@@ -35,7 +40,10 @@ export const useUserInput = (
     }
 
     const packageList = userInput.split(" ");
+    const packagesSegment = encodeURIComponent(packageList.join(","));
+    const { view } = parseLocation(location);
 
+    navigate(createLocation(packagesSegment, view));
     onDataGenerated(await spawnMainProcess(packageList));
 
     setTimeout(() => {
@@ -56,6 +64,7 @@ export const useUserInput = (
   const handleReset = () => {
     setUserInput("");
     onDataGenerated(null);
+    navigate("/");
     reset();
   };
 
@@ -65,10 +74,13 @@ export const useUserInput = (
     setUserInput(event.target.value);
   };
 
+  const shouldAutoInstall = initialPackages.length > 0;
+
   return {
     appState,
     hasError,
     isLoading,
+    shouldAutoInstall,
     userInput,
     webContainerInstance,
     handlePackagesInstallation,

@@ -1,5 +1,5 @@
 import { WebContainer } from "@webcontainer/api";
-import { Redirect, Route, Switch } from "wouter";
+import { Route, Switch } from "wouter";
 
 import { TabBar, useTreeNavigatorState } from "../components";
 import { DependencyTreeData } from "../types";
@@ -25,23 +25,22 @@ export const Views = ({
     <div className="views-container" ref={ref}>
       <TabBar />
       <Switch>
-        <Route path="/">
-          <DependencyTreeView
-            dependencyTreeData={dependencyTreeData}
-            treeNavigatorState={treeNavigatorState}
-          />
-        </Route>
-        <Route path="/files">
+        <Route path="/*/files">
           <FileExplorerView
             dependencyTreeData={dependencyTreeData}
             webContainerInstance={webContainerInstance}
             treeNavigatorState={treeNavigatorState}
           />
         </Route>
-        <Route path="/security">
+        <Route path="/*/security">
           <SecurityInsightsView />
         </Route>
-        <Redirect to="/" />
+        <Route path="/*">
+          <DependencyTreeView
+            dependencyTreeData={dependencyTreeData}
+            treeNavigatorState={treeNavigatorState}
+          />
+        </Route>
       </Switch>
     </div>
   );
