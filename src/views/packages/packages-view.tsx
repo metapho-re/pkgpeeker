@@ -1,4 +1,4 @@
-import "./dependency-tree-view.css";
+import "./packages-view.css";
 
 import { useCallback } from "react";
 
@@ -14,7 +14,7 @@ interface Props {
   treeNavigatorState: TreeNavigatorState;
 }
 
-export const DependencyTreeView = ({
+export const PackagesView = ({
   dependencyTreeData,
   treeNavigatorState,
 }: Props) => {
@@ -42,7 +42,7 @@ export const DependencyTreeView = ({
   );
 
   return (
-    <div className="dependency-tree-view">
+    <div className="packages-view">
       <div className="master-detail-layout">
         <TreeNavigator
           dependencyTree={dependencyTreeData.dependencyTree}

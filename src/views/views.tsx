@@ -4,8 +4,8 @@ import { Route, Switch } from "wouter";
 import { TabBar, useTreeNavigatorState } from "../components";
 import { DependencyTreeData } from "../types";
 
-import { DependencyTreeView } from "./dependency-tree";
 import { FileExplorerView } from "./file-explorer";
+import { PackagesView } from "./packages";
 import { SecurityInsightsView } from "./security-insights";
 
 interface Props {
@@ -36,7 +36,7 @@ export const Views = ({
           <SecurityInsightsView />
         </Route>
         <Route path="/*">
-          <DependencyTreeView
+          <PackagesView
             dependencyTreeData={dependencyTreeData}
             treeNavigatorState={treeNavigatorState}
           />
