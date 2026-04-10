@@ -44,7 +44,7 @@ export const getDependencyTree = async ({
         return dependencyTree;
       }
 
-      const isDeduped = npmPackageInformation.overridden === true;
+      const isDeduped = !(npmPackageInformation.overridden === false);
       const isExtraneous = npmPackageInformation.extraneous === true;
       const invalidityDetails = npmPackageInformation.invalid || null;
 
