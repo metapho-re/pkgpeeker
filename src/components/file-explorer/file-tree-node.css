@@ -29,8 +29,8 @@
 
 .file-tree-node__chevron {
   flex-shrink: 0;
-  width: 8px;
-  font-size: 0.7rem;
+  width: 18px;
+  font-size: 0.95rem;
   text-align: center;
 }
 

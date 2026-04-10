@@ -40,8 +40,8 @@
 
 .tree-node__chevron {
   flex-shrink: 0;
-  width: 14px;
-  font-size: 0.75rem;
+  width: 18px;
+  font-size: 0.95rem;
   text-align: center;
   cursor: pointer;
   transition: transform var(--transition-speed) ease;
