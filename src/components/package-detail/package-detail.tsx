@@ -3,16 +3,10 @@ import "./package-detail.css";
 import { Fragment, useEffect, useRef } from "react";
 
 import { PackageInformation } from "../../types";
-import { getFormattedSize, getTreePath, getUnpkgUrl } from "../../utils";
+import { getFormattedSize, getTreePath } from "../../utils";
 
 import { FilesBreakdown } from "../files-breakdown";
-import {
-  MailIcon,
-  NpmIcon,
-  RepositoryIcon,
-  UnpkgIcon,
-  WebIcon,
-} from "../icons";
+import { MailIcon, NpmIcon, RepositoryIcon, WebIcon } from "../icons";
 import { Popover } from "../popover";
 import {
   DedupedTag,
@@ -137,15 +131,6 @@ export const PackageDetail = ({
               </a>
             </Popover>
           )}
-          <Popover content="Package content browser on UNPKG">
-            <a
-              className="detail-links__icon"
-              href={getUnpkgUrl({ packageName, version })}
-              target="_blank"
-            >
-              <UnpkgIcon />
-            </a>
-          </Popover>
           <Popover content="Package page on npm">
             <a
               className="detail-links__icon"
@@ -222,11 +207,7 @@ export const PackageDetail = ({
             <div className="detail-stat-card">
               <p className="detail-stat-card__label">Types</p>
               {packageMetadata.types ? (
-                <TypesTag
-                  packageName={packageName}
-                  version={version}
-                  types={packageMetadata.types}
-                />
+                <TypesTag />
               ) : (
                 <span className="detail-stat-card__value">None</span>
               )}

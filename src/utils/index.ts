@@ -10,4 +10,3 @@ export {
   getLanguageFromPath,
   loadLanguages,
 } from "./highlighter";
-export { getUnpkgUrl } from "./get-unpkg-url";
