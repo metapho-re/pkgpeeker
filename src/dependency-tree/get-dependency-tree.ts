@@ -13,7 +13,7 @@ import {
 import { getInstallationPath } from "./get-installation-path";
 
 interface Params {
-  webContainerInstance: WebContainer | undefined;
+  webContainerInstance: WebContainer | null;
   npmDependencyTree: NpmDependencyTree;
   nestedDependencyPaths: NestedDependencyPaths;
   packageDataIndex: PackageDataIndex;

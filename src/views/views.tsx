@@ -1,7 +1,7 @@
-import { WebContainer } from "@webcontainer/api";
 import { Route, Switch } from "wouter";
 
 import { TabBar, useTreeNavigatorState } from "../components";
+import { useAppStore } from "../store";
 import { DependencyTreeData } from "../types";
 
 import { FileExplorerView } from "./file-explorer";
@@ -9,20 +9,17 @@ import { PackagesView } from "./packages";
 import { SecurityInsightsView } from "./security-insights";
 
 interface Props {
-  ref: React.RefObject<HTMLDivElement | null>;
   dependencyTreeData: DependencyTreeData;
-  webContainerInstance: WebContainer | null;
 }
 
-export const Views = ({
-  ref,
-  dependencyTreeData,
-  webContainerInstance,
-}: Props) => {
+export const Views = ({ dependencyTreeData }: Props) => {
+  const webContainerInstance = useAppStore(
+    (state) => state.webContainerInstance,
+  );
   const treeNavigatorState = useTreeNavigatorState(dependencyTreeData);
 
   return (
-    <div className="views-container" ref={ref}>
+    <div className="views-container">
       <TabBar />
       <Switch>
         <Route path="/*/files">

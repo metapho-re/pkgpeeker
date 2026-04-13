@@ -10,7 +10,7 @@ interface PackageLockJson {
 }
 
 export const getNestedDependencyPaths = async (
-  webContainerInstance: WebContainer | undefined,
+  webContainerInstance: WebContainer | null,
 ): Promise<NestedDependencyPaths | null> => {
   let packageLockJson: PackageLockJson | undefined;
 

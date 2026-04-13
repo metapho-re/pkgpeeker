@@ -1,38 +1,24 @@
 import "./app.css";
 
-import { WebContainer } from "@webcontainer/api";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 import { LandingPage } from "./landing-page";
-import { DependencyTreeData } from "./types";
+import { useAppStore } from "./store";
 import { Views } from "./views";
 
 function App() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [dependencyTreeData, setDependencyTreeData] =
-    useState<DependencyTreeData | null>(null);
-  const [webContainerInstance, setWebContainerInstance] =
-    useState<WebContainer | null>(null);
+  const dependencyTreeData = useAppStore((state) => state.dependencyTreeData);
+  const boot = useAppStore((state) => state.boot);
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [dependencyTreeData]);
+    boot();
+  }, [boot]);
 
   return (
     <div>
-      <LandingPage
-        dependencyTreeData={dependencyTreeData}
-        onDataGenerated={setDependencyTreeData}
-        onWebContainerReady={setWebContainerInstance}
-      />
+      <LandingPage />
       {dependencyTreeData ? (
-        <Views
-          ref={ref}
-          dependencyTreeData={dependencyTreeData}
-          webContainerInstance={webContainerInstance}
-        />
+        <Views dependencyTreeData={dependencyTreeData} />
       ) : null}
     </div>
   );

@@ -10,7 +10,7 @@ import { getDependencyTree } from "./get-dependency-tree";
 import { getNestedDependencyPaths } from "./get-nested-dependency-paths";
 
 interface Params {
-  webContainerInstance: WebContainer | undefined;
+  webContainerInstance: WebContainer | null;
   npmDependencyTree: NpmDependencyTree;
 }
 

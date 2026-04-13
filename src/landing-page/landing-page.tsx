@@ -1,48 +1,84 @@
 import "./landing-page.css";
 
-import { WebContainer } from "@webcontainer/api";
-import { useEffect } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useLocation } from "wouter";
 
 import { PackageIcon, StatusIndicator } from "../components";
-import { DependencyTreeData } from "../types";
+import { useAppStore } from "../store";
+import { createLocation, getPackagesFromPath, parseLocation } from "../views";
 
-import { useUserInput } from "./use-user-input";
+export const LandingPage = () => {
+  const [location, navigate] = useLocation();
 
-interface Props {
-  dependencyTreeData: DependencyTreeData | null;
-  onDataGenerated: (data: DependencyTreeData | null) => void;
-  onWebContainerReady: (instance: WebContainer) => void;
-}
+  const appState = useAppStore((state) => state.appState);
+  const isLoading = useAppStore((state) => state.isLoading);
+  const hasError = useAppStore((state) => state.hasError);
+  const dependencyTreeData = useAppStore((state) => state.dependencyTreeData);
+  const installPackages = useAppStore((state) => state.installPackages);
+  const reset = useAppStore((state) => state.reset);
 
-export const LandingPage = ({
-  dependencyTreeData,
-  onDataGenerated,
-  onWebContainerReady,
-}: Props) => {
-  const {
-    appState,
-    hasError,
-    isLoading,
-    shouldAutoInstall,
-    userInput,
-    webContainerInstance,
-    handlePackagesInstallation,
-    handlePackagesInstallationOnEnter,
-    handleReset,
-    handleUserInputChange,
-  } = useUserInput(onDataGenerated);
+  const [initialPackages] = useState(() =>
+    getPackagesFromPath(window.location.pathname),
+  );
+  const shouldAutoInstall = initialPackages.length > 0;
 
-  useEffect(() => {
-    if (webContainerInstance) {
-      onWebContainerReady(webContainerInstance);
-    }
-  }, [webContainerInstance, onWebContainerReady]);
+  const [userInput, setUserInput] = useState(
+    shouldAutoInstall ? initialPackages : "",
+  );
+
+  const installAndNavigate = useCallback(
+    async (packages: string) => {
+      const packageList = packages.split(" ");
+      const packagesSegment = encodeURIComponent(packageList.join(","));
+      const { view } = parseLocation(location);
+
+      await installPackages(packageList);
+
+      navigate(createLocation(packagesSegment, view));
+    },
+    [location, installPackages, navigate],
+  );
 
   useEffect(() => {
     if (shouldAutoInstall && appState === "ready") {
+      installAndNavigate(initialPackages);
+    }
+  }, [shouldAutoInstall, appState, initialPackages, installAndNavigate]);
+
+  const handlePackagesInstallation = async () => {
+    if (!userInput) {
+      return;
+    }
+
+    await installAndNavigate(userInput);
+  };
+
+  const handlePackagesInstallationOnEnter: KeyboardEventHandler<
+    HTMLInputElement
+  > = (event) => {
+    if (event.key === "Enter") {
       handlePackagesInstallation();
     }
-  }, [shouldAutoInstall, appState, handlePackagesInstallation]);
+  };
+
+  const handleUserInputChange: ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setUserInput(event.target.value);
+  };
+
+  const handleReset = async () => {
+    await reset();
+
+    setUserInput("");
+    navigate("/");
+  };
 
   const canInstall = !(isLoading || hasError || appState === "done");
   const canReset = hasError || dependencyTreeData !== null;
@@ -65,7 +101,11 @@ export const LandingPage = ({
           onChange={handleUserInputChange}
           onKeyDown={handlePackagesInstallationOnEnter}
         />
-        {!canReset ? (
+        {canReset ? (
+          <button className="form__button" onClick={handleReset}>
+            Reset
+          </button>
+        ) : (
           <button
             className="form__button"
             disabled={!canInstall || userInput.length === 0}
@@ -73,12 +113,7 @@ export const LandingPage = ({
           >
             Peek
           </button>
-        ) : null}
-        {canReset ? (
-          <button className="form__button" onClick={handleReset}>
-            Reset
-          </button>
-        ) : null}
+        )}
       </div>
       <StatusIndicator appState={appState} hasError={hasError} />
     </div>

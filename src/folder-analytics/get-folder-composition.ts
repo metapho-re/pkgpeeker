@@ -4,7 +4,7 @@ import { FileDetails } from "../types";
 import { getExtension } from "../utils";
 
 interface Params {
-  webContainerInstance: WebContainer | undefined;
+  webContainerInstance: WebContainer | null;
   installationPath: string;
 }
 

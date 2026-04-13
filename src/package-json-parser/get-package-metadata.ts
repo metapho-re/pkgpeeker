@@ -13,7 +13,7 @@ const nullifyNonString = (value: unknown): string | null =>
   typeof value === "string" ? value : null;
 
 interface Params {
-  webContainerInstance: WebContainer | undefined;
+  webContainerInstance: WebContainer | null;
   installationPath: string;
 }
 
