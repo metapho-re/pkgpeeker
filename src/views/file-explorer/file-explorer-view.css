@@ -1,5 +1,5 @@
 .file-explorer-view {
-  height: calc(100vh - 80px);
+  height: 100%;
   box-sizing: border-box;
   animation: fade-slide-up 0.5s ease-out;
 }

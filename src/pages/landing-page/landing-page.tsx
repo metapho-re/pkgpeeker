@@ -5,65 +5,72 @@ import {
   KeyboardEventHandler,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { useLocation } from "wouter";
 
-import { PackageIcon, StatusIndicator } from "../components";
-import { useAppStore } from "../store";
-import { createLocation, getPackagesFromPath, parseLocation } from "../views";
+import { PackageIcon, StatusIndicator } from "../../components";
+import { useAppStore } from "../../store";
+import { withViewTransition } from "../../utils";
+import {
+  createLocation,
+  getPackagesFromPath,
+  parseLocation,
+} from "../../views";
 
-export const LandingPage = () => {
-  const [location, navigate] = useLocation();
+interface Props {
+  autoInstall?: boolean;
+}
 
+export const LandingPage = ({ autoInstall = false }: Props) => {
   const appState = useAppStore((state) => state.appState);
   const isLoading = useAppStore((state) => state.isLoading);
   const hasError = useAppStore((state) => state.hasError);
-  const dependencyTreeData = useAppStore((state) => state.dependencyTreeData);
   const installPackages = useAppStore((state) => state.installPackages);
-  const reset = useAppStore((state) => state.reset);
-
   const [initialPackages] = useState(() =>
-    getPackagesFromPath(window.location.pathname),
+    autoInstall ? getPackagesFromPath(window.location.pathname) : "",
   );
-  const shouldAutoInstall = initialPackages.length > 0;
-
-  const [userInput, setUserInput] = useState(
-    shouldAutoInstall ? initialPackages : "",
-  );
+  const [userInput, setUserInput] = useState(initialPackages);
+  const hasAutoInstalled = useRef(false);
+  const [location, navigate] = useLocation();
 
   const installAndNavigate = useCallback(
-    async (packages: string) => {
-      const packageList = packages.split(" ");
+    async (input: string) => {
+      if (!input) {
+        return;
+      }
+
+      const packageList = input.split(" ");
       const packagesSegment = encodeURIComponent(packageList.join(","));
       const { view } = parseLocation(location);
 
       await installPackages(packageList);
 
-      navigate(createLocation(packagesSegment, view));
+      withViewTransition(() => {
+        navigate(createLocation(packagesSegment, view));
+      });
     },
     [location, installPackages, navigate],
   );
 
   useEffect(() => {
-    if (shouldAutoInstall && appState === "ready") {
+    if (
+      autoInstall &&
+      initialPackages &&
+      appState === "ready" &&
+      !hasAutoInstalled.current
+    ) {
+      hasAutoInstalled.current = true;
       installAndNavigate(initialPackages);
     }
-  }, [shouldAutoInstall, appState, initialPackages, installAndNavigate]);
-
-  const handlePackagesInstallation = async () => {
-    if (!userInput) {
-      return;
-    }
-
-    await installAndNavigate(userInput);
-  };
+  }, [autoInstall, initialPackages, appState, installAndNavigate]);
 
   const handlePackagesInstallationOnEnter: KeyboardEventHandler<
     HTMLInputElement
   > = (event) => {
     if (event.key === "Enter") {
-      handlePackagesInstallation();
+      installAndNavigate(userInput);
     }
   };
 
@@ -73,15 +80,7 @@ export const LandingPage = () => {
     setUserInput(event.target.value);
   };
 
-  const handleReset = async () => {
-    await reset();
-
-    setUserInput("");
-    navigate("/");
-  };
-
   const canInstall = !(isLoading || hasError || appState === "done");
-  const canReset = hasError || dependencyTreeData !== null;
 
   return (
     <div className="landing-page">
@@ -95,25 +94,19 @@ export const LandingPage = () => {
       <div className="form">
         <input
           className="form__input"
-          placeholder="Try any npm package..."
+          placeholder="Try any npm package(s)..."
           disabled={!canInstall}
           value={userInput}
           onChange={handleUserInputChange}
           onKeyDown={handlePackagesInstallationOnEnter}
         />
-        {canReset ? (
-          <button className="form__button" onClick={handleReset}>
-            Reset
-          </button>
-        ) : (
-          <button
-            className="form__button"
-            disabled={!canInstall || userInput.length === 0}
-            onClick={handlePackagesInstallation}
-          >
-            Peek
-          </button>
-        )}
+        <button
+          className="form__button"
+          disabled={!canInstall || userInput.length === 0}
+          onClick={() => installAndNavigate(userInput)}
+        >
+          Peek
+        </button>
       </div>
       <StatusIndicator appState={appState} hasError={hasError} />
     </div>

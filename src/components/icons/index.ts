@@ -1,3 +1,4 @@
+export { GitHubIcon } from "./github-icon";
 export { MailIcon } from "./mail-icon";
 export { NpmIcon } from "./npm-icon";
 export { PackageIcon } from "./package-icon";

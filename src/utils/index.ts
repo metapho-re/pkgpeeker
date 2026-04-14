@@ -10,3 +10,4 @@ export {
   getLanguageFromPath,
   loadLanguages,
 } from "./highlighter";
+export { withViewTransition } from "./with-view-transition";

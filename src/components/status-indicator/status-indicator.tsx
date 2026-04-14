@@ -29,13 +29,7 @@ export const StatusIndicator = ({ appState, hasError }: Props) => (
               return <Spinner message="Crunching installation data..." />;
             }
             case "done": {
-              return (
-                <p>
-                  Explore the packages and their dependencies
-                  <br />
-                  to navigate through the dependency tree.
-                </p>
-              );
+              return null;
             }
             default:
               return null;

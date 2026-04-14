@@ -1,0 +1,75 @@
+.views-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 16px 16px 0;
+  overflow: hidden;
+}
+
+.views-content {
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 16px;
+  overflow: auto;
+}
+
+.views-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.views-icon-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  color: var(--foreground-color);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-bg);
+  cursor: pointer;
+  transition: background var(--transition-speed);
+}
+
+.views-icon-button:hover {
+  background: var(--glass-bg-hover);
+}
+
+.views-github-link {
+  right: 16px;
+}
+
+::view-transition-old(page) {
+  animation: page-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+::view-transition-new(page) {
+  animation: page-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes page-out {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes page-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

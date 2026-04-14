@@ -1,0 +1,15 @@
+.results-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  view-transition-name: page;
+}
+
+.results-page__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
