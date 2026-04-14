@@ -1,4 +1,4 @@
-import { ModuleFormat } from "../types";
+import { ModuleFormat } from "../../types";
 
 interface Params {
   type?: string;

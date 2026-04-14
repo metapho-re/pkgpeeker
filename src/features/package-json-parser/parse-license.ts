@@ -1,4 +1,4 @@
-import { License } from "../types";
+import { License } from "../../types";
 
 const multipleLicensesRegExp = /^\(?([\w.-]+(?:\s+OR\s+[\w.-]+)+)\)?$/;
 const fileNameLicenseRegExp = /SEE\sLICENSE\sIN\s([\w.-/]*)/;

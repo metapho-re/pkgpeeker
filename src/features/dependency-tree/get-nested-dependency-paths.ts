@@ -1,6 +1,6 @@
 import { WebContainer } from "@webcontainer/api";
 
-import { NestedDependencyPaths } from "../types";
+import { NestedDependencyPaths } from "../../types";
 
 const nestedDependencyRegExp = /node_modules\/.*\/node_modules\/.*/;
 const endingSlashRegExp = /\/$/g;

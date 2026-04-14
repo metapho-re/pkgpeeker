@@ -1,14 +1,15 @@
 import { WebContainer } from "@webcontainer/api";
 
-import { getFolderComposition, getFolderStatistics } from "../folder-analytics";
-import { getPackageMetadata } from "../package-json-parser";
 import {
   DependencyTree,
   NestedDependencyPaths,
   NpmDependencyTree,
   PackageDataIndex,
   PackageIdentifier,
-} from "../types";
+} from "../../types";
+
+import { getFolderComposition, getFolderStatistics } from "../folder-analytics";
+import { getPackageMetadata } from "../package-json-parser";
 
 import { getInstallationPath } from "./get-installation-path";
 

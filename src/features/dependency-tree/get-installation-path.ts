@@ -1,4 +1,4 @@
-import { NestedDependencyPaths, PackageIdentifier } from "../types";
+import { NestedDependencyPaths, PackageIdentifier } from "../../types";
 
 interface Params {
   packageName: string;

@@ -1,4 +1,4 @@
-import { FileDetails, FolderStatistics } from "../types";
+import { FileDetails, FolderStatistics } from "../../types";
 
 export const getFolderStatistics = (
   folderComposition: FileDetails[],

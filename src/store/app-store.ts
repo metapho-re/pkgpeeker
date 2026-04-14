@@ -1,7 +1,7 @@
 import { WebContainer } from "@webcontainer/api";
 import { create } from "zustand";
 
-import { getDependencyTreeData } from "../dependency-tree";
+import { getDependencyTreeData } from "../features";
 import { AppState, DependencyTreeData, NpmDependencyTree } from "../types";
 
 const npmListAllJsonRegExp = /{(?:.*|\r\n)*}/;
