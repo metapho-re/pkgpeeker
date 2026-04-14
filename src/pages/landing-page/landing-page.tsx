@@ -28,6 +28,7 @@ export const LandingPage = ({ autoInstall = false }: Props) => {
   const isLoading = useAppStore((state) => state.isLoading);
   const hasError = useAppStore((state) => state.hasError);
   const installPackages = useAppStore((state) => state.installPackages);
+  const reset = useAppStore((state) => state.reset);
   const [initialPackages] = useState(() =>
     autoInstall ? getPackagesFromPath(window.location.pathname) : "",
   );
@@ -80,6 +81,12 @@ export const LandingPage = ({ autoInstall = false }: Props) => {
     setUserInput(event.target.value);
   };
 
+  const handleReset = useCallback(() => {
+    setUserInput("");
+    reset();
+    navigate("/");
+  }, [reset, navigate]);
+
   const canInstall = !(isLoading || hasError || appState === "done");
 
   return (
@@ -100,13 +107,19 @@ export const LandingPage = ({ autoInstall = false }: Props) => {
           onChange={handleUserInputChange}
           onKeyDown={handlePackagesInstallationOnEnter}
         />
-        <button
-          className="form__button"
-          disabled={!canInstall || userInput.length === 0}
-          onClick={() => installAndNavigate(userInput)}
-        >
-          Peek
-        </button>
+        {hasError ? (
+          <button className="form__button" onClick={handleReset}>
+            Reset
+          </button>
+        ) : (
+          <button
+            className="form__button"
+            disabled={!canInstall || userInput.length === 0}
+            onClick={() => installAndNavigate(userInput)}
+          >
+            Peek
+          </button>
+        )}
       </div>
       <StatusIndicator appState={appState} hasError={hasError} />
     </div>
