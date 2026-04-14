@@ -26,7 +26,11 @@ export const Views = ({ dependencyTreeData }: Props) => {
   return (
     <div className="views-container">
       <div className="views-toolbar">
-        <button className="views-icon-button" onClick={handleHomeClick}>
+        <button
+          className="views-icon-button"
+          title="Back to home"
+          onClick={handleHomeClick}
+        >
           <PackageIcon size="25px" />
         </button>
         <TabBar />
