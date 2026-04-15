@@ -1,5 +1,6 @@
 .popover-anchor {
   display: inline-flex;
+  align-self: flex-start;
 }
 
 .popover {
