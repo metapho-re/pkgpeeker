@@ -1,3 +1,4 @@
+export { DonutChart } from "./donut-chart";
 export { FileTree, FileViewer } from "./file-explorer";
 export { GitHubIcon, PackageIcon } from "./icons";
 export { PackageDetail } from "./package-detail";
