@@ -1,6 +1,6 @@
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 
-import {
+import type {
   DependencyTreeData,
   NpmDependencyTree,
   PackageDataIndex,

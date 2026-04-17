@@ -1,4 +1,4 @@
-import { License } from "../../types";
+import type { License } from "../../types";
 
 import { BaseTag } from "./base-tag";
 

@@ -1,4 +1,4 @@
-import { ModuleFormat } from "../../types";
+import type { ModuleFormat } from "../../types";
 
 import { BaseTag } from "./base-tag";
 

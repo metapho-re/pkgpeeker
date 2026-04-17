@@ -2,7 +2,7 @@ import { Route, Switch } from "wouter";
 
 import { useTreeNavigatorState } from "../components";
 import { useAppStore } from "../store";
-import { DependencyTreeData } from "../types";
+import type { DependencyTreeData } from "../types";
 import {
   FileExplorerView,
   PackagesView,

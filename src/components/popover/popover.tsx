@@ -1,9 +1,9 @@
 import "./popover.css";
 
 import {
-  MouseEventHandler,
-  PropsWithChildren,
-  ReactNode,
+  type MouseEventHandler,
+  type PropsWithChildren,
+  type ReactNode,
   useRef,
   useState,
 } from "react";

@@ -1,6 +1,6 @@
 import "./file-tree-node.css";
 
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 import { useState } from "react";
 
 import { getFormattedSize } from "../../utils";

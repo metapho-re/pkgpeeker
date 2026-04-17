@@ -2,7 +2,7 @@ import "./package-detail.css";
 
 import { Fragment, useEffect, useRef } from "react";
 
-import { PackageInformation } from "../../types";
+import type { PackageInformation } from "../../types";
 import {
   getFormattedSize,
   getTotalDependenciesSize,

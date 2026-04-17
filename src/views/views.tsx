@@ -6,7 +6,7 @@ import { useLocation } from "wouter";
 import { GitHubIcon, PackageIcon, TabBar } from "../components";
 import { ViewRoutes } from "../routes";
 import { useAppStore } from "../store";
-import { DependencyTreeData } from "../types";
+import type { DependencyTreeData } from "../types";
 import { withViewTransition } from "../utils";
 
 interface Props {

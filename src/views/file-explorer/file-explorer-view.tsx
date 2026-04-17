@@ -1,6 +1,6 @@
 import "./file-explorer-view.css";
 
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 import { useCallback, useState } from "react";
 
 import {
@@ -9,7 +9,7 @@ import {
   TreeNavigator,
   type TreeNavigatorState,
 } from "../../components";
-import { DependencyTreeData } from "../../types";
+import type { DependencyTreeData } from "../../types";
 
 interface Props {
   dependencyTreeData: DependencyTreeData;

@@ -1,6 +1,6 @@
-import { DirEnt, WebContainer } from "@webcontainer/api";
+import type { DirEnt, WebContainer } from "@webcontainer/api";
 
-import { FileDetails } from "../../types";
+import type { FileDetails } from "../../types";
 import { getExtension } from "../../utils";
 
 interface Params {

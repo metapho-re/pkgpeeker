@@ -1,6 +1,6 @@
 import "./status-indicator.css";
 
-import { AppState } from "../../types";
+import type { AppState } from "../../types";
 
 import { Spinner } from "./spinner";
 

@@ -1,6 +1,6 @@
 import "./tree-navigator.css";
 
-import { DependencyTree } from "../../types";
+import type { DependencyTree } from "../../types";
 import { getFormattedSize, getTreePath } from "../../utils";
 
 interface Props {

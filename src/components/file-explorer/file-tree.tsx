@@ -1,7 +1,7 @@
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 import { useEffect, useState } from "react";
 
-import { FileTreeEntry, FileTreeNode } from "./file-tree-node";
+import { type FileTreeEntry, FileTreeNode } from "./file-tree-node";
 import { readDirectory } from "./read-directory";
 
 interface Props {

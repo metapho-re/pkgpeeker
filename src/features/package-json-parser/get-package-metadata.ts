@@ -1,6 +1,6 @@
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 
-import { PackageMetadata } from "../../types";
+import type { PackageMetadata } from "../../types";
 
 import { parseAuthor } from "./parse-author";
 import { parseEngines } from "./parse-engines";

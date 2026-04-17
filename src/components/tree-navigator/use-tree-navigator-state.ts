@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { DependencyTreeData, PackageInformation } from "../../types";
+import type { DependencyTreeData, PackageInformation } from "../../types";
 import {
   type FlatDependencyIndex,
   flattenDependencyTree,

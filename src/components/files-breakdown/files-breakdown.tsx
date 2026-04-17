@@ -2,7 +2,7 @@ import "./files-breakdown.css";
 
 import { useState } from "react";
 
-import { FolderStatistics } from "../../types";
+import type { FolderStatistics } from "../../types";
 import { getFormattedSize } from "../../utils";
 
 import { Popover } from "../popover";

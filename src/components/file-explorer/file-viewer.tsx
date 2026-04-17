@@ -1,8 +1,8 @@
 import "./file-viewer.css";
 
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 import { useEffect, useRef, useState } from "react";
-import { type ThemedToken } from "shiki/core";
+import type { ThemedToken } from "shiki/core";
 
 import {
   getFormattedSize,

@@ -1,6 +1,6 @@
 import "./tree-navigator.css";
 
-import { DependencyTree } from "../../types";
+import type { DependencyTree } from "../../types";
 import { getTreePath } from "../../utils";
 
 import { TreeNode } from "./tree-node";

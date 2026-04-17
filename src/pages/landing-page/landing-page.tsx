@@ -1,9 +1,9 @@
 import "./landing-page.css";
 
 import {
-  ChangeEventHandler,
-  DragEventHandler,
-  KeyboardEventHandler,
+  type ChangeEventHandler,
+  type DragEventHandler,
+  type KeyboardEventHandler,
   useCallback,
   useEffect,
   useRef,

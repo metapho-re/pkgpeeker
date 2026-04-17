@@ -1,6 +1,6 @@
-import { WebContainer } from "@webcontainer/api";
+import type { WebContainer } from "@webcontainer/api";
 
-import { FileTreeEntry } from "./file-tree-node";
+import type { FileTreeEntry } from "./file-tree-node";
 
 export const readDirectory = async (
   webContainerInstance: WebContainer,

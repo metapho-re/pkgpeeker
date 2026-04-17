@@ -7,7 +7,7 @@ import {
   TreeNavigator,
   type TreeNavigatorState,
 } from "../../components";
-import { DependencyTreeData } from "../../types";
+import type { DependencyTreeData } from "../../types";
 
 interface Props {
   dependencyTreeData: DependencyTreeData;

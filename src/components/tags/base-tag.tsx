@@ -1,6 +1,6 @@
 import "./tags.css";
 
-import { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
 import { Popover } from "../popover";
 
