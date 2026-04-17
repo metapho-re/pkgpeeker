@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { DependencyTree, PackageInformation } from "../../../types";
+import { DependencyTree, PackageInformation } from "../../types";
 
 import { getTotalDependenciesSize } from "../get-total-dependencies-size";
 

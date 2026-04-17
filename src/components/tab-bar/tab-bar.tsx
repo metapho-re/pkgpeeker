@@ -12,6 +12,7 @@ interface Tab {
 const tabs: Tab[] = [
   { label: "Packages", view: "" },
   { label: "File Explorer", view: "files" },
+  { label: "Size Analysis", view: "size" },
   { label: "Security Insights", view: "security" },
 ];
 

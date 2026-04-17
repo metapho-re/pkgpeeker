@@ -3,7 +3,12 @@ import { Route, Switch } from "wouter";
 import { useTreeNavigatorState } from "../components";
 import { useAppStore } from "../store";
 import { DependencyTreeData } from "../types";
-import { FileExplorerView, PackagesView, SecurityInsightsView } from "../views";
+import {
+  FileExplorerView,
+  PackagesView,
+  SecurityInsightsView,
+  SizeAnalysisView,
+} from "../views";
 
 interface Props {
   dependencyTreeData: DependencyTreeData;
@@ -23,6 +28,9 @@ export const ViewRoutes = ({ dependencyTreeData }: Props) => {
           webContainerInstance={webContainerInstance}
           treeNavigatorState={treeNavigatorState}
         />
+      </Route>
+      <Route path="/*/size">
+        <SizeAnalysisView dependencyTreeData={dependencyTreeData} />
       </Route>
       <Route path="/*/security">
         <SecurityInsightsView />

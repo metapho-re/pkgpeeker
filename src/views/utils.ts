@@ -1,4 +1,4 @@
-export const views = ["", "files", "security"] as const;
+export const views = ["", "files", "size", "security"] as const;
 
 export type View = (typeof views)[number];
 

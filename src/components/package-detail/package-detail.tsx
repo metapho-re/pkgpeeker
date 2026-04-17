@@ -3,7 +3,11 @@ import "./package-detail.css";
 import { Fragment, useEffect, useRef } from "react";
 
 import { PackageInformation } from "../../types";
-import { getFormattedSize, getTreePath } from "../../utils";
+import {
+  getFormattedSize,
+  getTotalDependenciesSize,
+  getTreePath,
+} from "../../utils";
 
 import { FilesBreakdown } from "../files-breakdown";
 import { MailIcon, NpmIcon, RepositoryIcon, WebIcon } from "../icons";
@@ -21,7 +25,6 @@ import {
 } from "../tags";
 
 import { getNpmUrl } from "./get-npm-url";
-import { getTotalDependenciesSize } from "./get-total-dependencies-size";
 import { ReadmeSection } from "./readme-section";
 
 interface Props {
