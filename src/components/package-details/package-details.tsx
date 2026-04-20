@@ -1,4 +1,4 @@
-import "./package-detail.css";
+import "./package-details.css";
 
 import { Fragment, useEffect, useRef } from "react";
 
@@ -33,7 +33,7 @@ interface Props {
   onNavigate: (path: string) => void;
 }
 
-export const PackageDetail = ({
+export const PackageDetails = ({
   packageName,
   packageInformation,
   onNavigate,

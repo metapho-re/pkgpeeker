@@ -3,7 +3,7 @@ import "./packages-view.css";
 import { useCallback } from "react";
 
 import {
-  PackageDetail,
+  PackageDetails,
   TreeNavigator,
   type TreeNavigatorState,
 } from "../../components";
@@ -52,7 +52,7 @@ export const PackagesView = ({
           onToggleExpand={toggleExpand}
         />
         {selectedEntry ? (
-          <PackageDetail
+          <PackageDetails
             packageName={selectedEntry.packageName}
             packageInformation={selectedEntry}
             onNavigate={handleSelect}
