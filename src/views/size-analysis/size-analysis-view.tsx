@@ -44,11 +44,11 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
 
   const { maxSize, totalSize } = compositionData;
 
-  const handleSortKeyChange = (key: SortKey) => {
+  const handleChangeSortKey = (key: SortKey) => {
     setSortKey(key);
   };
 
-  const handleDirectionToggle = () => {
+  const handleToggleDirection = () => {
     setSortDirection((previousState) =>
       previousState === "desc" ? "asc" : "desc",
     );
@@ -63,11 +63,11 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
             <Dropdown
               options={sortOptions}
               value={sortKey}
-              onChange={handleSortKeyChange}
+              onChange={handleChangeSortKey}
             />
             <button
               className="size-list__direction"
-              onClick={handleDirectionToggle}
+              onClick={handleToggleDirection}
               title={sortDirection === "desc" ? "Descending" : "Ascending"}
             >
               {sortDirection === "desc" ? "\u25BE" : "\u25B4"}
