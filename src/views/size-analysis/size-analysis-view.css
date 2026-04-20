@@ -10,15 +10,6 @@
   overflow: auto;
 }
 
-.size-analysis-view__placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: var(--color-muted);
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
-}
 
 .size-list {
   width: 480px;

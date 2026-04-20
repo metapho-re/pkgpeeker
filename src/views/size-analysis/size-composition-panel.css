@@ -1,0 +1,97 @@
+.size-composition {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.size-composition__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.composition-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--glass-bg-dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition:
+    border-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.composition-stat-card:hover {
+  border-color: var(--glow-border);
+  box-shadow: 0 0 16px var(--glow-shadow);
+}
+
+.composition-stat-card__label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-family: "Mona Sans Bold", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.composition-stat-card__value {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: "Mona Sans Bold", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.composition-stat-card__value--green {
+  color: var(--color-green);
+}
+
+.composition-stat-card__value--blue {
+  color: var(--color-blue-light);
+}
+
+.composition-stat-card__value--orange {
+  color: var(--color-orange);
+}
+
+.composition-stat-card__sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.composition-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--glass-bg-dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+}
+
+.composition-section__header {
+  margin: 0;
+  font-size: 0.75rem;
+  font-family: "Mona Sans Bold", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.composition-charts {
+  display: flex;
+  gap: 20px;
+}
+
+.composition-charts > * {
+  flex: 1 1 50%;
+  min-width: 0;
+}

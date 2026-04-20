@@ -5,8 +5,10 @@ import { type ChangeEvent, useMemo, useState } from "react";
 import type { DependencyTreeData } from "../../types";
 import { getFormattedSize } from "../../utils";
 
+import { SizeCompositionPanel } from "./size-composition-panel";
 import {
   getRows,
+  getSizeCompositionData,
   getSortedRows,
   type SortDirection,
   type SortKey,
@@ -32,25 +34,14 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
 
   const rows = useMemo(() => getRows(dependencyTreeData), [dependencyTreeData]);
 
+  const compositionData = useMemo(() => getSizeCompositionData(rows), [rows]);
+
   const sortedRows = useMemo(
     () => getSortedRows({ rows, sortKey, sortDirection }),
     [rows, sortKey, sortDirection],
   );
 
-  const { maxSize, totalSize } = useMemo(() => {
-    let maxSize = 1;
-    let totalSize = 0;
-
-    for (const row of rows) {
-      if (row.size > maxSize) {
-        maxSize = row.size;
-      }
-
-      totalSize += row.size;
-    }
-
-    return { maxSize, totalSize: totalSize || 1 };
-  }, [rows]);
+  const { maxSize, totalSize } = compositionData;
 
   const handleSortKeyChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSortKey(event.target.value as SortKey);
@@ -89,7 +80,7 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
           </div>
           <div className="size-list__items">
             {sortedRows.map((row) => {
-              const percentage = (row.size / totalSize) * 100;
+              const percentage = (row.size / (totalSize || 1)) * 100;
               const percentageLabel =
                 percentage > 0 && percentage < 0.1
                   ? "<0.1%"
@@ -141,7 +132,9 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
                   <div className="size-list-item__bar-track">
                     <div
                       className="size-list-item__bar-fill"
-                      style={{ width: `${(row.size / maxSize) * 100}%` }}
+                      style={{
+                        width: `${(row.size / (maxSize || 1)) * 100}%`,
+                      }}
                     />
                   </div>
                 </div>
@@ -150,9 +143,10 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
           </div>
         </div>
         <div className="size-analysis-view__detail">
-          <div className="size-analysis-view__placeholder">
-            Insights coming soon
-          </div>
+          <SizeCompositionPanel
+            data={compositionData}
+            packageCount={rows.length}
+          />
         </div>
       </div>
     </div>
