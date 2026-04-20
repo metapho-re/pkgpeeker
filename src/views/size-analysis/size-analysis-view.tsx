@@ -1,7 +1,8 @@
 import "./size-analysis-view.css";
 
-import { type ChangeEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
+import { Dropdown } from "../../components";
 import type { DependencyTreeData } from "../../types";
 import { getFormattedSize } from "../../utils";
 
@@ -14,15 +15,15 @@ import {
   type SortKey,
 } from "./utils";
 
-const sortLabelEntries = Object.entries({
-  size: "Package size",
-  fileCount: "Package file count",
-  directDependencyCount: "Direct dependency count",
-  transitiveDependencyCount: "Transitive dependency count",
-  dependenciesSize: "Total dependencies size",
-  depth: "Tree depth",
-  name: "Package name",
-} satisfies Record<SortKey, string>) as [SortKey, string][];
+const sortOptions: { key: SortKey; label: string }[] = [
+  { key: "size", label: "Package size" },
+  { key: "fileCount", label: "Package file count" },
+  { key: "directDependencyCount", label: "Direct dependency count" },
+  { key: "transitiveDependencyCount", label: "Transitive dependency count" },
+  { key: "dependenciesSize", label: "Total dependencies size" },
+  { key: "depth", label: "Tree depth" },
+  { key: "name", label: "Package name" },
+];
 
 interface Props {
   dependencyTreeData: DependencyTreeData;
@@ -43,8 +44,8 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
 
   const { maxSize, totalSize } = compositionData;
 
-  const handleSortKeyChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSortKey(event.target.value as SortKey);
+  const handleSortKeyChange = (key: SortKey) => {
+    setSortKey(key);
   };
 
   const handleDirectionToggle = () => {
@@ -59,17 +60,11 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
         <div className="size-list">
           <div className="size-list__controls">
             <span className="size-list__label">Sort by</span>
-            <select
-              className="size-list__select"
+            <Dropdown
+              options={sortOptions}
               value={sortKey}
               onChange={handleSortKeyChange}
-            >
-              {sortLabelEntries.map(([key, label]) => (
-                <option key={key} value={key}>
-                  {label}
-                </option>
-              ))}
-            </select>
+            />
             <button
               className="size-list__direction"
               onClick={handleDirectionToggle}

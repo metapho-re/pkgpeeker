@@ -1,4 +1,5 @@
 export { DonutChart } from "./donut-chart";
+export { Dropdown } from "./dropdown";
 export { FileTree, FileViewer } from "./file-explorer";
 export { FilesBreakdown } from "./files-breakdown";
 export { GitHubIcon, PackageIcon } from "./icons";
