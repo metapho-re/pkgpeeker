@@ -8,7 +8,7 @@
 
 .size-composition__stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, calc(25% - 12px));
   gap: 16px;
 }
 
@@ -56,6 +56,10 @@
 
 .composition-stat-card__value--orange {
   color: var(--color-orange);
+}
+
+.composition-stat-card__value--purple {
+  color: var(--color-purple);
 }
 
 .composition-stat-card__sub {

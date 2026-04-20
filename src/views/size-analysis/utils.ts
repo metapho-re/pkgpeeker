@@ -33,6 +33,7 @@ export interface SizeCompositionData {
   totalSize: number;
   maxSize: number;
   totalFileCount: number;
+  uniquePackageCount: number;
   packageSizeEntries: [string, number][];
   extensionSizeEntries: Record<string, number>;
   largestFileDetails: {
@@ -104,12 +105,14 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
   let totalFileCount = 0;
   let largestFileDetails: SizeCompositionData["largestFileDetails"] = null;
 
+  const uniquePackageNames = new Set<string>();
   const extensionSizeMap: Record<string, number> = {};
   const packageSizeEntries: [string, number][] = [];
 
   for (const row of rows) {
     totalSize += row.size;
     totalFileCount += row.fileCount;
+    uniquePackageNames.add(row.packageInformation.packageName);
 
     if (row.size > maxSize) {
       maxSize = row.size;
@@ -153,10 +156,13 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
     Object.entries(extensionSizeMap).sort(([, a], [, b]) => b - a),
   );
 
+  const uniquePackageCount = uniquePackageNames.size;
+
   return {
     totalSize,
     maxSize,
     totalFileCount,
+    uniquePackageCount,
     packageSizeEntries,
     extensionSizeEntries,
     largestFileDetails,

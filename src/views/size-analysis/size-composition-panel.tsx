@@ -32,6 +32,7 @@ export const SizeCompositionPanel = ({ data, packageCount }: Props) => {
   const {
     totalSize,
     totalFileCount,
+    uniquePackageCount,
     packageSizeEntries,
     extensionSizeEntries,
     largestFileDetails,
@@ -53,6 +54,17 @@ export const SizeCompositionPanel = ({ data, packageCount }: Props) => {
             {totalFileCount.toLocaleString()}
           </p>
           <p className="composition-stat-card__sub">across all packages</p>
+        </div>
+        <div className="composition-stat-card">
+          <p className="composition-stat-card__label">Package duplication</p>
+          <p className="composition-stat-card__value composition-stat-card__value--purple">
+            {uniquePackageCount} unique package{uniquePackageCount !== 1 && "s"}
+          </p>
+          <p className="composition-stat-card__sub">
+            {packageCount} installations
+            {packageCount > uniquePackageCount &&
+              ` (${packageCount - uniquePackageCount} duplicated)`}
+          </p>
         </div>
         <div className="composition-stat-card">
           <p className="composition-stat-card__label">Largest file</p>
