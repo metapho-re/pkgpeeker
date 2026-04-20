@@ -8,7 +8,7 @@ import type {
   PackageIdentifier,
 } from "../../types";
 
-import { getFolderComposition, getFolderStatistics } from "../folder-analytics";
+import { getFolderAnalysis, getFolderComposition } from "../folder-analytics";
 import { getPackageMetadata } from "../package-json-parser";
 
 import { getInstallationPath } from "./get-installation-path";
@@ -58,9 +58,9 @@ export const getDependencyTree = async ({
 
       const alreadyCrunchedPackageData = packageDataIndex[installationPath];
 
-      const folderStatistics =
-        alreadyCrunchedPackageData?.folderStatistics ||
-        getFolderStatistics(
+      const { folderStatistics, largestFileDetails } =
+        alreadyCrunchedPackageData ||
+        getFolderAnalysis(
           await getFolderComposition({
             webContainerInstance,
             installationPath,
@@ -77,6 +77,7 @@ export const getDependencyTree = async ({
       if (!alreadyCrunchedPackageData) {
         packageDataIndex[installationPath] = {
           folderStatistics,
+          largestFileDetails,
           packageMetadata,
         };
       }
@@ -114,6 +115,7 @@ export const getDependencyTree = async ({
           installationPath,
           dependencyPath: nextDependencyPath,
           folderStatistics,
+          largestFileDetails,
           packageMetadata,
           dependencies,
         },

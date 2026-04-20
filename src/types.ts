@@ -23,6 +23,12 @@ export interface DependencyTreeData {
 
 export interface FileDetails {
   extension: string;
+  filePath: string;
+  sizeInBytes: number;
+}
+
+export interface LargestFileDetails {
+  filePath: string;
   sizeInBytes: number;
 }
 
@@ -52,7 +58,10 @@ export interface NpmPackageInformation {
 
 export type PackageDataIndex = Record<
   string,
-  Pick<PackageInformation, "folderStatistics" | "packageMetadata">
+  Pick<
+    PackageInformation,
+    "folderStatistics" | "largestFileDetails" | "packageMetadata"
+  >
 >;
 
 export interface PackageIdentifier {
@@ -69,6 +78,7 @@ export interface PackageInformation {
   installationPath: string;
   dependencyPath: PackageIdentifier[];
   folderStatistics: FolderStatistics | null;
+  largestFileDetails: LargestFileDetails | null;
   packageMetadata: PackageMetadata | null;
   dependencies: DependencyTree;
 }

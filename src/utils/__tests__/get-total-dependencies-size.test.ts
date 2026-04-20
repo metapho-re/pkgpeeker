@@ -19,6 +19,7 @@ const makePackage = (
     folderSizeInBytes: sizeInBytes,
     numberOfFilesInFolder: 1,
   },
+  largestFileDetails: null,
   packageMetadata: null,
   dependencies,
 });

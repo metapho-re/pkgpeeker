@@ -33,12 +33,12 @@ export const getFolderComposition = async ({
             installationPath: `${installationPath}/${listItem.name}`,
           });
         } else {
-          const fileContent = await webContainerInstance?.fs.readFile(
-            `${installationPath}/${listItem.name}`,
-          );
+          const filePath = `${installationPath}/${listItem.name}`;
+          const fileContent = await webContainerInstance?.fs.readFile(filePath);
 
           return await Promise.resolve({
             extension: getExtension(listItem.name),
+            filePath,
             sizeInBytes: fileContent?.byteLength || 0,
           });
         }
