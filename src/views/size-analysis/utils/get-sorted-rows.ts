@@ -14,13 +14,18 @@ export const getSortedRows = ({
   const multiplier = sortDirection === "desc" ? -1 : 1;
 
   return [...rows].sort((a, b) => {
-    const tieBreaker = a.packageInformation.packageName.localeCompare(
+    const nameTieBreaker = a.packageInformation.packageName.localeCompare(
       b.packageInformation.packageName,
+    );
+    const versionTieBreaker = a.packageInformation.version.localeCompare(
+      b.packageInformation.version,
     );
 
     const comparison =
-      sortKey === "name" ? tieBreaker : a[sortKey] - b[sortKey];
+      sortKey === "name"
+        ? nameTieBreaker || versionTieBreaker
+        : a[sortKey] - b[sortKey];
 
-    return (comparison || tieBreaker) * multiplier;
+    return (comparison || nameTieBreaker || versionTieBreaker) * multiplier;
   });
 };

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { getSortedRows } from "../get-sorted-rows";
 
-import { makeRow } from "./helpers";
+import { makePackage, makeRow } from "./helpers";
 
 describe("getSortedRows", () => {
   const rowA = makeRow("alpha", { size: 300, depth: 1 });
@@ -78,8 +78,34 @@ describe("getSortedRows", () => {
     ).toEqual(["alpha", "zeta"]);
   });
 
+  it("should break name ties by version", () => {
+    const row1 = makeRow("lodash", {
+      packageInformation: {
+        packageName: "lodash",
+        ...makePackage({ version: "4.17.21" }),
+      },
+    });
+    const row2 = makeRow("lodash", {
+      packageInformation: {
+        packageName: "lodash",
+        ...makePackage({ version: "3.10.1" }),
+      },
+    });
+
+    const sorted = getSortedRows({
+      rows: [row1, row2],
+      sortKey: "name",
+      sortDirection: "asc",
+    });
+
+    expect(
+      sorted.map(({ packageInformation }) => packageInformation.version),
+    ).toEqual(["3.10.1", "4.17.21"]);
+  });
+
   it("should not mutate the input array", () => {
     const rows = [rowC, rowA, rowB];
+
     getSortedRows({ rows, sortKey: "size", sortDirection: "asc" });
 
     expect(rows[0]).toBe(rowC);
