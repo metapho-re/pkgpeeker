@@ -1,6 +1,7 @@
 import "./size-composition-panel.css";
 
 import { DonutChart, FilesBreakdown } from "../../components";
+import type { PackageIdentifier } from "../../types";
 import { getFormattedSize } from "../../utils";
 
 import type { SizeCompositionData } from "./utils";
@@ -25,10 +26,15 @@ const getPackageColor = (_: string, index: number): string =>
 
 interface Props {
   data: SizeCompositionData;
+  deepestDependencyChain: PackageIdentifier[] | null;
   packageCount: number;
 }
 
-export const SizeCompositionPanel = ({ data, packageCount }: Props) => {
+export const SizeCompositionPanel = ({
+  data,
+  deepestDependencyChain,
+  packageCount,
+}: Props) => {
   const {
     totalSize,
     totalFileCount,
@@ -37,6 +43,10 @@ export const SizeCompositionPanel = ({ data, packageCount }: Props) => {
     extensionSizeEntries,
     largestFileDetails,
   } = data;
+
+  const deepestDependencyChainLabel = deepestDependencyChain
+    ?.map(({ name }) => name)
+    .join(" › ");
 
   return (
     <div className="size-composition">
@@ -78,6 +88,26 @@ export const SizeCompositionPanel = ({ data, packageCount }: Props) => {
                 title={`${largestFileDetails.packageName}/${largestFileDetails.filePath}`}
               >
                 {largestFileDetails.packageName}/{largestFileDetails.filePath}
+              </p>
+            </>
+          ) : (
+            <p className="composition-stat-card__value">—</p>
+          )}
+        </div>
+        <div className="composition-stat-card composition-stat-card--wide">
+          <p className="composition-stat-card__label">
+            Deepest dependency chain
+          </p>
+          {deepestDependencyChain ? (
+            <>
+              <p className="composition-stat-card__value composition-stat-card__value--yellow">
+                {deepestDependencyChain.length} levels
+              </p>
+              <p
+                className="composition-stat-card__sub"
+                title={deepestDependencyChainLabel}
+              >
+                {deepestDependencyChainLabel}
               </p>
             </>
           ) : (
