@@ -8,8 +8,8 @@
 
 .size-composition__stats {
   display: grid;
-  grid-template-columns: repeat(4, calc(25% - 12px));
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .composition-stat-card {
