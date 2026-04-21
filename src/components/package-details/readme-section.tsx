@@ -1,5 +1,6 @@
 import "./readme-section.css";
 
+import DOMPurify from "dompurify";
 import { Lexer, Marked, type Tokens } from "marked";
 import { useEffect, useMemo, useState } from "react";
 import { type HighlighterCore } from "shiki/core";
@@ -54,7 +55,7 @@ export const ReadmeSection = ({ readme }: Props) => {
 
     const marked = createMarked(highlighter);
 
-    return marked.parse(readme) as string;
+    return DOMPurify.sanitize(marked.parse(readme) as string);
   }, [readme, highlighter]);
 
   return (
