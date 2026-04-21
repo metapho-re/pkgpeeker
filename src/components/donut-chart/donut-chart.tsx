@@ -45,7 +45,7 @@ export const DonutChart = ({ entries, total, getColor }: Props) => {
           >
             {segments.map(({ key, dashLength, gapLength, offset }, index) => (
               <circle
-                key={key}
+                key={index}
                 className="donut-chart__segment"
                 cx={CENTER}
                 cy={CENTER}
@@ -69,7 +69,7 @@ export const DonutChart = ({ entries, total, getColor }: Props) => {
       <div className="donut-chart__legend">
         {entries.map(([key, value], index) => (
           <div
-            key={key}
+            key={index}
             className={`donut-chart__legend-item${hoveredIndex !== null && hoveredIndex !== index ? " donut-chart__legend-item--dimmed" : ""}`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
