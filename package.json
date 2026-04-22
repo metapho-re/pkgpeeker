@@ -10,7 +10,8 @@
     "stylelint": "stylelint \"src/**/*.css\" --fix",
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "compute-baseline": "node scripts/compute-bytes-per-file-baseline.mjs"
   },
   "dependencies": {
     "@webcontainer/api": "^1.6.1",
