@@ -4,7 +4,7 @@ import { DonutChart, FilesBreakdown } from "../../components";
 import type { PackageIdentifier } from "../../types";
 import { getFormattedSize } from "../../utils";
 
-import type { SizeCompositionData } from "./utils";
+import type { MostDependedOnPackage, SizeCompositionData } from "./utils";
 
 const PACKAGE_COLORS = [
   "#7e9cd8",
@@ -27,18 +27,21 @@ const getPackageColor = (_: string, index: number): string =>
 interface Props {
   data: SizeCompositionData;
   deepestDependencyChain: PackageIdentifier[] | null;
+  mostDependedOnPackage: MostDependedOnPackage | null;
   packageCount: number;
 }
 
 export const SizeCompositionPanel = ({
   data,
   deepestDependencyChain,
+  mostDependedOnPackage,
   packageCount,
 }: Props) => {
   const {
     totalSize,
     totalFileCount,
     uniquePackageCount,
+    leafPackageCount,
     packageSizeEntries,
     extensionSizeEntries,
     largestFileDetails,
@@ -66,17 +69,6 @@ export const SizeCompositionPanel = ({
           <p className="composition-stat-card__sub">across all packages</p>
         </div>
         <div className="composition-stat-card">
-          <p className="composition-stat-card__label">Package duplication</p>
-          <p className="composition-stat-card__value composition-stat-card__value--purple">
-            {uniquePackageCount} unique package{uniquePackageCount !== 1 && "s"}
-          </p>
-          <p className="composition-stat-card__sub">
-            {packageCount} installations
-            {packageCount > uniquePackageCount &&
-              ` (${packageCount - uniquePackageCount} duplicated)`}
-          </p>
-        </div>
-        <div className="composition-stat-card">
           <p className="composition-stat-card__label">Largest file</p>
           {largestFileDetails ? (
             <>
@@ -93,6 +85,44 @@ export const SizeCompositionPanel = ({
           ) : (
             <p className="composition-stat-card__value">—</p>
           )}
+        </div>
+        <div className="composition-stat-card">
+          <p className="composition-stat-card__label">Package duplication</p>
+          <p className="composition-stat-card__value composition-stat-card__value--purple">
+            {uniquePackageCount} unique package{uniquePackageCount !== 1 && "s"}
+          </p>
+          <p className="composition-stat-card__sub">
+            {packageCount} installations
+            {packageCount > uniquePackageCount &&
+              ` (${packageCount - uniquePackageCount} duplicated)`}
+          </p>
+        </div>
+        <div className="composition-stat-card">
+          <p className="composition-stat-card__label">
+            Most depended-on package
+          </p>
+          {mostDependedOnPackage ? (
+            <>
+              <p className="composition-stat-card__value composition-stat-card__value--green">
+                {mostDependedOnPackage.name}
+              </p>
+              <p className="composition-stat-card__sub">
+                depended on by {mostDependedOnPackage.dependentCount} package
+                {mostDependedOnPackage.dependentCount !== 1 && "s"}
+              </p>
+            </>
+          ) : (
+            <p className="composition-stat-card__value">—</p>
+          )}
+        </div>
+        <div className="composition-stat-card">
+          <p className="composition-stat-card__label">Leaf packages</p>
+          <p className="composition-stat-card__value composition-stat-card__value--yellow">
+            {leafPackageCount}
+          </p>
+          <p className="composition-stat-card__sub">
+            out of {packageCount} packages
+          </p>
         </div>
         <div className="composition-stat-card composition-stat-card--wide">
           <p className="composition-stat-card__label">

@@ -4,6 +4,7 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
   let totalSize = 0;
   let maxSize = 0;
   let totalFileCount = 0;
+  let leafPackageCount = 0;
   let largestFileDetails: SizeCompositionData["largestFileDetails"] = null;
 
   const uniquePackageNames = new Set<string>();
@@ -17,6 +18,10 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
 
     if (row.size > maxSize) {
       maxSize = row.size;
+    }
+
+    if (row.directDependencyCount === 0) {
+      leafPackageCount++;
     }
 
     packageSizeEntries.push([
@@ -64,6 +69,7 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
     maxSize,
     totalFileCount,
     uniquePackageCount,
+    leafPackageCount,
     packageSizeEntries,
     extensionSizeEntries,
     largestFileDetails,

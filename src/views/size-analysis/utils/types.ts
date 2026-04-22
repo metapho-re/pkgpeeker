@@ -32,6 +32,7 @@ export interface SizeCompositionData {
   maxSize: number;
   totalFileCount: number;
   uniquePackageCount: number;
+  leafPackageCount: number;
   packageSizeEntries: [string, number][];
   extensionSizeEntries: Record<string, number>;
   largestFileDetails: {
@@ -41,7 +42,13 @@ export interface SizeCompositionData {
   } | null;
 }
 
+export interface MostDependedOnPackage {
+  name: string;
+  dependentCount: number;
+}
+
 export interface SizeData {
   rows: Row[];
   deepestDependencyChain: PackageIdentifier[] | null;
+  mostDependedOnPackage: MostDependedOnPackage | null;
 }

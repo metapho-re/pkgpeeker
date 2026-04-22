@@ -6,7 +6,7 @@ import type {
 import { flattenDependencyTree } from "../../../utils";
 
 import { getTransitiveStatistics } from "./get-transitive-statistics";
-import type { Row, SizeData } from "./types";
+import type { MostDependedOnPackage, Row, SizeData } from "./types";
 
 export const getSizeData = (
   dependencyTreeData: DependencyTreeData,
@@ -59,5 +59,39 @@ export const getSizeData = (
     };
   });
 
-  return { rows, deepestDependencyChain };
+  const reverseDependencyMap = new Map<string, Set<string>>();
+
+  for (const { dependencies, isDeduped, packageName } of Object.values(
+    flatIndex,
+  )) {
+    if (isDeduped) {
+      continue;
+    }
+
+    for (const dependencyName of Object.keys(dependencies)) {
+      const dependentPackages = reverseDependencyMap.get(dependencyName);
+
+      if (dependentPackages) {
+        dependentPackages.add(packageName);
+      } else {
+        reverseDependencyMap.set(dependencyName, new Set([packageName]));
+      }
+    }
+  }
+
+  let mostDependedOnPackage: MostDependedOnPackage | null = null;
+
+  for (const [dependencyName, dependentPackages] of reverseDependencyMap) {
+    if (
+      !mostDependedOnPackage ||
+      dependentPackages.size > mostDependedOnPackage.dependentCount
+    ) {
+      mostDependedOnPackage = {
+        name: dependencyName,
+        dependentCount: dependentPackages.size,
+      };
+    }
+  }
+
+  return { rows, deepestDependencyChain, mostDependedOnPackage };
 };

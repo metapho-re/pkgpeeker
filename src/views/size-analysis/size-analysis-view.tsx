@@ -33,7 +33,7 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
   const [sortKey, setSortKey] = useState<SortKey>("size");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
-  const { rows, deepestDependencyChain } = useMemo(
+  const { rows, deepestDependencyChain, mostDependedOnPackage } = useMemo(
     () => getSizeData(dependencyTreeData),
     [dependencyTreeData],
   );
@@ -144,6 +144,7 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
           <SizeCompositionPanel
             data={compositionData}
             deepestDependencyChain={deepestDependencyChain}
+            mostDependedOnPackage={mostDependedOnPackage}
             packageCount={rows.length}
           />
         </div>

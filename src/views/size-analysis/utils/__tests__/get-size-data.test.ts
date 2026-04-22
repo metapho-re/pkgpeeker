@@ -9,6 +9,7 @@ describe("getSizeData", () => {
     expect(getSizeData({ dependencyTree: {}, maxDepth: 0 })).toEqual({
       rows: [],
       deepestDependencyChain: null,
+      mostDependedOnPackage: null,
     });
   });
 
@@ -136,5 +137,111 @@ describe("getSizeData", () => {
       { name: "nested", version: "1.0.0" },
       { name: "physical", version: "1.0.0" },
     ]);
+  });
+
+  it("should return null mostDependedOnPackage when no package has dependencies", () => {
+    const { mostDependedOnPackage } = getSizeData({
+      dependencyTree: {
+        a: makePackage({ depth: 0 }),
+        b: makePackage({ depth: 0, installationPath: "/node_modules/b" }),
+      },
+      maxDepth: 0,
+    });
+
+    expect(mostDependedOnPackage).toBeNull();
+  });
+
+  it("should identify the most depended-on package", () => {
+    const { mostDependedOnPackage } = getSizeData({
+      dependencyTree: {
+        a: makePackage({
+          depth: 0,
+          installationPath: "/node_modules/a",
+          dependencyPath: [{ name: "a", version: "1.0.0" }],
+          dependencies: {
+            shared: makePackage({
+              depth: 1,
+              installationPath: "/node_modules/shared",
+              dependencyPath: [
+                { name: "a", version: "1.0.0" },
+                { name: "shared", version: "1.0.0" },
+              ],
+            }),
+          },
+        }),
+        b: makePackage({
+          depth: 0,
+          installationPath: "/node_modules/b",
+          dependencyPath: [{ name: "b", version: "1.0.0" }],
+          dependencies: {
+            shared: makePackage({
+              depth: 1,
+              installationPath: "/node_modules/shared",
+              isDeduped: true,
+              dependencyPath: [
+                { name: "b", version: "1.0.0" },
+                { name: "shared", version: "1.0.0" },
+              ],
+            }),
+            unique: makePackage({
+              depth: 1,
+              installationPath: "/node_modules/unique",
+              dependencyPath: [
+                { name: "b", version: "1.0.0" },
+                { name: "unique", version: "1.0.0" },
+              ],
+            }),
+          },
+        }),
+      },
+      maxDepth: 1,
+    });
+
+    expect(mostDependedOnPackage).toEqual({
+      name: "shared",
+      dependentCount: 2,
+    });
+  });
+
+  it("should skip deduped packages when counting dependents", () => {
+    const { mostDependedOnPackage } = getSizeData({
+      dependencyTree: {
+        a: makePackage({
+          depth: 0,
+          installationPath: "/node_modules/a",
+          dependencyPath: [{ name: "a", version: "1.0.0" }],
+          dependencies: {
+            lib: makePackage({
+              depth: 1,
+              installationPath: "/node_modules/lib",
+              dependencyPath: [
+                { name: "a", version: "1.0.0" },
+                { name: "lib", version: "1.0.0" },
+              ],
+            }),
+          },
+        }),
+        b: makePackage({
+          depth: 0,
+          installationPath: "/node_modules/b",
+          isDeduped: true,
+          dependencyPath: [{ name: "b", version: "1.0.0" }],
+          dependencies: {
+            lib: makePackage({
+              depth: 1,
+              installationPath: "/node_modules/lib",
+              isDeduped: true,
+              dependencyPath: [
+                { name: "b", version: "1.0.0" },
+                { name: "lib", version: "1.0.0" },
+              ],
+            }),
+          },
+        }),
+      },
+      maxDepth: 1,
+    });
+
+    expect(mostDependedOnPackage).toEqual({ name: "lib", dependentCount: 1 });
   });
 });
