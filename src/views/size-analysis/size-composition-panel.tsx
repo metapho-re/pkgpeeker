@@ -4,7 +4,11 @@ import { DonutChart, FilesBreakdown } from "../../components";
 import type { PackageIdentifier } from "../../types";
 import { getFormattedSize } from "../../utils";
 
-import type { MostDependedOnPackage, SizeCompositionData } from "./utils";
+import type {
+  MostDependedOnPackage,
+  OutlierData,
+  SizeCompositionData,
+} from "./utils";
 
 const PACKAGE_COLORS = [
   "#7e9cd8",
@@ -25,14 +29,16 @@ const getPackageColor = (_: string, index: number): string =>
   PACKAGE_COLORS[index % PACKAGE_COLORS.length];
 
 interface Props {
-  data: SizeCompositionData;
+  compositionData: SizeCompositionData;
+  outlierData: OutlierData;
   deepestDependencyChain: PackageIdentifier[] | null;
   mostDependedOnPackage: MostDependedOnPackage | null;
   packageCount: number;
 }
 
 export const SizeCompositionPanel = ({
-  data,
+  compositionData,
+  outlierData,
   deepestDependencyChain,
   mostDependedOnPackage,
   packageCount,
@@ -45,7 +51,7 @@ export const SizeCompositionPanel = ({
     packageSizeEntries,
     extensionSizeEntries,
     largestFileDetails,
-  } = data;
+  } = compositionData;
 
   const deepestDependencyChainLabel = deepestDependencyChain
     ?.map(({ name }) => name)
@@ -144,6 +150,29 @@ export const SizeCompositionPanel = ({
             <p className="composition-stat-card__value">—</p>
           )}
         </div>
+        {outlierData.concentration && (
+          <div className="composition-stat-card composition-stat-card--wide">
+            <p className="composition-stat-card__label">Size concentration</p>
+            <p className="composition-stat-card__value">
+              <span className="composition-stat-card__value--orange">
+                {outlierData.concentration.count} package
+                {outlierData.concentration.count !== 1 && "s"}
+              </span>{" "}
+              <span className="composition-stat-card__suffix">
+                make up{" "}
+                {(outlierData.concentration.percentage * 100).toFixed(0)}% of
+                total size
+              </span>
+            </p>
+            <div className="concentration-tags">
+              {outlierData.concentration.packageNames.map((name) => (
+                <span key={name} className="concentration-tag">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
       <div className="composition-charts">
         <div className="composition-section">
@@ -164,6 +193,42 @@ export const SizeCompositionPanel = ({
           />
         </div>
       </div>
+      {outlierData.mismatches.length > 0 && (
+        <div className="composition-section">
+          <p className="composition-section__header">
+            Size / file count mismatches
+          </p>
+          <div className="mismatch-list">
+            {outlierData.mismatches.map((entry) => (
+              <div
+                key={`${entry.packageName}@${entry.version}`}
+                className="mismatch-entry"
+              >
+                <div className="mismatch-entry__info">
+                  <span className="mismatch-entry__name">
+                    {entry.packageName}
+                  </span>
+                  <span
+                    className={`mismatch-entry__badge mismatch-entry__badge--${entry.kind}`}
+                  >
+                    {entry.kind === "bundled"
+                      ? "few large files"
+                      : "many small files"}
+                  </span>
+                </div>
+                <div className="mismatch-entry__stats">
+                  <span>{getFormattedSize(entry.size)}</span>
+                  <span className="mismatch-entry__separator">/</span>
+                  <span>{entry.fileCount} files</span>
+                  <span className="mismatch-entry__ratio">
+                    {getFormattedSize(Math.round(entry.bytesPerFile))}/file
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -70,6 +70,29 @@
   grid-column: 1 / -1;
 }
 
+.concentration-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.concentration-tag {
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-family: "Mona Sans Bold", sans-serif;
+  color: var(--foreground-color);
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+}
+
+.composition-stat-card__suffix {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: var(--color-muted);
+}
+
 .composition-stat-card__sub {
   margin: 0;
   font-size: 0.8rem;
@@ -106,4 +129,88 @@
 .composition-charts > * {
   flex: 1 1 50%;
   min-width: 0;
+}
+
+.mismatch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mismatch-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  transition:
+    border-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.mismatch-entry:hover {
+  border-color: var(--glow-border);
+  box-shadow: 0 0 12px var(--glow-shadow);
+}
+
+.mismatch-entry__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mismatch-entry__name {
+  font-family: "Mona Sans Bold", sans-serif;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mismatch-entry__badge {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-family: "Mona Sans Bold", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.mismatch-entry__badge--bundled {
+  color: var(--color-orange);
+  background: color-mix(in srgb, var(--color-orange) 12%, transparent);
+}
+
+.mismatch-entry__badge--fragmented {
+  color: var(--color-purple);
+  background: color-mix(in srgb, var(--color-purple) 12%, transparent);
+}
+
+.mismatch-entry__stats {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mismatch-entry__separator {
+  opacity: 0.4;
+}
+
+.mismatch-entry__ratio {
+  margin-left: 6px;
+  padding: 2px 6px;
+  font-family: "Mona Sans Bold", sans-serif;
+  font-size: 0.7rem;
+  color: var(--foreground-color);
+  background: var(--glass-bg-dark);
+  border-radius: 4px;
 }

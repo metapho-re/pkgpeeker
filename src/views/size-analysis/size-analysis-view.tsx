@@ -8,6 +8,7 @@ import { getFormattedSize } from "../../utils";
 
 import { SizeCompositionPanel } from "./size-composition-panel";
 import {
+  getOutlierData,
   getSizeCompositionData,
   getSizeData,
   getSortedRows,
@@ -39,6 +40,11 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
   );
 
   const compositionData = useMemo(() => getSizeCompositionData(rows), [rows]);
+
+  const outlierData = useMemo(
+    () => getOutlierData(rows, compositionData.totalSize),
+    [rows, compositionData.totalSize],
+  );
 
   const sortedRows = useMemo(
     () => getSortedRows({ rows, sortKey, sortDirection }),
@@ -142,7 +148,8 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
         </div>
         <div className="size-analysis-view__detail">
           <SizeCompositionPanel
-            data={compositionData}
+            compositionData={compositionData}
+            outlierData={outlierData}
             deepestDependencyChain={deepestDependencyChain}
             mostDependedOnPackage={mostDependedOnPackage}
             packageCount={rows.length}

@@ -47,6 +47,26 @@ export interface MostDependedOnPackage {
   dependentCount: number;
 }
 
+export interface ConcentrationData {
+  count: number;
+  percentage: number;
+  packageNames: string[];
+}
+
+export interface MismatchEntry {
+  packageName: string;
+  version: string;
+  size: number;
+  fileCount: number;
+  bytesPerFile: number;
+  kind: "bundled" | "fragmented";
+}
+
+export interface OutlierData {
+  concentration: ConcentrationData | null;
+  mismatches: MismatchEntry[];
+}
+
 export interface SizeData {
   rows: Row[];
   deepestDependencyChain: PackageIdentifier[] | null;
