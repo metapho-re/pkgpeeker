@@ -1,8 +1,19 @@
 import { WebContainer } from "@webcontainer/api";
 import { create } from "zustand";
 
-import { getDependencyTreeData } from "../features";
-import type { AppState, DependencyTreeData, NpmDependencyTree } from "../types";
+import {
+  getDependencyTreeData,
+  type DependencyTreeData,
+  type NpmDependencyTree,
+} from "../dependency-tree";
+
+export type AppState =
+  | "idle"
+  | "booting"
+  | "ready"
+  | "installing"
+  | "crunching"
+  | "done";
 
 const npmListAllJsonRegExp = /{(?:.*|\r\n)*}/;
 

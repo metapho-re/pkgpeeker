@@ -1,1 +1,1 @@
-export { useAppStore } from "./app-store";
+export { type AppState, useAppStore } from "./app-store";

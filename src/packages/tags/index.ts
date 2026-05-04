@@ -1,0 +1,11 @@
+export { DedupedTag } from "./deduped-tag";
+export { DependenciesTag } from "./dependencies-tag";
+export { DepthTag } from "./depth-tag";
+export { EnginesTag } from "./engines-tag";
+export { ExtraneousTag } from "./extraneous-tag";
+export { InvalidTag } from "./invalid-tag";
+export { KeywordsTag } from "./keywords-tag";
+export { LicenseTag } from "./license-tag";
+export { ModuleFormatTag } from "./module-format-tag";
+export { PathTag } from "./path-tag";
+export { TypesTag } from "./types-tag";

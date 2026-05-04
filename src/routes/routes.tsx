@@ -1,6 +1,7 @@
 import { Route, Switch } from "wouter";
 
-import { LandingPage, ResultsPage } from "../pages";
+import { LandingPage } from "../landing";
+import { ResultsPage } from "../results";
 
 export const Routes = () => (
   <Switch>
