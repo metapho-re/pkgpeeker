@@ -3,7 +3,7 @@ import "./size-analysis-view.css";
 import { useMemo, useState } from "react";
 
 import type { DependencyTreeData } from "../../dependency-tree";
-import { getFormattedSize } from "../../shared";
+import { getFormattedSize, getPluralizedQuantity } from "../../shared";
 
 import { Dropdown } from "../dropdown";
 import { SizeCompositionPanel } from "../size-composition-panel";
@@ -104,7 +104,7 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
                       </div>
                       <div className="size-list-item__meta">
                         <span className="size-list-item__stat">
-                          {row.fileCount} files
+                          {getPluralizedQuantity(row.fileCount, "file")}
                         </span>
                         <span className="size-list-item__stat size-list-item__stat--orange">
                           {row.dependenciesSize > 0

@@ -1,7 +1,7 @@
 import "./size-composition-panel.css";
 
 import type { PackageIdentifier } from "../../dependency-tree";
-import { getFormattedSize } from "../../shared";
+import { getFormattedSize, getPluralizedQuantity } from "../../shared";
 
 import { FilesBreakdown } from "../files-breakdown";
 import { DonutChart } from "../donut-chart";
@@ -66,7 +66,9 @@ export const SizeCompositionPanel = ({
           <p className="composition-stat-card__value composition-stat-card__value--green">
             {getFormattedSize(totalSize)}
           </p>
-          <p className="composition-stat-card__sub">{packageCount} packages</p>
+          <p className="composition-stat-card__sub">
+            {getPluralizedQuantity(packageCount, "package")}
+          </p>
         </div>
         <div className="composition-stat-card">
           <p className="composition-stat-card__label">Total files</p>
@@ -96,10 +98,10 @@ export const SizeCompositionPanel = ({
         <div className="composition-stat-card">
           <p className="composition-stat-card__label">Package duplication</p>
           <p className="composition-stat-card__value composition-stat-card__value--purple">
-            {uniquePackageCount} unique package{uniquePackageCount !== 1 && "s"}
+            {getPluralizedQuantity(uniquePackageCount, "unique package")}
           </p>
           <p className="composition-stat-card__sub">
-            {packageCount} installations
+            {getPluralizedQuantity(packageCount, "installation")}
             {packageCount > uniquePackageCount &&
               ` (${packageCount - uniquePackageCount} duplicated)`}
           </p>
@@ -114,8 +116,11 @@ export const SizeCompositionPanel = ({
                 {mostDependedOnPackage.name}
               </p>
               <p className="composition-stat-card__sub">
-                depended on by {mostDependedOnPackage.dependentCount} package
-                {mostDependedOnPackage.dependentCount !== 1 && "s"}
+                depended on by{" "}
+                {getPluralizedQuantity(
+                  mostDependedOnPackage.dependentCount,
+                  "package",
+                )}
               </p>
             </>
           ) : (
@@ -128,7 +133,7 @@ export const SizeCompositionPanel = ({
             {leafPackageCount}
           </p>
           <p className="composition-stat-card__sub">
-            out of {packageCount} packages
+            out of {getPluralizedQuantity(packageCount, "package")}
           </p>
         </div>
         <div className="composition-stat-card composition-stat-card--wide">
@@ -138,7 +143,7 @@ export const SizeCompositionPanel = ({
           {deepestDependencyChain ? (
             <>
               <p className="composition-stat-card__value composition-stat-card__value--yellow">
-                {deepestDependencyChain.length} levels
+                {getPluralizedQuantity(deepestDependencyChain.length, "level")}
               </p>
               <p
                 className="composition-stat-card__sub"
@@ -156,8 +161,10 @@ export const SizeCompositionPanel = ({
             <p className="composition-stat-card__label">Size concentration</p>
             <p className="composition-stat-card__value">
               <span className="composition-stat-card__value--orange">
-                {outlierData.concentration.count} package
-                {outlierData.concentration.count !== 1 && "s"}
+                {getPluralizedQuantity(
+                  outlierData.concentration.count,
+                  "package",
+                )}
               </span>{" "}
               <span className="composition-stat-card__suffix">
                 make up{" "}
@@ -220,7 +227,7 @@ export const SizeCompositionPanel = ({
                 <div className="mismatch-entry__stats">
                   <span>{getFormattedSize(entry.size)}</span>
                   <span className="mismatch-entry__separator">/</span>
-                  <span>{entry.fileCount} files</span>
+                  <span>{getPluralizedQuantity(entry.fileCount, "file")}</span>
                   <span className="mismatch-entry__ratio">
                     {getFormattedSize(Math.round(entry.bytesPerFile))}/file
                   </span>

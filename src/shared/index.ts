@@ -12,6 +12,7 @@ export {
   getFormattedSize,
   getHighlighter,
   getLanguageFromPath,
+  getPluralizedQuantity,
   getTreePath,
   loadLanguages,
   withViewTransition,

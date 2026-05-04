@@ -5,6 +5,7 @@ import { Fragment, useEffect, useRef } from "react";
 import type { PackageInformation } from "../../../dependency-tree";
 import {
   getFormattedSize,
+  getPluralizedQuantity,
   getTreePath,
   MailIcon,
   NpmIcon,
@@ -157,7 +158,7 @@ export const PackageDetails = ({
                 {getFormattedSize(folderSizeInBytes)}
               </p>
               <p className="detail-stat-card__sub">
-                {numberOfFilesInFolder} files
+                {getPluralizedQuantity(numberOfFilesInFolder, "file")}
               </p>
             </div>
             <div className="detail-stat-card">

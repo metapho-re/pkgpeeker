@@ -1,5 +1,6 @@
 export { getExtension } from "./get-extension";
 export { getFormattedSize } from "./get-formatted-size";
+export { getPluralizedQuantity } from "./get-pluralized-quantity";
 export { getTreePath } from "./get-tree-path";
 export {
   getHighlighter,
