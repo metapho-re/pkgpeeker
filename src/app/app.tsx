@@ -12,5 +12,15 @@ export const App = () => {
     boot();
   }, [boot]);
 
-  return <Routes />;
+  return (
+    <>
+      <div className="small-screen-notice">
+        <p>PkgPeeker requires a larger screen.</p>
+        <p>Please visit on a desktop browser.</p>
+      </div>
+      <div className="app-content">
+        <Routes />
+      </div>
+    </>
+  );
 };

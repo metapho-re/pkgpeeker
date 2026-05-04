@@ -75,6 +75,36 @@
   background-color: var(--background-color);
 }
 
+.app-content {
+  height: 100%;
+}
+
+.small-screen-notice {
+  display: none;
+}
+
+@media (width <= 1440px) {
+  .small-screen-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 24px;
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 15px;
+  }
+
+  .small-screen-notice p {
+    margin: 4px 0;
+  }
+
+  .app-content {
+    display: none;
+  }
+}
+
 a,
 svg {
   color: var(--color-blue);
