@@ -22,7 +22,7 @@ export const getSizeData = (
   for (const entry of Object.values(flatIndex)) {
     if (
       !entry.isDeduped &&
-      entry.dependencyPath.length > (deepestDependencyChain?.length || 0)
+      entry.dependencyPath.length > (deepestDependencyChain?.length || 1)
     ) {
       deepestDependencyChain = entry.dependencyPath;
     }
