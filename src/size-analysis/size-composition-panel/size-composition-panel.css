@@ -131,13 +131,13 @@
   min-width: 0;
 }
 
-.mismatch-list {
+.outlier-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.mismatch-entry {
+.outlier-entry {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -151,19 +151,19 @@
     box-shadow var(--transition-speed) ease;
 }
 
-.mismatch-entry:hover {
+.outlier-entry:hover {
   border-color: var(--glow-border);
   box-shadow: 0 0 12px var(--glow-shadow);
 }
 
-.mismatch-entry__info {
+.outlier-entry__info {
   display: flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
 }
 
-.mismatch-entry__name {
+.outlier-entry__name {
   font-family: "Mona Sans Bold", sans-serif;
   font-size: 0.8rem;
   overflow: hidden;
@@ -171,7 +171,7 @@
   white-space: nowrap;
 }
 
-.mismatch-entry__badge {
+.outlier-entry__badge {
   flex-shrink: 0;
   padding: 2px 8px;
   font-size: 0.65rem;
@@ -181,17 +181,17 @@
   border-radius: 4px;
 }
 
-.mismatch-entry__badge--bundled {
+.outlier-entry__badge--bundled {
   color: var(--color-orange);
   background: color-mix(in srgb, var(--color-orange) 12%, transparent);
 }
 
-.mismatch-entry__badge--fragmented {
+.outlier-entry__badge--fragmented {
   color: var(--color-purple);
   background: color-mix(in srgb, var(--color-purple) 12%, transparent);
 }
 
-.mismatch-entry__stats {
+.outlier-entry__stats {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -201,11 +201,11 @@
   font-variant-numeric: tabular-nums;
 }
 
-.mismatch-entry__separator {
+.outlier-entry__separator {
   opacity: 0.4;
 }
 
-.mismatch-entry__ratio {
+.outlier-entry__ratio {
   margin-left: 6px;
   padding: 2px 6px;
   font-family: "Mona Sans Bold", sans-serif;

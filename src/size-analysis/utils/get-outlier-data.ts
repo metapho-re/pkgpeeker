@@ -1,15 +1,15 @@
-import type { MismatchEntry, OutlierData, Row } from "./types";
+import type { OutlierData, OutlierEntry, Row } from "./types";
 
 // Median bytes/file from the top 200 most popular npm packages
 // (scripts/compute-bytes-per-file-baseline.mjs)
 const BASELINE_BYTES_PER_FILE = 3026;
 const CONCENTRATION_THRESHOLD = 0.8;
-const MISMATCH_FACTOR = 8;
+const DEVIATION_FACTOR = 8;
 const MIN_SIZE_SHARE = 0.02;
 
 export const getOutlierData = (rows: Row[], totalSize: number): OutlierData => {
   if (rows.length === 0) {
-    return { concentration: null, mismatches: [] };
+    return { concentration: null, outliers: [] };
   }
 
   const sortedRows = [...rows].sort((a, b) => b.size - a.size);
@@ -39,7 +39,7 @@ export const getOutlierData = (rows: Row[], totalSize: number): OutlierData => {
     }
   }
 
-  const mismatches: MismatchEntry[] = [];
+  const outliers: OutlierEntry[] = [];
 
   for (const row of rows) {
     if (row.fileCount === 0 || totalSize === 0) {
@@ -52,18 +52,18 @@ export const getOutlierData = (rows: Row[], totalSize: number): OutlierData => {
 
     const bytesPerFile = row.size / row.fileCount;
 
-    let kind: MismatchEntry["kind"] | null = null;
+    let kind: OutlierEntry["kind"] | null = null;
 
-    if (bytesPerFile > BASELINE_BYTES_PER_FILE * MISMATCH_FACTOR) {
+    if (bytesPerFile > BASELINE_BYTES_PER_FILE * DEVIATION_FACTOR) {
       kind = "bundled";
     }
 
-    if (bytesPerFile < BASELINE_BYTES_PER_FILE / MISMATCH_FACTOR) {
+    if (bytesPerFile < BASELINE_BYTES_PER_FILE / DEVIATION_FACTOR) {
       kind = "fragmented";
     }
 
     if (kind) {
-      mismatches.push({
+      outliers.push({
         packageName: row.packageInformation.packageName,
         version: row.packageInformation.version,
         size: row.size,
@@ -74,7 +74,7 @@ export const getOutlierData = (rows: Row[], totalSize: number): OutlierData => {
     }
   }
 
-  mismatches.sort((a, b) => b.bytesPerFile - a.bytesPerFile);
+  outliers.sort((a, b) => b.bytesPerFile - a.bytesPerFile);
 
-  return { concentration, mismatches };
+  return { concentration, outliers };
 };

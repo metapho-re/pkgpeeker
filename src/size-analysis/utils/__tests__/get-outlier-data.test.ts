@@ -69,14 +69,14 @@ describe("getOutlierData", () => {
     });
   });
 
-  describe("mismatches", () => {
+  describe("outliers", () => {
     it("should return an empty array for empty rows", () => {
-      const { mismatches } = getOutlierData([], 0);
+      const { outliers } = getOutlierData([], 0);
 
-      expect(mismatches).toEqual([]);
+      expect(outliers).toEqual([]);
     });
 
-    it("should detect mismatches even with fewer than 3 packages", () => {
+    it("should detect outliers even with fewer than 3 packages", () => {
       const rows = [
         makeRow("bundled", {
           size: 50000,
@@ -90,11 +90,11 @@ describe("getOutlierData", () => {
         }),
       ];
 
-      const { mismatches } = getOutlierData(rows, 200000);
+      const { outliers } = getOutlierData(rows, 200000);
 
-      expect(mismatches).toHaveLength(1);
-      expect(mismatches[0].packageName).toBe("bundled");
-      expect(mismatches[0].kind).toBe("bundled");
+      expect(outliers).toHaveLength(1);
+      expect(outliers[0].packageName).toBe("bundled");
+      expect(outliers[0].kind).toBe("bundled");
     });
 
     it("should flag packages with high bytes/file as bundled", () => {
@@ -116,12 +116,12 @@ describe("getOutlierData", () => {
         }),
       ];
 
-      const { mismatches } = getOutlierData(rows, 320000);
+      const { outliers } = getOutlierData(rows, 320000);
 
-      expect(mismatches).toHaveLength(1);
-      expect(mismatches[0].packageName).toBe("bundled");
-      expect(mismatches[0].kind).toBe("bundled");
-      expect(mismatches[0].bytesPerFile).toBe(25000);
+      expect(outliers).toHaveLength(1);
+      expect(outliers[0].packageName).toBe("bundled");
+      expect(outliers[0].kind).toBe("bundled");
+      expect(outliers[0].bytesPerFile).toBe(25000);
     });
 
     it("should flag packages with low bytes/file as fragmented", () => {
@@ -143,12 +143,12 @@ describe("getOutlierData", () => {
         }),
       ];
 
-      const { mismatches } = getOutlierData(rows, 280000);
+      const { outliers } = getOutlierData(rows, 280000);
 
-      expect(mismatches).toHaveLength(1);
-      expect(mismatches[0].packageName).toBe("fragmented");
-      expect(mismatches[0].kind).toBe("fragmented");
-      expect(mismatches[0].bytesPerFile).toBe(20);
+      expect(outliers).toHaveLength(1);
+      expect(outliers[0].packageName).toBe("fragmented");
+      expect(outliers[0].kind).toBe("fragmented");
+      expect(outliers[0].bytesPerFile).toBe(20);
     });
 
     it("should skip packages with less than 2% size share", () => {
@@ -170,12 +170,12 @@ describe("getOutlierData", () => {
         }),
       ];
 
-      const { mismatches } = getOutlierData(rows, 300050);
+      const { outliers } = getOutlierData(rows, 300050);
 
-      expect(mismatches).toEqual([]);
+      expect(outliers).toEqual([]);
     });
 
-    it("should sort mismatches by bytes/file descending", () => {
+    it("should sort outliers by bytes/file descending", () => {
       const rows = [
         makeRow("fragmented", {
           size: 10000,
@@ -199,10 +199,10 @@ describe("getOutlierData", () => {
         }),
       ];
 
-      const { mismatches } = getOutlierData(rows, 330000);
+      const { outliers } = getOutlierData(rows, 330000);
 
-      expect(mismatches[0].kind).toBe("bundled");
-      expect(mismatches[1].kind).toBe("fragmented");
+      expect(outliers[0].kind).toBe("bundled");
+      expect(outliers[1].kind).toBe("fragmented");
     });
   });
 });

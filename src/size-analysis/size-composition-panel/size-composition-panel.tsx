@@ -202,34 +202,34 @@ export const SizeCompositionPanel = ({
           />
         </div>
       </div>
-      {outlierData.mismatches.length > 0 && (
+      {outlierData.outliers.length > 0 && (
         <div className="composition-section">
           <p className="composition-section__header">
-            Size / file count mismatches
+            Size / file count outliers
           </p>
-          <div className="mismatch-list">
-            {outlierData.mismatches.map((entry) => (
+          <div className="outlier-list">
+            {outlierData.outliers.map((entry) => (
               <div
                 key={`${entry.packageName}@${entry.version}`}
-                className="mismatch-entry"
+                className="outlier-entry"
               >
-                <div className="mismatch-entry__info">
-                  <span className="mismatch-entry__name">
+                <div className="outlier-entry__info">
+                  <span className="outlier-entry__name">
                     {entry.packageName}
                   </span>
                   <span
-                    className={`mismatch-entry__badge mismatch-entry__badge--${entry.kind}`}
+                    className={`outlier-entry__badge outlier-entry__badge--${entry.kind}`}
                   >
                     {entry.kind === "bundled"
                       ? "few large files"
                       : "many small files"}
                   </span>
                 </div>
-                <div className="mismatch-entry__stats">
+                <div className="outlier-entry__stats">
                   <span>{getFormattedSize(entry.size)}</span>
-                  <span className="mismatch-entry__separator">/</span>
+                  <span className="outlier-entry__separator">/</span>
                   <span>{getPluralizedQuantity(entry.fileCount, "file")}</span>
-                  <span className="mismatch-entry__ratio">
+                  <span className="outlier-entry__ratio">
                     {getFormattedSize(Math.round(entry.bytesPerFile))}/file
                   </span>
                 </div>

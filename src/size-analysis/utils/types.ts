@@ -41,7 +41,7 @@ export interface ConcentrationData {
   packageNames: string[];
 }
 
-export interface MismatchEntry {
+export interface OutlierEntry {
   packageName: string;
   version: string;
   size: number;
@@ -52,5 +52,5 @@ export interface MismatchEntry {
 
 export interface OutlierData {
   concentration: ConcentrationData | null;
-  mismatches: MismatchEntry[];
+  outliers: OutlierEntry[];
 }
