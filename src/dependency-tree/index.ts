@@ -1,8 +1,12 @@
-export type {
-  FileDetails,
-  FolderStatistics,
-  LargestFileDetails,
-} from "./folder-analytics";
+export {
+  type CollectorNode,
+  type CollectorResults,
+  type CollectorRunner,
+  createCollectorRunner,
+  type LargestFileMatch,
+  type TreeCollector,
+} from "./collectors";
+export type { FileDetails, FolderStatistics } from "./folder-analytics";
 export type {
   Author,
   License,
@@ -12,6 +16,8 @@ export type {
 export type {
   DependencyTree,
   DependencyTreeData,
+  FlatDependencyIndex,
+  MostDependedOnPackage,
   NestedDependencyPaths,
   NpmDependencyTree,
   NpmPackageInformation,
@@ -19,8 +25,4 @@ export type {
   PackageIdentifier,
   PackageInformation,
 } from "./types";
-export {
-  type FlatDependencyIndex,
-  flattenDependencyTree,
-  getDependencyTreeData,
-} from "./utils";
+export { getDependencyTreeData } from "./utils";

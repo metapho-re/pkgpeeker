@@ -9,7 +9,7 @@ export interface FolderStatistics extends Record<string, number> {
   numberOfFilesInFolder: number;
 }
 
-export interface LargestFileDetails {
+export interface LargestFile {
   filePath: string;
   sizeInBytes: number;
 }

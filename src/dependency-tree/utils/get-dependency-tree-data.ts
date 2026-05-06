@@ -1,5 +1,6 @@
 import type { WebContainer } from "@webcontainer/api";
 
+import { createCollectorRunner } from "../collectors";
 import type {
   DependencyTreeData,
   NpmDependencyTree,
@@ -25,12 +26,14 @@ export const getDependencyTreeData = async ({
     return null;
   }
 
+  const collectorRunner = createCollectorRunner();
   const packageDataIndex: PackageDataIndex = {};
   const maxDepth = { value: 0 };
 
   const dependencyTree = await getDependencyTree({
     webContainerInstance,
     npmDependencyTree,
+    collectorRunner,
     nestedDependencyPaths,
     packageDataIndex,
     maxDepth,
@@ -41,5 +44,6 @@ export const getDependencyTreeData = async ({
   return {
     dependencyTree,
     maxDepth: maxDepth.value,
+    ...collectorRunner.getResults(),
   };
 };

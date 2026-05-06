@@ -1,11 +1,35 @@
-import type { FolderStatistics, LargestFileDetails } from "./folder-analytics";
+import type { LargestFileMatch } from "./collectors";
+import type { FolderStatistics, LargestFile } from "./folder-analytics";
 import type { PackageMetadata } from "./package-json-parser";
 
+export type PackageDataIndex = Record<
+  string,
+  {
+    folderStatistics: FolderStatistics | null;
+    largestFile: LargestFile | null;
+    packageMetadata: PackageMetadata | null;
+  }
+>;
+
 export type DependencyTree = Record<string, PackageInformation>;
+
+export type FlatDependencyIndex = Record<
+  string,
+  { packageName: string } & PackageInformation
+>;
+
+export interface MostDependedOnPackage {
+  name: string;
+  dependentCount: number;
+}
 
 export interface DependencyTreeData {
   dependencyTree: DependencyTree;
   maxDepth: number;
+  flatIndex: FlatDependencyIndex;
+  deepestDependencyChain: PackageIdentifier[] | null;
+  largestFileMatch: LargestFileMatch | null;
+  mostDependedOnPackage: MostDependedOnPackage | null;
 }
 
 export type NestedDependencyPaths = Record<string, PackageIdentifier[][]>;
@@ -22,14 +46,6 @@ export interface NpmPackageInformation {
   dependencies?: NpmDependencyTree;
 }
 
-export type PackageDataIndex = Record<
-  string,
-  Pick<
-    PackageInformation,
-    "folderStatistics" | "largestFileDetails" | "packageMetadata"
-  >
->;
-
 export interface PackageIdentifier {
   name: string;
   version: string;
@@ -44,7 +60,6 @@ export interface PackageInformation {
   installationPath: string;
   dependencyPath: PackageIdentifier[];
   folderStatistics: FolderStatistics | null;
-  largestFileDetails: LargestFileDetails | null;
   packageMetadata: PackageMetadata | null;
   dependencies: DependencyTree;
 }

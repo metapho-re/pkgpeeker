@@ -13,7 +13,6 @@ describe("getSizeCompositionData", () => {
     expect(result.totalFileCount).toBe(0);
     expect(result.packageSizeEntries).toEqual([]);
     expect(result.extensionSizeEntries).toEqual({});
-    expect(result.largestFileDetails).toBeNull();
   });
 
   it("should compute totals across rows", () => {
@@ -66,47 +65,6 @@ describe("getSizeCompositionData", () => {
     expect(result.packageSizeEntries.map(([, size]) => size)).toEqual([
       500, 200, 50,
     ]);
-  });
-
-  it("should find the largest file across all rows", () => {
-    const rows = [
-      makeRow("alpha", {
-        installationPath: "/node_modules/alpha",
-        largestFileDetails: {
-          filePath: "/node_modules/alpha/dist/index.js",
-          sizeInBytes: 1000,
-        },
-      }),
-      makeRow("beta", {
-        installationPath: "/node_modules/beta",
-        largestFileDetails: {
-          filePath: "/node_modules/beta/lib/main.js",
-          sizeInBytes: 2000,
-        },
-      }),
-    ];
-    const result = getSizeCompositionData(rows);
-
-    expect(result.largestFileDetails).toEqual({
-      packageName: "beta",
-      filePath: "lib/main.js",
-      sizeInBytes: 2000,
-    });
-  });
-
-  it("should strip the installation path prefix from the largest file path", () => {
-    const rows = [
-      makeRow("pkg", {
-        installationPath: "/node_modules/pkg",
-        largestFileDetails: {
-          filePath: "/node_modules/pkg/src/deep/file.ts",
-          sizeInBytes: 500,
-        },
-      }),
-    ];
-    const result = getSizeCompositionData(rows);
-
-    expect(result.largestFileDetails!.filePath).toBe("src/deep/file.ts");
   });
 
   it("should aggregate extension sizes across rows", () => {

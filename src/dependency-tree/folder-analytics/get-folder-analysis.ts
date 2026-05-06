@@ -1,12 +1,8 @@
-import type {
-  FileDetails,
-  FolderStatistics,
-  LargestFileDetails,
-} from "./types";
+import type { FileDetails, FolderStatistics, LargestFile } from "./types";
 
 interface FolderAnalysis {
   folderStatistics: FolderStatistics;
-  largestFileDetails: LargestFileDetails | null;
+  largestFile: LargestFile | null;
 }
 
 export const getFolderAnalysis = (
@@ -16,7 +12,7 @@ export const getFolderAnalysis = (
     folderSizeInBytes: 0,
     numberOfFilesInFolder: 0,
   };
-  let largestFileDetails: LargestFileDetails | null = null;
+  let largestFile: LargestFile | null = null;
 
   for (const file of folderComposition) {
     folderStatistics.folderSizeInBytes += file.sizeInBytes;
@@ -24,13 +20,13 @@ export const getFolderAnalysis = (
     folderStatistics[file.extension] =
       (folderStatistics[file.extension] || 0) + file.sizeInBytes;
 
-    if (file.sizeInBytes > (largestFileDetails?.sizeInBytes || 0)) {
-      largestFileDetails = {
+    if (file.sizeInBytes > (largestFile?.sizeInBytes || 0)) {
+      largestFile = {
         filePath: file.filePath,
         sizeInBytes: file.sizeInBytes,
       };
     }
   }
 
-  return { folderStatistics, largestFileDetails };
+  return { folderStatistics, largestFile };
 };

@@ -1,15 +1,15 @@
 import "./size-composition-panel.css";
 
-import type { PackageIdentifier } from "../../dependency-tree";
+import type {
+  LargestFileMatch,
+  MostDependedOnPackage,
+  PackageIdentifier,
+} from "../../dependency-tree";
 import { getFormattedSize, getPluralizedQuantity } from "../../shared";
 
-import { FilesBreakdown } from "../files-breakdown";
 import { DonutChart } from "../donut-chart";
-import type {
-  MostDependedOnPackage,
-  OutlierData,
-  SizeCompositionData,
-} from "../utils";
+import { FilesBreakdown } from "../files-breakdown";
+import type { OutlierData, SizeCompositionData } from "../utils";
 
 const PACKAGE_COLORS = [
   "#7e9cd8",
@@ -32,17 +32,19 @@ const getPackageColor = (_: string, index: number): string =>
 interface Props {
   compositionData: SizeCompositionData;
   outlierData: OutlierData;
-  deepestDependencyChain: PackageIdentifier[] | null;
-  mostDependedOnPackage: MostDependedOnPackage | null;
   packageCount: number;
+  deepestDependencyChain: PackageIdentifier[] | null;
+  largestFileMatch: LargestFileMatch | null;
+  mostDependedOnPackage: MostDependedOnPackage | null;
 }
 
 export const SizeCompositionPanel = ({
   compositionData,
   outlierData,
-  deepestDependencyChain,
-  mostDependedOnPackage,
   packageCount,
+  deepestDependencyChain,
+  largestFileMatch,
+  mostDependedOnPackage,
 }: Props) => {
   const {
     totalSize,
@@ -51,7 +53,6 @@ export const SizeCompositionPanel = ({
     leafPackageCount,
     packageSizeEntries,
     extensionSizeEntries,
-    largestFileDetails,
   } = compositionData;
 
   const deepestDependencyChainLabel = deepestDependencyChain
@@ -79,16 +80,16 @@ export const SizeCompositionPanel = ({
         </div>
         <div className="composition-stat-card">
           <p className="composition-stat-card__label">Largest file</p>
-          {largestFileDetails ? (
+          {largestFileMatch ? (
             <>
               <p className="composition-stat-card__value composition-stat-card__value--orange">
-                {getFormattedSize(largestFileDetails.sizeInBytes)}
+                {getFormattedSize(largestFileMatch.sizeInBytes)}
               </p>
               <p
                 className="composition-stat-card__sub"
-                title={`${largestFileDetails.packageName}/${largestFileDetails.filePath}`}
+                title={`${largestFileMatch.packageName}/${largestFileMatch.filePath}`}
               >
-                {largestFileDetails.packageName}/{largestFileDetails.filePath}
+                {largestFileMatch.packageName}/{largestFileMatch.filePath}
               </p>
             </>
           ) : (

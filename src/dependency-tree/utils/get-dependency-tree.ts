@@ -1,5 +1,6 @@
 import type { WebContainer } from "@webcontainer/api";
 
+import type { CollectorRunner } from "../collectors";
 import { getFolderAnalysis, getFolderComposition } from "../folder-analytics";
 import { getPackageMetadata } from "../package-json-parser";
 import type {
@@ -15,6 +16,7 @@ import { getInstallationPath } from "./get-installation-path";
 interface Params {
   webContainerInstance: WebContainer | null;
   npmDependencyTree: NpmDependencyTree;
+  collectorRunner: CollectorRunner;
   nestedDependencyPaths: NestedDependencyPaths;
   packageDataIndex: PackageDataIndex;
   maxDepth: { value: number };
@@ -25,6 +27,7 @@ interface Params {
 export const getDependencyTree = async ({
   webContainerInstance,
   npmDependencyTree,
+  collectorRunner,
   nestedDependencyPaths,
   packageDataIndex,
   maxDepth,
@@ -57,7 +60,7 @@ export const getDependencyTree = async ({
 
       const alreadyCrunchedPackageData = packageDataIndex[installationPath];
 
-      const { folderStatistics, largestFileDetails } =
+      const { folderStatistics, largestFile } =
         alreadyCrunchedPackageData ||
         getFolderAnalysis(
           await getFolderComposition({
@@ -76,7 +79,7 @@ export const getDependencyTree = async ({
       if (!alreadyCrunchedPackageData) {
         packageDataIndex[installationPath] = {
           folderStatistics,
-          largestFileDetails,
+          largestFile,
           packageMetadata,
         };
       }
@@ -95,6 +98,7 @@ export const getDependencyTree = async ({
             webContainerInstance,
             npmDependencyTree: npmDependencyTree[packageName]
               .dependencies as NpmDependencyTree,
+            collectorRunner,
             nestedDependencyPaths,
             packageDataIndex,
             maxDepth,
@@ -103,21 +107,24 @@ export const getDependencyTree = async ({
           })
         : {};
 
+      const packageInformation = {
+        depth,
+        isDeduped,
+        isExtraneous,
+        invalidityDetails,
+        version,
+        installationPath,
+        dependencyPath: nextDependencyPath,
+        folderStatistics,
+        packageMetadata,
+        dependencies,
+      };
+
+      collectorRunner.collect({ packageName, packageInformation, largestFile });
+
       return {
         ...dependencyTree,
-        [packageName]: {
-          depth,
-          isDeduped,
-          isExtraneous,
-          invalidityDetails,
-          version,
-          installationPath,
-          dependencyPath: nextDependencyPath,
-          folderStatistics,
-          largestFileDetails,
-          packageMetadata,
-          dependencies,
-        },
+        [packageName]: packageInformation,
       };
     },
     Promise.resolve({}),

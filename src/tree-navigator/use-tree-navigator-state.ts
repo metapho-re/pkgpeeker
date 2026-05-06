@@ -1,10 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 
-import {
-  type DependencyTreeData,
-  type FlatDependencyIndex,
-  flattenDependencyTree,
-  type PackageInformation,
+import type {
+  DependencyTreeData,
+  PackageInformation,
 } from "../dependency-tree";
 import { getTreePath } from "../shared";
 
@@ -43,16 +41,11 @@ export const useTreeNavigatorState = (
     getInitialExpandedPaths(dependencyTreeData),
   );
 
-  const flatDependencyIndex = useMemo<FlatDependencyIndex>(
-    () => flattenDependencyTree(dependencyTreeData.dependencyTree),
-    [dependencyTreeData],
-  );
-
   const selectPath = useCallback<(path: string) => void>(
     (path: string) => {
       setSelectedPath(path);
 
-      const entry = flatDependencyIndex[path];
+      const entry = dependencyTreeData.flatIndex[path];
 
       if (entry) {
         setExpandedPaths((previousState) => {
@@ -68,7 +61,7 @@ export const useTreeNavigatorState = (
         });
       }
     },
-    [flatDependencyIndex],
+    [dependencyTreeData.flatIndex],
   );
 
   const toggleExpand = useCallback<(path: string) => void>((path: string) => {
@@ -85,7 +78,9 @@ export const useTreeNavigatorState = (
     });
   }, []);
 
-  const selectedEntry = selectedPath ? flatDependencyIndex[selectedPath] : null;
+  const selectedEntry = selectedPath
+    ? dependencyTreeData.flatIndex[selectedPath]
+    : null;
 
   return {
     expandedPaths,

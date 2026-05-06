@@ -16,7 +16,6 @@ export const makePackage = (
     folderSizeInBytes: overrides.sizeInBytes ?? 100,
     numberOfFilesInFolder: 5,
   },
-  largestFileDetails: null,
   packageMetadata: null,
   dependencies: {},
   ...overrides,
@@ -34,6 +33,5 @@ export const makeRow = (name: string, overrides: Partial<Row> = {}): Row => ({
   transitiveDependencyCount: 0,
   dependenciesSize: 0,
   depth: 1,
-  largestFileDetails: null,
   ...overrides,
 });

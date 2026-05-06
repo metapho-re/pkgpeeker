@@ -5,7 +5,6 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
   let maxSize = 0;
   let totalFileCount = 0;
   let leafPackageCount = 0;
-  let largestFileDetails: SizeCompositionData["largestFileDetails"] = null;
 
   const uniquePackageNames = new Set<string>();
   const extensionSizeMap: Record<string, number> = {};
@@ -28,20 +27,6 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
       `${row.packageInformation.packageName}@${row.packageInformation.version}`,
       row.size,
     ]);
-
-    if (
-      row.largestFileDetails &&
-      row.largestFileDetails.sizeInBytes >
-        (largestFileDetails?.sizeInBytes || 0)
-    ) {
-      largestFileDetails = {
-        packageName: row.packageInformation.packageName,
-        filePath: row.largestFileDetails.filePath.slice(
-          `${row.installationPath}/`.length,
-        ),
-        sizeInBytes: row.largestFileDetails.sizeInBytes,
-      };
-    }
 
     if (row.packageInformation.folderStatistics) {
       for (const [key, value] of Object.entries(
@@ -72,6 +57,5 @@ export const getSizeCompositionData = (rows: Row[]): SizeCompositionData => {
     leafPackageCount,
     packageSizeEntries,
     extensionSizeEntries,
-    largestFileDetails,
   };
 };

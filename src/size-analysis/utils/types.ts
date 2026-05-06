@@ -1,8 +1,4 @@
-import type {
-  LargestFileDetails,
-  PackageIdentifier,
-  PackageInformation,
-} from "../../dependency-tree";
+import type { PackageInformation } from "../../dependency-tree";
 
 export type SortKey =
   | "size"
@@ -24,7 +20,6 @@ export interface Row {
   transitiveDependencyCount: number;
   dependenciesSize: number;
   depth: number;
-  largestFileDetails: LargestFileDetails | null;
 }
 
 export interface SizeCompositionData {
@@ -35,16 +30,6 @@ export interface SizeCompositionData {
   leafPackageCount: number;
   packageSizeEntries: [string, number][];
   extensionSizeEntries: Record<string, number>;
-  largestFileDetails: {
-    packageName: string;
-    filePath: string;
-    sizeInBytes: number;
-  } | null;
-}
-
-export interface MostDependedOnPackage {
-  name: string;
-  dependentCount: number;
 }
 
 export interface ConcentrationData {
@@ -65,10 +50,4 @@ export interface MismatchEntry {
 export interface OutlierData {
   concentration: ConcentrationData | null;
   mismatches: MismatchEntry[];
-}
-
-export interface SizeData {
-  rows: Row[];
-  deepestDependencyChain: PackageIdentifier[] | null;
-  mostDependedOnPackage: MostDependedOnPackage | null;
 }
