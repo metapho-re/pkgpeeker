@@ -107,6 +107,9 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
                           {row.packageInformation.version}
                         </span>
                       </div>
+                      <div className="size-list-item__path">
+                        {row.installationPath}
+                      </div>
                       <div className="size-list-item__meta">
                         <span className="size-list-item__stat">
                           {getPluralizedQuantity(row.fileCount, "file")}
