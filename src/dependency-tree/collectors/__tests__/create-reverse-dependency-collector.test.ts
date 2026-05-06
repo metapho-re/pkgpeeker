@@ -5,7 +5,7 @@ import { createReverseDependencyCollector } from "../create-reverse-dependency-c
 import { makePackage } from "./helpers";
 
 describe("createReverseDependencyCollector", () => {
-  it("should return null when no package has dependencies", () => {
+  it("should return an empty object and null when no package has dependencies", () => {
     const collector = createReverseDependencyCollector();
 
     collector.collect({
@@ -14,7 +14,32 @@ describe("createReverseDependencyCollector", () => {
       packageInformation: makePackage(),
     });
 
-    expect(collector.getResult()).toBeNull();
+    expect(collector.getResult()).toEqual({
+      dependents: {},
+      mostDependedOnPackage: null,
+    });
+  });
+
+  it("should return sorted dependent package names", () => {
+    const collector = createReverseDependencyCollector();
+
+    collector.collect({
+      largestFile: null,
+      packageName: "zeta",
+      packageInformation: makePackage({
+        dependencies: { lib: makePackage() },
+      }),
+    });
+
+    collector.collect({
+      largestFile: null,
+      packageName: "alpha",
+      packageInformation: makePackage({
+        dependencies: { lib: makePackage() },
+      }),
+    });
+
+    expect(collector.getResult().dependents["lib"]).toEqual(["alpha", "zeta"]);
   });
 
   it("should identify the most depended-on package", () => {
@@ -42,8 +67,8 @@ describe("createReverseDependencyCollector", () => {
     });
 
     expect(collector.getResult()).toEqual({
-      name: "shared",
-      dependentCount: 2,
+      dependents: { shared: ["a", "b"], unique: ["b"] },
+      mostDependedOnPackage: { name: "shared", dependentCount: 2 },
     });
   });
 
@@ -71,6 +96,9 @@ describe("createReverseDependencyCollector", () => {
       }),
     });
 
-    expect(collector.getResult()).toEqual({ name: "lib", dependentCount: 1 });
+    expect(collector.getResult()).toEqual({
+      dependents: { lib: ["a"] },
+      mostDependedOnPackage: { name: "lib", dependentCount: 1 },
+    });
   });
 });

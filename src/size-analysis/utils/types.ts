@@ -5,6 +5,7 @@ export type SortKey =
   | "fileCount"
   | "directDependencyCount"
   | "transitiveDependencyCount"
+  | "dependentCount"
   | "dependenciesSize"
   | "depth"
   | "name";
@@ -18,6 +19,8 @@ export interface Row {
   fileCount: number;
   directDependencyCount: number;
   transitiveDependencyCount: number;
+  dependents: string[];
+  dependentCount: number;
   dependenciesSize: number;
   depth: number;
 }

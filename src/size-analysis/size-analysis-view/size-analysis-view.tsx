@@ -3,8 +3,9 @@ import "./size-analysis-view.css";
 import { useMemo, useState } from "react";
 
 import type { DependencyTreeData } from "../../dependency-tree";
-import { getFormattedSize, getPluralizedQuantity } from "../../shared";
+import { getFormattedSize, getPluralizedQuantity, Popover } from "../../shared";
 
+import { DependentsPopover } from "../dependents-popover";
 import { Dropdown } from "../dropdown";
 import { SizeCompositionPanel } from "../size-composition-panel";
 import {
@@ -21,6 +22,7 @@ const sortOptions: { key: SortKey; label: string }[] = [
   { key: "fileCount", label: "Package file count" },
   { key: "directDependencyCount", label: "Direct dependency count" },
   { key: "transitiveDependencyCount", label: "Transitive dependency count" },
+  { key: "dependentCount", label: "Dependent count" },
   { key: "dependenciesSize", label: "Total dependencies size" },
   { key: "depth", label: "Tree depth" },
   { key: "name", label: "Package name" },
@@ -125,6 +127,20 @@ export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
                         <span className="size-list-item__stat">
                           {row.transitiveDependencyCount} transitive deps
                         </span>
+                        {row.dependents.length > 0 && (
+                          <Popover
+                            content={
+                              <DependentsPopover names={row.dependents} />
+                            }
+                          >
+                            <span className="size-list-item__stat size-list-item__stat--interactive">
+                              {getPluralizedQuantity(
+                                row.dependents.length,
+                                "dependent",
+                              )}
+                            </span>
+                          </Popover>
+                        )}
                       </div>
                     </div>
                     <div className="size-list-item__size">

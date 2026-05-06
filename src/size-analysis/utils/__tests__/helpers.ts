@@ -31,6 +31,8 @@ export const makeRow = (name: string, overrides: Partial<Row> = {}): Row => ({
   fileCount: 5,
   directDependencyCount: 0,
   transitiveDependencyCount: 0,
+  dependents: [],
+  dependentCount: 0,
   dependenciesSize: 0,
   depth: 1,
   ...overrides,

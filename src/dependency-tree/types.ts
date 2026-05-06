@@ -30,6 +30,7 @@ export interface DependencyTreeData {
   deepestDependencyChain: PackageIdentifier[] | null;
   largestFileMatch: LargestFileMatch | null;
   mostDependedOnPackage: MostDependedOnPackage | null;
+  dependents: Record<string, string[]>;
 }
 
 export type NestedDependencyPaths = Record<string, PackageIdentifier[][]>;

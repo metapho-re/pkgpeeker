@@ -36,6 +36,7 @@ const makeTreeData = (
   deepestDependencyChain: null,
   mostDependedOnPackage: null,
   largestFileMatch: null,
+  dependents: {},
 });
 
 describe("getSizeData", () => {

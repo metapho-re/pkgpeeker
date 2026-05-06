@@ -18,6 +18,7 @@ export interface CollectorResults {
   deepestDependencyChain: PackageIdentifier[] | null;
   largestFileMatch: LargestFileMatch | null;
   mostDependedOnPackage: MostDependedOnPackage | null;
+  dependents: Record<string, string[]>;
 }
 
 export interface CollectorRunner {
@@ -39,11 +40,15 @@ export const createCollectorRunner = (): CollectorRunner => {
       reverseDependency.collect(node);
     },
     getResults() {
+      const { dependents, mostDependedOnPackage } =
+        reverseDependency.getResult();
+
       return {
         flatIndex: flatIndex.getResult(),
         deepestDependencyChain: deepestDependencyChain.getResult(),
         largestFileMatch: largestFile.getResult(),
-        mostDependedOnPackage: reverseDependency.getResult(),
+        mostDependedOnPackage,
+        dependents,
       };
     },
   };

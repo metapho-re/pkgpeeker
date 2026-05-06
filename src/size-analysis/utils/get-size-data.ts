@@ -24,6 +24,8 @@ export const getSizeData = (dependencyTreeData: DependencyTreeData): Row[] => {
     }
   }
 
+  const { dependents } = dependencyTreeData;
+
   return Array.from(packagesMap.values()).map((entry) => {
     const { uniqueDependencyCount, totalSize } = getTransitiveStatistics(
       entry.dependencies,
@@ -36,6 +38,8 @@ export const getSizeData = (dependencyTreeData: DependencyTreeData): Row[] => {
       fileCount: entry.folderStatistics!.numberOfFilesInFolder,
       directDependencyCount: Object.keys(entry.dependencies).length,
       transitiveDependencyCount: uniqueDependencyCount,
+      dependents: dependents[entry.packageName] ?? [],
+      dependentCount: (dependents[entry.packageName] ?? []).length,
       dependenciesSize: totalSize,
       depth: entry.depth,
     };
