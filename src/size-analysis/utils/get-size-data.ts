@@ -1,18 +1,18 @@
 import type {
-  DependencyTreeData,
+  DependencyAnalysis,
   PackageInformation,
 } from "../../dependency-tree";
 
 import { getTransitiveStatistics } from "./get-transitive-statistics";
 import type { Row } from "./types";
 
-export const getSizeData = (dependencyTreeData: DependencyTreeData): Row[] => {
+export const getSizeData = (dependencyAnalysis: DependencyAnalysis): Row[] => {
   const packagesMap = new Map<
     string,
     { packageName: string } & PackageInformation
   >();
 
-  for (const entry of Object.values(dependencyTreeData.flatIndex)) {
+  for (const entry of Object.values(dependencyAnalysis.flatIndex)) {
     if (!entry.folderStatistics) {
       continue;
     }
@@ -24,7 +24,7 @@ export const getSizeData = (dependencyTreeData: DependencyTreeData): Row[] => {
     }
   }
 
-  const { dependents } = dependencyTreeData;
+  const { dependents } = dependencyAnalysis;
 
   return Array.from(packagesMap.values()).map((entry) => {
     const { uniqueDependencyCount, totalSize } = getTransitiveStatistics(

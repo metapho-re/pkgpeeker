@@ -1,6 +1,6 @@
 import { Route, Switch } from "wouter";
 
-import type { DependencyTreeData } from "../dependency-tree";
+import type { DependencyAnalysis } from "../dependency-tree";
 import { FileExplorerView } from "../file-explorer";
 import { PackagesView } from "../packages";
 import { SecurityInsightsView } from "../security-insights";
@@ -9,33 +9,33 @@ import { SizeAnalysisView } from "../size-analysis";
 import { useAppStore } from "../store";
 
 interface Props {
-  dependencyTreeData: DependencyTreeData;
+  dependencyAnalysis: DependencyAnalysis;
 }
 
-export const ViewRoutes = ({ dependencyTreeData }: Props) => {
+export const ViewRoutes = ({ dependencyAnalysis }: Props) => {
   const webContainerInstance = useAppStore(
     (state) => state.webContainerInstance,
   );
-  const treeNavigatorState = useTreeNavigatorState(dependencyTreeData);
+  const treeNavigatorState = useTreeNavigatorState(dependencyAnalysis);
 
   return (
     <Switch>
       <Route path="/*/files">
         <FileExplorerView
-          dependencyTreeData={dependencyTreeData}
+          dependencyAnalysis={dependencyAnalysis}
           webContainerInstance={webContainerInstance}
           treeNavigatorState={treeNavigatorState}
         />
       </Route>
       <Route path="/*/size">
-        <SizeAnalysisView dependencyTreeData={dependencyTreeData} />
+        <SizeAnalysisView dependencyAnalysis={dependencyAnalysis} />
       </Route>
       <Route path="/*/security">
         <SecurityInsightsView />
       </Route>
       <Route path="/*">
         <PackagesView
-          dependencyTreeData={dependencyTreeData}
+          dependencyAnalysis={dependencyAnalysis}
           treeNavigatorState={treeNavigatorState}
         />
       </Route>

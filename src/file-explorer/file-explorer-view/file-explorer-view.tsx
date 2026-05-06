@@ -3,20 +3,20 @@ import "./file-explorer-view.css";
 import type { WebContainer } from "@webcontainer/api";
 import { useCallback, useState } from "react";
 
-import type { DependencyTreeData } from "../../dependency-tree";
+import type { DependencyAnalysis } from "../../dependency-tree";
 import { TreeNavigator, type TreeNavigatorState } from "../../tree-navigator";
 
 import { FileTree } from "../file-tree";
 import { FileViewer } from "../file-viewer";
 
 interface Props {
-  dependencyTreeData: DependencyTreeData;
+  dependencyAnalysis: DependencyAnalysis;
   webContainerInstance: WebContainer | null;
   treeNavigatorState: TreeNavigatorState;
 }
 
 export const FileExplorerView = ({
-  dependencyTreeData,
+  dependencyAnalysis,
   webContainerInstance,
   treeNavigatorState,
 }: Props) => {
@@ -52,7 +52,7 @@ export const FileExplorerView = ({
     <div className="file-explorer-view">
       <div className="master-detail-layout">
         <TreeNavigator
-          dependencyTree={dependencyTreeData.dependencyTree}
+          dependencyTree={dependencyAnalysis.dependencyTree}
           selectedPath={selectedPath}
           expandedPaths={expandedPaths}
           onSelect={handleSelectPackage}

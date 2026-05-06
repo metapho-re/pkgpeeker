@@ -14,8 +14,8 @@ export type {
   PackageMetadata,
 } from "./package-json-parser";
 export type {
+  DependencyAnalysis,
   DependencyTree,
-  DependencyTreeData,
   FlatDependencyIndex,
   MostDependedOnPackage,
   NestedDependencyPaths,
@@ -25,4 +25,4 @@ export type {
   PackageIdentifier,
   PackageInformation,
 } from "./types";
-export { getDependencyTreeData } from "./utils";
+export { getDependencyAnalysis } from "./utils";

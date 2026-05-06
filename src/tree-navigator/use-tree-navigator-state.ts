@@ -1,24 +1,24 @@
 import { useCallback, useState } from "react";
 
 import type {
-  DependencyTreeData,
+  DependencyAnalysis,
   PackageInformation,
 } from "../dependency-tree";
 import { getTreePath } from "../shared";
 
 const getInitialSelectedPath = (
-  dependencyTreeData: DependencyTreeData,
+  dependencyAnalysis: DependencyAnalysis,
 ): string | null => {
-  const firstEntry = Object.values(dependencyTreeData.dependencyTree)[0];
+  const firstEntry = Object.values(dependencyAnalysis.dependencyTree)[0];
 
   return firstEntry ? getTreePath(firstEntry.dependencyPath) : null;
 };
 
 const getInitialExpandedPaths = (
-  dependencyTreeData: DependencyTreeData,
+  dependencyAnalysis: DependencyAnalysis,
 ): Set<string> =>
   new Set(
-    Object.values(dependencyTreeData.dependencyTree).map(({ dependencyPath }) =>
+    Object.values(dependencyAnalysis.dependencyTree).map(({ dependencyPath }) =>
       getTreePath(dependencyPath),
     ),
   );
@@ -32,20 +32,20 @@ export interface TreeNavigatorState {
 }
 
 export const useTreeNavigatorState = (
-  dependencyTreeData: DependencyTreeData,
+  dependencyAnalysis: DependencyAnalysis,
 ): TreeNavigatorState => {
   const [selectedPath, setSelectedPath] = useState<string | null>(() =>
-    getInitialSelectedPath(dependencyTreeData),
+    getInitialSelectedPath(dependencyAnalysis),
   );
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() =>
-    getInitialExpandedPaths(dependencyTreeData),
+    getInitialExpandedPaths(dependencyAnalysis),
   );
 
   const selectPath = useCallback<(path: string) => void>(
     (path: string) => {
       setSelectedPath(path);
 
-      const entry = dependencyTreeData.flatIndex[path];
+      const entry = dependencyAnalysis.flatIndex[path];
 
       if (entry) {
         setExpandedPaths((previousState) => {
@@ -61,7 +61,7 @@ export const useTreeNavigatorState = (
         });
       }
     },
-    [dependencyTreeData.flatIndex],
+    [dependencyAnalysis.flatIndex],
   );
 
   const toggleExpand = useCallback<(path: string) => void>((path: string) => {
@@ -79,7 +79,7 @@ export const useTreeNavigatorState = (
   }, []);
 
   const selectedEntry = selectedPath
-    ? dependencyTreeData.flatIndex[selectedPath]
+    ? dependencyAnalysis.flatIndex[selectedPath]
     : null;
 
   return {

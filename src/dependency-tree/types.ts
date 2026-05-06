@@ -23,7 +23,7 @@ export interface MostDependedOnPackage {
   dependentCount: number;
 }
 
-export interface DependencyTreeData {
+export interface DependencyAnalysis {
   dependencyTree: DependencyTree;
   maxDepth: number;
   flatIndex: FlatDependencyIndex;

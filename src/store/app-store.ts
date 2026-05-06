@@ -2,8 +2,8 @@ import { WebContainer } from "@webcontainer/api";
 import { create } from "zustand";
 
 import {
-  getDependencyTreeData,
-  type DependencyTreeData,
+  type DependencyAnalysis,
+  getDependencyAnalysis,
   type NpmDependencyTree,
 } from "../dependency-tree";
 
@@ -24,7 +24,7 @@ interface AppStore {
   isLoading: boolean;
   hasError: boolean;
   webContainerInstance: WebContainer | null;
-  dependencyTreeData: DependencyTreeData | null;
+  dependencyAnalysis: DependencyAnalysis | null;
   boot: () => Promise<void>;
   installPackages: (packageList: string[]) => Promise<void>;
   reset: () => Promise<void>;
@@ -35,7 +35,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
   isLoading: false,
   hasError: false,
   webContainerInstance: null,
-  dependencyTreeData: null,
+  dependencyAnalysis: null,
 
   boot: async () => {
     if (hasBooted) {
@@ -107,18 +107,18 @@ export const useAppStore = create<AppStore>((set, get) => ({
       return;
     }
 
-    const dependencyTreeData = await getDependencyTreeData({
+    const dependencyAnalysis = await getDependencyAnalysis({
       webContainerInstance,
       npmDependencyTree,
     });
 
-    if (!dependencyTreeData) {
+    if (!dependencyAnalysis) {
       set({ appState: "done", isLoading: false, hasError: true });
 
       return;
     }
 
-    set({ appState: "done", isLoading: false, dependencyTreeData });
+    set({ appState: "done", isLoading: false, dependencyAnalysis });
   },
 
   reset: async () => {
@@ -128,7 +128,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
       appState: "ready",
       isLoading: true,
       hasError: false,
-      dependencyTreeData: null,
+      dependencyAnalysis: null,
     });
 
     try {

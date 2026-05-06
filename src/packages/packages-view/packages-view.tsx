@@ -2,18 +2,18 @@ import "./packages-view.css";
 
 import { useCallback } from "react";
 
-import type { DependencyTreeData } from "../../dependency-tree";
+import type { DependencyAnalysis } from "../../dependency-tree";
 import { TreeNavigator, type TreeNavigatorState } from "../../tree-navigator";
 
 import { PackageDetails } from "../package-details";
 
 interface Props {
-  dependencyTreeData: DependencyTreeData;
+  dependencyAnalysis: DependencyAnalysis;
   treeNavigatorState: TreeNavigatorState;
 }
 
 export const PackagesView = ({
-  dependencyTreeData,
+  dependencyAnalysis,
   treeNavigatorState,
 }: Props) => {
   const {
@@ -43,7 +43,7 @@ export const PackagesView = ({
     <div className="packages-view">
       <div className="master-detail-layout">
         <TreeNavigator
-          dependencyTree={dependencyTreeData.dependencyTree}
+          dependencyTree={dependencyAnalysis.dependencyTree}
           selectedPath={selectedPath}
           expandedPaths={expandedPaths}
           onSelect={handleSelect}

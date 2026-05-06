@@ -6,16 +6,16 @@ import { useAppStore } from "../../store";
 import { Views } from "../views";
 
 export const ResultsPage = () => {
-  const dependencyTreeData = useAppStore((state) => state.dependencyTreeData);
+  const dependencyAnalysis = useAppStore((state) => state.dependencyAnalysis);
 
-  if (!dependencyTreeData) {
+  if (!dependencyAnalysis) {
     return <LandingPage autoInstall />;
   }
 
   return (
     <div className="results-page">
       <div className="results-page__content">
-        <Views dependencyTreeData={dependencyTreeData} />
+        <Views dependencyAnalysis={dependencyAnalysis} />
       </div>
     </div>
   );

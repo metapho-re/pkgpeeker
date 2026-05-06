@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import type {
+  DependencyAnalysis,
   DependencyTree,
-  DependencyTreeData,
   FlatDependencyIndex,
 } from "../../../dependency-tree";
 import { getTreePath } from "../../../shared";
@@ -29,7 +29,7 @@ const flattenTree = (tree: DependencyTree): FlatDependencyIndex => {
 const makeTreeData = (
   dependencyTree: DependencyTree,
   maxDepth = 0,
-): DependencyTreeData => ({
+): DependencyAnalysis => ({
   dependencyTree,
   maxDepth,
   flatIndex: flattenTree(dependencyTree),

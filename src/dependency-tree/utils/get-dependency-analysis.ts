@@ -2,7 +2,7 @@ import type { WebContainer } from "@webcontainer/api";
 
 import { createCollectorRunner } from "../collectors";
 import type {
-  DependencyTreeData,
+  DependencyAnalysis,
   NpmDependencyTree,
   PackageDataIndex,
 } from "../types";
@@ -15,10 +15,10 @@ interface Params {
   npmDependencyTree: NpmDependencyTree;
 }
 
-export const getDependencyTreeData = async ({
+export const getDependencyAnalysis = async ({
   webContainerInstance,
   npmDependencyTree,
-}: Params): Promise<DependencyTreeData | null> => {
+}: Params): Promise<DependencyAnalysis | null> => {
   const nestedDependencyPaths =
     await getNestedDependencyPaths(webContainerInstance);
 

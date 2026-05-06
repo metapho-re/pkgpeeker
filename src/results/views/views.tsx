@@ -3,7 +3,7 @@ import "./views.css";
 import { useCallback } from "react";
 import { useLocation } from "wouter";
 
-import type { DependencyTreeData } from "../../dependency-tree";
+import type { DependencyAnalysis } from "../../dependency-tree";
 import { GitHubIcon, PackageIcon, withViewTransition } from "../../shared";
 import { useAppStore } from "../../store";
 
@@ -11,10 +11,10 @@ import { TabBar } from "../tab-bar";
 import { ViewRoutes } from "../view-routes";
 
 interface Props {
-  dependencyTreeData: DependencyTreeData;
+  dependencyAnalysis: DependencyAnalysis;
 }
 
-export const Views = ({ dependencyTreeData }: Props) => {
+export const Views = ({ dependencyAnalysis }: Props) => {
   const reset = useAppStore((state) => state.reset);
   const [, navigate] = useLocation();
 
@@ -46,7 +46,7 @@ export const Views = ({ dependencyTreeData }: Props) => {
         </a>
       </div>
       <div className="views-content">
-        <ViewRoutes dependencyTreeData={dependencyTreeData} />
+        <ViewRoutes dependencyAnalysis={dependencyAnalysis} />
       </div>
     </div>
   );

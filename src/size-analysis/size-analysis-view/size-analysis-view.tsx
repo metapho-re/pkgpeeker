@@ -2,7 +2,7 @@ import "./size-analysis-view.css";
 
 import { useMemo, useState } from "react";
 
-import type { DependencyTreeData } from "../../dependency-tree";
+import type { DependencyAnalysis } from "../../dependency-tree";
 import { getFormattedSize, getPluralizedQuantity, Popover } from "../../shared";
 
 import { DependentsPopover } from "../dependents-popover";
@@ -29,20 +29,20 @@ const sortOptions: { key: SortKey; label: string }[] = [
 ];
 
 interface Props {
-  dependencyTreeData: DependencyTreeData;
+  dependencyAnalysis: DependencyAnalysis;
 }
 
-export const SizeAnalysisView = ({ dependencyTreeData }: Props) => {
+export const SizeAnalysisView = ({ dependencyAnalysis }: Props) => {
   const [sortKey, setSortKey] = useState<SortKey>("size");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
   const rows = useMemo(
-    () => getSizeData(dependencyTreeData),
-    [dependencyTreeData],
+    () => getSizeData(dependencyAnalysis),
+    [dependencyAnalysis],
   );
 
   const { deepestDependencyChain, largestFileMatch, mostDependedOnPackage } =
-    dependencyTreeData;
+    dependencyAnalysis;
 
   const compositionData = useMemo(() => getSizeCompositionData(rows), [rows]);
 
