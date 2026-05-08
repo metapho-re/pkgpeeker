@@ -6,6 +6,7 @@ import { parseKeywords } from "./parse-keywords";
 import { parseLicense } from "./parse-license";
 import { parseModuleFormat } from "./parse-module-format";
 import { parseRepository } from "./parse-repository";
+import { parseScripts } from "./parse-scripts";
 import type { PackageMetadata } from "./types";
 
 const nullifyNonString = (value: unknown): string | null =>
@@ -47,6 +48,7 @@ export const getPackageMetadata = async ({
     module,
     repository,
     engines,
+    scripts,
     type,
     types,
     typings,
@@ -79,6 +81,7 @@ export const getPackageMetadata = async ({
     homepage: nullifyNonString(homepage),
     keywords: parseKeywords(keywords),
     licenses: parseLicense({ repositoryUrl, license: license || licenses }),
+    lifecycleScripts: parseScripts(scripts),
     moduleFormat: parseModuleFormat({ type, main, module, exports }),
     repository: repositoryUrl,
     types: nullifyNonString(types || typings),

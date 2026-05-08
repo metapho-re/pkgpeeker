@@ -57,10 +57,10 @@ describe("parseLocation", () => {
     });
   });
 
-  it("should extract the security view from the path", () => {
-    expect(parseLocation("/react/security")).toEqual({
+  it("should extract the audit view from the path", () => {
+    expect(parseLocation("/react/audit")).toEqual({
       packages: "react",
-      view: "security",
+      view: "audit",
     });
   });
 

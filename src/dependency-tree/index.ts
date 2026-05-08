@@ -10,6 +10,8 @@ export type { FileDetails, FolderStatistics } from "./folder-analytics";
 export type {
   Author,
   License,
+  LifecycleHook,
+  LifecycleScripts,
   ModuleFormat,
   PackageMetadata,
 } from "./package-json-parser";

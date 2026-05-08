@@ -3,7 +3,7 @@ import { Route, Switch } from "wouter";
 import type { DependencyAnalysis } from "../dependency-tree";
 import { FileExplorerView } from "../file-explorer";
 import { PackagesView } from "../packages";
-import { SecurityInsightsView } from "../security-insights";
+import { InstallAuditView } from "../install-audit";
 import { useTreeNavigatorState } from "../tree-navigator";
 import { SizeAnalysisView } from "../size-analysis";
 import { useAppStore } from "../store";
@@ -30,8 +30,8 @@ export const ViewRoutes = ({ dependencyAnalysis }: Props) => {
       <Route path="/*/size">
         <SizeAnalysisView dependencyAnalysis={dependencyAnalysis} />
       </Route>
-      <Route path="/*/security">
-        <SecurityInsightsView />
+      <Route path="/*/audit">
+        <InstallAuditView dependencyAnalysis={dependencyAnalysis} />
       </Route>
       <Route path="/*">
         <PackagesView

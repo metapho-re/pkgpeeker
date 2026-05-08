@@ -13,6 +13,10 @@ export interface License {
 
 export type ModuleFormat = "esm" | "cjs" | "dual";
 
+export type LifecycleHook = "preinstall" | "install" | "postinstall";
+
+export type LifecycleScripts = Record<LifecycleHook, string | null>;
+
 export interface PackageMetadata {
   author: Nullable<Author>;
   description: Nullable<string>;
@@ -20,6 +24,7 @@ export interface PackageMetadata {
   keywords: Nullable<string>;
   licenses: License[];
   engines: Nullable<string>;
+  lifecycleScripts: LifecycleScripts;
   moduleFormat: ModuleFormat;
   repository: Nullable<string>;
   types: Nullable<string>;

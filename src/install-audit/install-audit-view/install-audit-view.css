@@ -1,12 +1,17 @@
-.placeholder-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.install-audit-view {
   height: 100%;
+  overflow-y: auto;
+  padding: 24px 32px 48px;
   animation: fade-slide-up 0.5s ease-out;
 }
 
-.placeholder-view__content {
+.install-audit-view--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.install-audit-view__empty {
   text-align: center;
   padding: 48px;
   background: var(--glass-bg);
@@ -18,14 +23,23 @@
     inset 0 1px 0 var(--inset-highlight);
 }
 
-.placeholder-view__title {
+.install-audit-view__title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--foreground-color);
   margin: 0 0 8px;
 }
 
-.placeholder-view__description {
+.install-audit-view__description {
   color: var(--color-muted);
   margin: 0;
+}
+
+.install-audit-view__results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
