@@ -34,10 +34,6 @@ The data is always up-to-date as only the latest version of the packages gets in
 
 [React](https://github.com/facebook/react/) and [WebContainers](https://github.com/stackblitz/webcontainer-core/)
 
-## Author
-
-- **Pierre-Alain Castella** - _Initial work_ - [metapho-re](https://github.com/metapho-re)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
