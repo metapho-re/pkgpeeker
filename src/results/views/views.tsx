@@ -38,7 +38,7 @@ export const Views = ({ dependencyAnalysis }: Props) => {
         <a
           className="views-icon-button views-github-link"
           title="View project on GitHub"
-          href="https://github.com/metapho-re/pkgpeeker"
+          href="https://github.com/paccodes/pkgpeeker"
           target="_blank"
           rel="noopener noreferrer"
         >
